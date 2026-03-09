@@ -113,7 +113,12 @@ export const Navigation = () => {
                     {/* Nav Links — left of header */}
                     {!isMobile && (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginLeft: 32 }}>
-
+                            <Link href="/" style={{
+                                color: theme.text, fontSize: 14, fontWeight: 700,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                🍽️ Foods
+                            </Link>
                             <Link href="/rides" style={{
                                 color: '#0066FF', fontSize: 14, fontWeight: 700,
                                 textDecoration: 'none', letterSpacing: '-0.01em',
