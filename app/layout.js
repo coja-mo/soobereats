@@ -3,6 +3,7 @@ import './globals.css';
 import { Navigation } from '../components/Navigation';
 import { CartProvider } from '../lib/CartContext';
 import { ThemeProvider } from '../lib/ThemeContext';
+import { LiveOrderProvider } from '../lib/LiveOrderContext';
 import { CartPanel } from '../components/CartPanel';
 import { ThemedBody } from '../components/ThemedBody';
 import { PinGate } from '../components/PinGate';
@@ -31,15 +32,17 @@ export default function RootLayout({ children }) {
       <body style={{ margin: 0, padding: 0 }}>
         <PinGate>
           <ThemeProvider>
-            <CartProvider>
-              <ThemedBody>
-                <Navigation />
-                <CartPanel />
-                <main style={{ paddingTop: 72 }}>
-                  {children}
-                </main>
-              </ThemedBody>
-            </CartProvider>
+            <LiveOrderProvider>
+              <CartProvider>
+                <ThemedBody>
+                  <Navigation />
+                  <CartPanel />
+                  <main style={{ paddingTop: 72 }}>
+                    {children}
+                  </main>
+                </ThemedBody>
+              </CartProvider>
+            </LiveOrderProvider>
           </ThemeProvider>
         </PinGate>
       </body>

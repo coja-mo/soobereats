@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useCart } from '../../lib/CartContext';
+import { useLiveOrders } from '../../lib/LiveOrderContext';
 import { useTheme } from '../../lib/ThemeContext';
 
 export default function CheckoutPage() {
     const router = useRouter();
-    const { items, restaurantName, restaurantLogo, subtotal, deliveryFee, tax, total, itemCount, clearCart } = useCart();
+    const { items, restaurantName, restaurantLogo, subtotal, deliveryFee, tax, total, itemCount, clearCart, restaurantId } = useCart();
+    const { placeOrder } = useLiveOrders();
     const { theme } = useTheme();
     const [tipPercent, setTipPercent] = useState(18);
     const [customTip, setCustomTip] = useState('');
@@ -28,8 +30,23 @@ export default function CheckoutPage() {
     const updateField = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
 
     const handlePlaceOrder = () => {
+        const orderId = placeOrder({
+            restaurantId: restaurantId || 'unknown',
+            restaurantName,
+            restaurantLogo,
+            items: items.map(i => ({ name: i.name, quantity: i.quantity, price: i.price })),
+            subtotal,
+            deliveryFee,
+            tax,
+            total: grandTotal,
+            customer: form
+        });
+
         setOrderPlaced(true);
-        setTimeout(() => { clearCart(); router.push('/'); }, 4000);
+        setTimeout(() => {
+            clearCart();
+            router.push(`/orders/live/${orderId}`);
+        }, 3000);
     };
 
     if (orderPlaced) {
@@ -164,7 +181,7 @@ export default function CheckoutPage() {
                         </div>
                         {/* Totals */}
                         <div style={{ borderTop: `1px solid ${theme.border}`, paddingTop: 14, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                            {[['Subtotal', subtotal], ['Delivery', deliveryFee], ['Tax (HST)', tax], ['Tip', tipAmount]].map(([label, val]) => (
+                            {[['Subtotal', subtotal], ['Delivery', deliveryFee], ['13% HST', tax], ['Tip', tipAmount]].map(([label, val]) => (
                                 <div key={label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: theme.textMuted }}>
                                     <span>{label}</span><span>${val.toFixed(2)}</span>
                                 </div>
