@@ -125,12 +125,7 @@ export const Navigation = () => {
                             }}>
                                 ⚡ Rides
                             </Link>
-                            <Link href="/corporate" style={{
-                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                textDecoration: 'none', letterSpacing: '-0.01em',
-                            }}>
-                                For Business
-                            </Link>
+
 
                         </div>
                     )}
@@ -260,6 +255,17 @@ export const Navigation = () => {
                                     </div>
                                 )}
                             </div>
+                        )}
+
+                        {/* For Business — between search & support */}
+                        {!isMobile && (
+                            <Link href="/corporate" style={{
+                                fontSize: 13, fontWeight: 600, color: theme.textSecondary,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                                transition: 'color 0.2s',
+                            }}>
+                                For Business
+                            </Link>
                         )}
 
                         {/* Support — emergency red icon between search & cart */}
