@@ -631,3 +631,187 @@
         opacity: 0;
     }
 }
+
+/* Light Mode Support */
+.lightMode {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.themeToggleBtn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.themeToggleBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.lightMode .themeToggleBtn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #374151;
+}
+
+.lightMode .themeToggleBtn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.lightMode .statusText {
+    color: #4b5563;
+}
+
+.lightMode .header {
+    background: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightMode .logo {
+    background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lightMode .badge {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.lightMode .statCard,
+.lightMode .panel {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.lightMode .statCard:hover {
+    background: #f8fafc;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.lightMode .statTitle,
+.lightMode .statIcon {
+    color: #6b7280;
+}
+
+.lightMode .statValue.neutral {
+    color: #111827;
+}
+
+.lightMode .panelHeader {
+    background: #f9fafb;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.lightMode .panelTitle,
+.lightMode .nodeName,
+.lightMode .toggleTitle {
+    color: #111827;
+}
+
+.lightMode .quickLink {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #111827;
+}
+
+.lightMode .quickLink:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.lightMode .infraNode {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.lightMode .chartArea {
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.03),
+            rgba(0, 0, 0, 0.03) 1px,
+            transparent 1px,
+            transparent 40px);
+}
+
+.lightMode .dataTable th {
+    color: #4b5563;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.lightMode .dataTable td {
+    color: #374151;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.lightMode .toggleRow {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.lightMode .toggleSwitch.off {
+    background: #d1d5db;
+}
+
+.lightMode .progressBarBg {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.lightMode .feedContent strong {
+    color: #1f2937;
+}
+
+.lightMode .feedContent {
+    color: #4b5563;
+}
+
+/* Layout classes refactored from inline styles */
+.sentimentCard {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.lightMode .sentimentCard {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sentimentTitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    color: #ccc;
+}
+
+.lightMode .sentimentTitle {
+    color: #374151;
+}
+
+.telemetryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.telemetryValue {
+    color: #fff;
+}
+
+.lightMode .telemetryRow {
+    border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+.lightMode .telemetryValue {
+    color: #111827;
+}

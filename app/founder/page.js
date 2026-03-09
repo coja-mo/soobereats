@@ -5,8 +5,10 @@ import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function FounderDashboard() {
+    const [isLightMode, setIsLightMode] = useState(false);
+
     return (
-        <div className={styles.founderContainer}>
+        <div className={`${styles.founderContainer} ${isLightMode ? styles.lightMode : ''}`}>
             {/* Header */}
             <header className={styles.header}>
                 <div className={styles.brand}>
@@ -16,9 +18,18 @@ export default function FounderDashboard() {
 
                 <div className={styles.systemStatus}>
                     <div className={styles.statusItem}>
-                        <span>Primary Mac Studio Cluster Core Active</span>
+                        <span className={styles.statusText}>Primary Mac Studio Cluster Core Active</span>
                         <div className={styles.pulse}></div>
                     </div>
+
+                    <button
+                        onClick={() => setIsLightMode(!isLightMode)}
+                        className={styles.themeToggleBtn}
+                        aria-label="Toggle theme"
+                    >
+                        {isLightMode ? '🌙 Dark' : '☀️ Light'}
+                    </button>
+
                     <Link href="/">
                         <button style={{
                             background: '#09090b',
@@ -259,17 +270,17 @@ export default function FounderDashboard() {
                             </div>
                             <div className={styles.panelContent}>
                                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-                                    <div style={{ flex: 1, background: 'rgba(0,0,0,0.3)', padding: '1rem', borderRadius: '8px', textAlign: 'center' }}>
+                                    <div className={styles.sentimentCard}>
                                         <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10b981' }}>82</div>
                                         <div style={{ fontSize: '0.75rem', color: '#888' }}>Current NPS</div>
                                     </div>
-                                    <div style={{ flex: 1, background: 'rgba(0,0,0,0.3)', padding: '1rem', borderRadius: '8px', textAlign: 'center' }}>
+                                    <div className={styles.sentimentCard}>
                                         <div style={{ fontSize: '2rem', fontWeight: 800, color: '#f59e0b' }}>4.8</div>
                                         <div style={{ fontSize: '0.75rem', color: '#888' }}>Avg App Rating</div>
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={{ fontSize: '0.85rem', fontWeight: 600, paddingBottom: '0.5rem', color: '#ccc' }}>Top Flagged Issues (Last 1hr)</div>
+                                    <div className={styles.sentimentTitle}>Top Flagged Issues (Last 1hr)</div>
                                     <ul style={{ fontSize: '0.8rem', color: '#888', margin: 0, paddingLeft: '1.2rem' }}>
                                         <li>"Driver couldn't find building" (3 instances)</li>
                                         <li>"Missing soy sauce" (2 instances)</li>
@@ -359,17 +370,17 @@ export default function FounderDashboard() {
                                 <h2 className={styles.panelTitle}>Operations Telemetry</h2>
                             </div>
                             <div className={styles.panelContent} style={{ padding: '1rem', fontSize: '0.8rem' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem' }}>
+                                <div className={styles.telemetryRow}>
                                     <span style={{ color: '#888' }}>Pino's Avg Prep Time</span>
-                                    <strong style={{ color: '#fff' }}>4m 12s</strong>
+                                    <strong className={styles.telemetryValue}>4m 12s</strong>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem' }}>
+                                <div className={styles.telemetryRow}>
                                     <span style={{ color: '#888' }}>MRKT Sales Velocity</span>
                                     <strong style={{ color: '#10b981' }}>High (14 orders/hr)</strong>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div className={styles.telemetryRow} style={{ borderBottom: 'none', paddingBottom: 0 }}>
                                     <span style={{ color: '#888' }}>On-Premise Data Array</span>
-                                    <strong style={{ color: '#fff' }}>2.4 TB (Encrypted)</strong>
+                                    <strong className={styles.telemetryValue}>2.4 TB (Encrypted)</strong>
                                 </div>
                             </div>
                         </section>
