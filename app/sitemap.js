@@ -9,6 +9,7 @@ export default function sitemap() {
         '/investors', '/press', '/socials', '/login', '/download',
         '/checkout', '/account', '/refer', '/links', '/terms', '/privacy',
         '/driver-portal', '/orders', '/status', '/partner', '/changelog',
+        '/gift-cards', '/impact', '/pricing',
     ];
 
     return routes.map((route) => ({

@@ -80,6 +80,8 @@ export function Footer() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {[
                                 { href: '/corporate', label: 'For Business' },
+                                { href: '/gift-cards', label: '🎁 Gift Cards' },
+                                { href: '/pricing', label: 'Pricing' },
                                 { href: '/for-drivers', label: 'Drive Electric' },
                                 { href: '/support', label: 'Support' },
                                 { href: '/contact', label: 'Contact' },
@@ -108,6 +110,7 @@ export function Footer() {
                                 { href: '/press', label: 'Press & Media' },
                                 { href: '/socials', label: 'Social Media' },
                                 { href: '/changelog', label: "What's New" },
+                                { href: '/impact', label: '🌱 Our Impact' },
                                 { href: '/terms', label: 'Terms of Service' },
                                 { href: '/privacy', label: 'Privacy Policy' },
                                 { href: '/faq', label: 'FAQ' },
