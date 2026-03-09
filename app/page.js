@@ -678,66 +678,6 @@ export default function Home() {
       </section>
 
 
-      {/* ═══════════════════════════════════════════════
-          TESTIMONIALS — Social proof
-         ═══════════════════════════════════════════════ */}
-      <section style={{
-        padding: isMobile ? '48px 16px' : '72px 40px',
-        maxWidth: 1440, margin: '0 auto',
-      }}>
-        <h2 style={{
-          fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
-          fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
-          color: theme.text, margin: '0 0 8px', textAlign: 'center',
-        }}>
-          What the Soo is saying
-        </h2>
-        <p style={{
-          fontSize: 14, color: theme.textMuted, textAlign: 'center',
-          margin: '0 auto 32px', maxWidth: 400,
-        }}>
-          Real reviews from our community
-        </p>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-          gap: 16,
-        }}>
-          {[
-            { name: 'Sarah M.', role: 'Algoma U Student', quote: 'Finally a delivery service that actually supports local restaurants. The food arrives hot and the drivers are always so friendly. Way better than the big apps!', stars: 5, emoji: '👩‍🎓' },
-            { name: 'Dave K.', role: 'Hockey Dad', quote: 'Booked a ride to the Greyhounds game — zero surge, showed up early, and the kids loved the electric SUV. We use Soobér for every game now.', stars: 5, emoji: '🏒' },
-            { name: 'Margaret T.', role: 'CarePass Member', quote: 'My mother has 3 medical appointments a week. CarePass handles all of them automatically. The drivers help her door-to-door. I can finally stop worrying.', stars: 5, emoji: '❤️' },
-            { name: 'Jason R.', role: 'Local Chef', quote: 'As a restaurant owner on Soobér, the POS integration is chef\'s kiss. Orders flow straight to my kitchen. It\'s the first platform that actually gets small business.', stars: 5, emoji: '👨‍🍳' },
-          ].map((t, i) => (
-            <div key={i} style={{
-              background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
-              borderRadius: 20, padding: isMobile ? '20px' : '28px',
-              transition: 'all 0.25s ease',
-            }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{
-                    fontSize: 24, width: 44, height: 44, display: 'flex',
-                    alignItems: 'center', justifyContent: 'center',
-                    background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
-                    borderRadius: 12,
-                  }}>{t.emoji}</span>
-                  <div>
-                    <span style={{ fontWeight: 700, fontSize: 14, color: theme.text, display: 'block', fontFamily: "'DM Sans', sans-serif" }}>{t.name}</span>
-                    <span style={{ fontSize: 12, color: theme.textFaint }}>{t.role}</span>
-                  </div>
-                </div>
-                <span style={{ color: '#eab308', fontSize: 14, letterSpacing: 1 }}>{'★'.repeat(t.stars)}</span>
-              </div>
-              <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>"{t.quote}"</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════════════
           FEATURED PARTNERSHIPS — Greyhounds + IDA

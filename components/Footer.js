@@ -67,6 +67,7 @@ export function Footer() {
                                 { href: '/rewards', label: 'Rewards' },
                                 { href: '/how-it-works', label: 'How It Works' },
                                 { href: '/academy', label: 'Soobér Academy' },
+                                { href: '/download', label: '📱 Get the App' },
                             ].map(l => (
                                 <Link key={l.href} href={l.href} style={{ color: l.accent ? '#0066FF' : l.community ? '#d97706' : l.business ? '#10b981' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: (l.accent || l.community || l.business) ? 700 : 500, transition: 'color 0.2s' }}>{l.label}</Link>
                             ))}
@@ -84,6 +85,7 @@ export function Footer() {
                                 { href: '/contact', label: 'Contact' },
                                 { href: '/dispatch', label: 'Dispatch Center' },
                                 { href: '/driver-portal', label: 'Driver Portal' },
+                                { href: '/login', label: 'Sign In / Sign Up' },
                                 { href: '/links', label: 'All Links' },
                             ].map(l => (
                                 <Link key={l.href} href={l.href} style={{ color: theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>{l.label}</Link>
@@ -97,6 +99,12 @@ export function Footer() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {[
                                 { href: '/about', label: 'About Soobér' },
+                                { href: '/safety', label: '🛡️ Safety & Trust' },
+                                { href: '/accessibility', label: '♿ Accessibility' },
+                                { href: '/careers', label: 'Careers' },
+                                { href: '/investors', label: 'Investors' },
+                                { href: '/press', label: 'Press & Media' },
+                                { href: '/socials', label: 'Social Media' },
                                 { href: '/terms', label: 'Terms of Service' },
                                 { href: '/privacy', label: 'Privacy Policy' },
                                 { href: '/faq', label: 'FAQ' },

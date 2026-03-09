@@ -89,6 +89,9 @@ const sections = [
             { href: '/privacy', label: 'Privacy Policy', desc: 'How we handle your data' },
             { href: '/press', label: 'Press & Newsroom', desc: 'Press releases, media kit, brand assets' },
             { href: '/safety', label: 'Safety & Trust', desc: 'Security, privacy, and rider safety measures' },
+            { href: '/accessibility', label: 'Accessibility', desc: 'WCAG 2.1, AODA compliance, ride accessibility' },
+            { href: '/careers', label: 'Careers', desc: 'Open roles and perks — we are hiring' },
+            { href: '/investors', label: 'Investors', desc: 'Pitch deck, metrics, and roadmap' },
         ]
     }
 ];

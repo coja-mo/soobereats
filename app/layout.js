@@ -10,6 +10,7 @@ import { PinGate } from '../components/PinGate';
 import { CookieConsent } from '../components/CookieConsent';
 import { ScrollRestoration } from '../components/ScrollRestoration';
 import AIChatWidget from '../components/AIChatWidget';
+import { ToastProvider } from '../components/ToastProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,14 +39,16 @@ export default function RootLayout({ children }) {
             <LiveOrderProvider>
               <CartProvider>
                 <ThemedBody>
-                  <ScrollRestoration />
-                  <Navigation />
-                  <CartPanel />
-                  <main style={{ paddingTop: 72 }}>
-                    {children}
-                  </main>
-                  <CookieConsent />
-                  <AIChatWidget />
+                  <ToastProvider>
+                    <ScrollRestoration />
+                    <Navigation />
+                    <CartPanel />
+                    <main style={{ paddingTop: 72 }}>
+                      {children}
+                    </main>
+                    <CookieConsent />
+                    <AIChatWidget />
+                  </ToastProvider>
                 </ThemedBody>
               </CartProvider>
             </LiveOrderProvider>
