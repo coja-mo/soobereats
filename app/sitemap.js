@@ -12,6 +12,7 @@ export default function sitemap() {
         '/gift-cards', '/impact', '/pricing',
         '/fleet', '/blog', '/notifications',
         '/team', '/events', '/history',
+        '/help', '/expansion', '/dietary',
     ];
 
     return routes.map((route) => ({
