@@ -68,32 +68,59 @@ export const Navigation = () => {
                 }}>
 
                     {/* Brand */}
-                    <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12, textDecoration: 'none' }}>
-                        <div style={{
-                            width: isMobile ? 36 : 42, height: isMobile ? 36 : 42,
-                            borderRadius: isMobile ? 11 : 14,
-                            background: isDark ? '#fafafa' : '#09090b',
-                            color: isDark ? '#09090b' : '#fff',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontWeight: 800, fontSize: isMobile ? 13 : 16, letterSpacing: '-0.03em',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                            transition: 'all 0.3s ease',
-                        }}>
-                            SE
-                        </div>
+                    <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 10, textDecoration: 'none' }}>
+                        <img
+                            src="/soober-logo.png"
+                            alt="Soobér"
+                            style={{
+                                width: isMobile ? 30 : 34, height: isMobile ? 30 : 34,
+                                borderRadius: isMobile ? 8 : 10,
+                                objectFit: 'cover',
+                                transition: 'all 0.3s ease',
+                            }}
+                        />
                         <span style={{
                             fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-                            fontSize: isMobile ? 17 : 20, letterSpacing: '-0.03em',
+                            fontSize: isMobile ? 18 : 21, letterSpacing: '-0.04em',
                             color: theme.text,
                             transition: 'color 0.3s ease',
                         }}>
-                            Soober<span style={{ color: theme.textFaint }}> Eats</span>
+                            Soobér
                         </span>
                     </Link>
 
+                    {/* Nav Links — left of header */}
+                    {!isMobile && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginLeft: 32 }}>
+                            <Link href="/orders" style={{
+                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                Orders
+                            </Link>
+                            <Link href="/rides" style={{
+                                color: '#10b981', fontSize: 14, fontWeight: 600,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                ⚡ Rides
+                            </Link>
+                            <Link href="/corporate" style={{
+                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                For Business
+                            </Link>
+                            <Link href="/support" style={{
+                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                Support
+                            </Link>
+                        </div>
+                    )}
 
                     {/* Right Actions */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 12, marginLeft: 'auto' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 'auto' }}>
 
                         {/* Mobile hamburger */}
                         {isMobile && (
@@ -111,34 +138,7 @@ export const Navigation = () => {
                             </button>
                         )}
 
-                        {!isMobile && (
-                            <>
-                                <Link href="/orders" style={{
-                                    color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                    textDecoration: 'none', letterSpacing: '-0.01em',
-                                }}>
-                                    Orders
-                                </Link>
-                                <Link href="/rides" style={{
-                                    color: '#10b981', fontSize: 14, fontWeight: 600,
-                                    textDecoration: 'none', letterSpacing: '-0.01em',
-                                }}>
-                                    ⚡ Rides
-                                </Link>
-                                <Link href="/corporate" style={{
-                                    color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                    textDecoration: 'none', letterSpacing: '-0.01em',
-                                }}>
-                                    For Business
-                                </Link>
-                                <Link href="/support" style={{
-                                    color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                    textDecoration: 'none', letterSpacing: '-0.01em',
-                                }}>
-                                    Support
-                                </Link>
-                            </>
-                        )}
+
 
                         {/* Search — animated magnifying glass (next to cart) */}
                         {!isMobile && (

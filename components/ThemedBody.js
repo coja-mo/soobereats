@@ -11,7 +11,7 @@ export function ThemedBody({ children }) {
             background: theme.bg,
             color: theme.text,
             minHeight: '100vh',
-            overflowX: 'hidden',
+            overflowX: 'clip',
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
             textRendering: 'optimizeLegibility',
