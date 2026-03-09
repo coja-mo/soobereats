@@ -11,6 +11,7 @@ import { CookieConsent } from '../components/CookieConsent';
 import { ScrollRestoration } from '../components/ScrollRestoration';
 import AIChatWidget from '../components/AIChatWidget';
 import { ToastProvider } from '../components/ToastProvider';
+import { SplashWrapper } from '../components/SplashWrapper';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -65,14 +66,16 @@ export default function RootLayout({ children }) {
               <CartProvider>
                 <ThemedBody>
                   <ToastProvider>
-                    <ScrollRestoration />
-                    <Navigation />
-                    <CartPanel />
-                    <main style={{ paddingTop: 72 }}>
-                      {children}
-                    </main>
-                    <CookieConsent />
-                    <AIChatWidget />
+                    <SplashWrapper>
+                      <ScrollRestoration />
+                      <Navigation />
+                      <CartPanel />
+                      <main style={{ paddingTop: 72 }}>
+                        {children}
+                      </main>
+                      <CookieConsent />
+                      <AIChatWidget />
+                    </SplashWrapper>
                   </ToastProvider>
                 </ThemedBody>
               </CartProvider>

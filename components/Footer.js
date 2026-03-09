@@ -86,6 +86,7 @@ export function Footer() {
                                 { href: '/dispatch', label: 'Dispatch Center' },
                                 { href: '/driver-portal', label: 'Driver Portal' },
                                 { href: '/login', label: 'Sign In / Sign Up' },
+                                { href: '/status', label: '🟢 System Status' },
                                 { href: '/links', label: 'All Links' },
                             ].map(l => (
                                 <Link key={l.href} href={l.href} style={{ color: theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>{l.label}</Link>

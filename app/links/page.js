@@ -92,6 +92,7 @@ const sections = [
             { href: '/accessibility', label: 'Accessibility', desc: 'WCAG 2.1, AODA compliance, ride accessibility' },
             { href: '/careers', label: 'Careers', desc: 'Open roles and perks — we are hiring' },
             { href: '/investors', label: 'Investors', desc: 'Pitch deck, metrics, and roadmap' },
+            { href: '/status', label: 'System Status', desc: 'Real-time platform health and uptime' },
         ]
     }
 ];
