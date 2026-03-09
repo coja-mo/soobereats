@@ -31,16 +31,7 @@ export default function FounderDashboard() {
                     </button>
 
                     <Link href="/">
-                        <button style={{
-                            background: '#09090b',
-                            border: '1px solid #27272a',
-                            color: '#fff',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '6px',
-                            cursor: 'pointer',
-                            fontWeight: 600,
-                            letterSpacing: '0.02em',
-                        }}>
+                        <button className={styles.themeToggleBtn}>
                             Exit to Home
                         </button>
                     </Link>
@@ -109,6 +100,10 @@ export default function FounderDashboard() {
                                 <h2 className={styles.panelTitle}>Management Portals</h2>
                             </div>
                             <div className={`${styles.panelContent} ${styles.linksGrid}`}>
+                                <Link href="/links" className={styles.quickLink}>
+                                    <div className={styles.linkTitle}>🔗 All Ecosystem Links</div>
+                                    <div className={styles.linkDesc}>Access the full directory of SOOber platform portals and tools.</div>
+                                </Link>
                                 <Link href="/dispatch" className={styles.quickLink}>
                                     <div className={styles.linkTitle}>📡 Dispatch Dashboard</div>
                                     <div className={styles.linkDesc}>Live fleet tracking, vector-routing, and anomaly detection.</div>
@@ -121,7 +116,7 @@ export default function FounderDashboard() {
                                     <div className={styles.linkTitle}>🛒 Merchant POS Preview</div>
                                     <div className={styles.linkDesc}>Observe the real-time fulfillment state at partner bounds.</div>
                                 </Link>
-                                <Link href="/scheduler" className={styles.quickLink}>
+                                <Link href="/scheduler" className={styles.quickLink} style={{ gridColumn: '1 / -1' }}>
                                     <div className={styles.linkTitle}>📅 Enterprise Scheduler</div>
                                     <div className={styles.linkDesc}>AI-optimized fleet and staff shift management.</div>
                                 </Link>
@@ -148,25 +143,25 @@ export default function FounderDashboard() {
                                         <tr>
                                             <td>🍔 Eats</td>
                                             <td>ORD-2901</td>
-                                            <td><span style={{ color: '#f59e0b' }}>Preparing</span></td>
+                                            <td><span style={{ color: 'var(--color-warning)' }}>Preparing</span></td>
                                             <td>12 min</td>
                                         </tr>
                                         <tr>
                                             <td>🚗 Ride</td>
                                             <td>RDE-8821</td>
-                                            <td><span style={{ color: '#3b82f6' }}>En Route</span></td>
+                                            <td><span style={{ color: 'var(--color-info)' }}>En Route</span></td>
                                             <td>2 min</td>
                                         </tr>
                                         <tr>
                                             <td>🛒 MRKT</td>
                                             <td>MKT-1192</td>
-                                            <td><span style={{ color: '#10b981' }}>At Door</span></td>
+                                            <td><span style={{ color: 'var(--color-positive)' }}>At Door</span></td>
                                             <td>0 min</td>
                                         </tr>
                                         <tr>
                                             <td>⚡ EVnts</td>
                                             <td>EVT-004</td>
-                                            <td><span style={{ color: '#a855f7' }}>Scheduled</span></td>
+                                            <td><span style={{ color: 'var(--color-purple)' }}>Scheduled</span></td>
                                             <td>Tomorrow</td>
                                         </tr>
                                     </tbody>
@@ -263,6 +258,53 @@ export default function FounderDashboard() {
                             </div>
                         </section>
 
+                        {/* Panel 5: Ecosystem Administration & Approvals */}
+                        <section className={styles.panel}>
+                            <div className={styles.panelHeader}>
+                                <h2 className={styles.panelTitle}>Ecosystem Approvals</h2>
+                                <span className={`${styles.authBadge} ${styles.orange}`}>3 Pending</span>
+                            </div>
+                            <div className={styles.panelContent} style={{ padding: '1rem' }}>
+                                <div className={styles.actionFeed}>
+                                    {/* App Override */}
+                                    <div className={styles.actionCard}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <strong style={{ fontSize: '0.85rem' }}>POS Terminal #4 Override</strong>
+                                            <span className={`${styles.authBadge} ${styles.purple}`}>Login Access</span>
+                                        </div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Manager passcode requested at Station Ops.</div>
+                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
+                                            <button className={styles.btnAuth}>Grant Access</button>
+                                            <button className={styles.btnDeny}>Deny</button>
+                                        </div>
+                                    </div>
+                                    {/* KDS Void */}
+                                    <div className={styles.actionCard}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <strong style={{ fontSize: '0.85rem' }}>Cancel Order MKT-881</strong>
+                                            <span className={`${styles.authBadge} ${styles.orange}`}>KDS Void</span>
+                                        </div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Pino's Kitchen requested to void 4x items.</div>
+                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
+                                            <button className={styles.btnAuth}>Approve Void</button>
+                                        </div>
+                                    </div>
+                                    {/* Scheduler AI */}
+                                    <div className={styles.actionCard}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <strong style={{ fontSize: '0.85rem' }}>Shift Swap: Sarah J.</strong>
+                                            <span className={`${styles.authBadge} ${styles.grey}`}>Scheduling</span>
+                                        </div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Requests Fri 16 swap with Marcus T.</div>
+                                        <div className={styles.aiInsight}>✨ Local Compute: Marcus is NOT Event Certified. This violates surge requirements. Blocks recommended.</div>
+                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
+                                            <button className={styles.btnDeny} style={{ flex: 1 }}>Block Swap</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         {/* Panel 6: Customer Sentiment & Escalations */}
                         <section className={styles.panel}>
                             <div className={styles.panelHeader}>
@@ -271,17 +313,17 @@ export default function FounderDashboard() {
                             <div className={styles.panelContent}>
                                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
                                     <div className={styles.sentimentCard}>
-                                        <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10b981' }}>82</div>
-                                        <div style={{ fontSize: '0.75rem', color: '#888' }}>Current NPS</div>
+                                        <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-positive)' }}>82</div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Current NPS</div>
                                     </div>
                                     <div className={styles.sentimentCard}>
-                                        <div style={{ fontSize: '2rem', fontWeight: 800, color: '#f59e0b' }}>4.8</div>
-                                        <div style={{ fontSize: '0.75rem', color: '#888' }}>Avg App Rating</div>
+                                        <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-warning)' }}>4.8</div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Avg App Rating</div>
                                     </div>
                                 </div>
                                 <div>
                                     <div className={styles.sentimentTitle}>Top Flagged Issues (Last 1hr)</div>
-                                    <ul style={{ fontSize: '0.8rem', color: '#888', margin: 0, paddingLeft: '1.2rem' }}>
+                                    <ul style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0, paddingLeft: '1.2rem' }}>
                                         <li>"Driver couldn't find building" (3 instances)</li>
                                         <li>"Missing soy sauce" (2 instances)</li>
                                     </ul>
