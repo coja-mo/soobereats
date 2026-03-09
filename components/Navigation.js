@@ -125,7 +125,12 @@ export const Navigation = () => {
                             }}>
                                 ⚡ Rides
                             </Link>
-
+                            <Link href="/market" style={{
+                                color: '#d97706', fontSize: 14, fontWeight: 700,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                🧺 Soo MRKT
+                            </Link>
 
                         </div>
                     )}
