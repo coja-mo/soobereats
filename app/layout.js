@@ -7,6 +7,7 @@ import { LiveOrderProvider } from '../lib/LiveOrderContext';
 import { CartPanel } from '../components/CartPanel';
 import { ThemedBody } from '../components/ThemedBody';
 import { PinGate } from '../components/PinGate';
+import { CookieConsent } from '../components/CookieConsent';
 import { ScrollRestoration } from '../components/ScrollRestoration';
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
                   <main style={{ paddingTop: 72 }}>
                     {children}
                   </main>
+                  <CookieConsent />
                 </ThemedBody>
               </CartProvider>
             </LiveOrderProvider>
