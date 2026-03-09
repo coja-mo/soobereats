@@ -117,7 +117,7 @@ export const Navigation = () => {
                                 color: theme.text, fontSize: 14, fontWeight: 700,
                                 textDecoration: 'none', letterSpacing: '-0.01em',
                             }}>
-                                🍽️ Foods
+                                🍟 Foods
                             </Link>
                             <Link href="/rides" style={{
                                 color: '#0066FF', fontSize: 14, fontWeight: 700,
@@ -126,10 +126,10 @@ export const Navigation = () => {
                                 ⚡ Rides
                             </Link>
                             <Link href="/market" style={{
-                                color: '#d97706', fontSize: 14, fontWeight: 700,
+                                color: theme.text, fontSize: 14, fontWeight: 700,
                                 textDecoration: 'none', letterSpacing: '-0.01em',
                             }}>
-                                🧺 Soo MRKT
+                                🛒 Soo MRKT
                             </Link>
 
                         </div>

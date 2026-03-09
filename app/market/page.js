@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { sooMrktVendors } from '../../lib/data/restaurants';
 import { useTheme } from '../../lib/ThemeContext';
-import { Navigation } from '../../components/Navigation';
+
 
 const CATEGORY_FILTERS = ['All', 'Meats', 'Produce', 'Baked Goods', 'Specialty', 'Prepared Foods', 'Seafood', 'Dairy & Eggs'];
 
@@ -31,8 +31,7 @@ export default function SooMrktPage() {
 
     return (
         <>
-            <Navigation />
-            <main style={{ paddingTop: 80 }}>
+            <main>
 
                 {/* ═══════════════════════════════════════
                     HERO
