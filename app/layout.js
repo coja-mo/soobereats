@@ -7,6 +7,7 @@ import { LiveOrderProvider } from '../lib/LiveOrderContext';
 import { CartPanel } from '../components/CartPanel';
 import { ThemedBody } from '../components/ThemedBody';
 import { PinGate } from '../components/PinGate';
+import { ScrollRestoration } from '../components/ScrollRestoration';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
             <LiveOrderProvider>
               <CartProvider>
                 <ThemedBody>
+                  <ScrollRestoration />
                   <Navigation />
                   <CartPanel />
                   <main style={{ paddingTop: 72 }}>
