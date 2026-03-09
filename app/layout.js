@@ -5,6 +5,7 @@ import { CartProvider } from '../lib/CartContext';
 import { ThemeProvider } from '../lib/ThemeContext';
 import { CartPanel } from '../components/CartPanel';
 import { ThemedBody } from '../components/ThemedBody';
+import { PinGate } from '../components/PinGate';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,17 +29,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${dmSans.variable}`}>
       <body style={{ margin: 0, padding: 0 }}>
-        <ThemeProvider>
-          <CartProvider>
-            <ThemedBody>
-              <Navigation />
-              <CartPanel />
-              <main style={{ paddingTop: 72 }}>
-                {children}
-              </main>
-            </ThemedBody>
-          </CartProvider>
-        </ThemeProvider>
+        <PinGate>
+          <ThemeProvider>
+            <CartProvider>
+              <ThemedBody>
+                <Navigation />
+                <CartPanel />
+                <main style={{ paddingTop: 72 }}>
+                  {children}
+                </main>
+              </ThemedBody>
+            </CartProvider>
+          </ThemeProvider>
+        </PinGate>
       </body>
     </html>
   );
