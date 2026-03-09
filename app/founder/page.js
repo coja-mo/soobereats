@@ -116,7 +116,11 @@ export default function FounderDashboard() {
                                     <div className={styles.linkTitle}>🛒 Merchant POS Preview</div>
                                     <div className={styles.linkDesc}>Observe the real-time fulfillment state at partner bounds.</div>
                                 </Link>
-                                <Link href="/scheduler" className={styles.quickLink} style={{ gridColumn: '1 / -1' }}>
+                                <Link href="/partners" className={styles.quickLink}>
+                                    <div className={styles.linkTitle}>🤝 Local Partners</div>
+                                    <div className={styles.linkDesc}>Manage all vendor partnerships, contact data, and storefronts.</div>
+                                </Link>
+                                <Link href="/scheduler" className={styles.quickLink}>
                                     <div className={styles.linkTitle}>📅 Enterprise Scheduler</div>
                                     <div className={styles.linkDesc}>AI-optimized fleet and staff shift management.</div>
                                 </Link>
