@@ -1,0 +1,393 @@
+.founderContainer {
+    min-height: 100vh;
+    background-color: #050505;
+    color: #fff;
+    font-family: var(--font-inter), sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.systemStatus {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.statusItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10b981;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.mainGrid {
+    padding: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.topStats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.statCard {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.statHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.statTitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.statIcon {
+    font-size: 1.25rem;
+    opacity: 0.7;
+}
+
+.statValue {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: var(--font-dm-sans), sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.statValue.positive {
+    color: #10b981;
+}
+
+.statValue.neutral {
+    color: #fff;
+}
+
+.statValue.warning {
+    color: #f59e0b;
+}
+
+.statSub {
+    font-size: 0.8rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.statTrend {
+    font-weight: 600;
+}
+
+.statTrend.up {
+    color: #10b981;
+}
+
+.statTrend.down {
+    color: #ef4444;
+}
+
+.dashboardsGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.panel {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panelHeader {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panelTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.panelAction {
+    font-size: 0.8rem;
+    color: #10b981;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    background: rgba(16, 185, 129, 0.1);
+    transition: background 0.2s;
+}
+
+.panelAction:hover {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+.panelContent {
+    padding: 1.5rem;
+}
+
+/* Quick Links Grid */
+.linksGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.quickLink {
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.quickLink:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.linkTitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.linkDesc {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* AI Infrastructure Panel */
+.infraNode {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.infraNode:last-child {
+    margin-bottom: 0;
+}
+
+.nodeInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nodeName {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.nodeStatus {
+    font-size: 0.75rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nodeDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.nodeDot.active {
+    background: #10b981;
+}
+
+.nodeDot.idle {
+    background: #3b82f6;
+}
+
+.nodeLoad {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Revenue Chart Placeholder */
+.chartArea {
+    height: 200px;
+    background: repeating-linear-gradient(0deg,
+            rgba(255, 255, 255, 0.03),
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px,
+            transparent 40px);
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 2rem;
+    gap: 1rem;
+}
+
+.bar {
+    flex: 1;
+    background: linear-gradient(180deg, #10b981 0%, rgba(16, 185, 129, 0.2) 100%);
+    border-radius: 4px 4px 0 0;
+    opacity: 0.8;
+    position: relative;
+}
+
+.bar:hover {
+    opacity: 1;
+}
+
+.bar:nth-child(1) {
+    height: 40%;
+}
+
+.bar:nth-child(2) {
+    height: 60%;
+}
+
+.bar:nth-child(3) {
+    height: 35%;
+}
+
+.bar:nth-child(4) {
+    height: 80%;
+}
+
+.bar:nth-child(5) {
+    height: 70%;
+}
+
+.bar:nth-child(6) {
+    height: 95%;
+}
+
+.bar:nth-child(7) {
+    height: 100%;
+}
+
+.chartLabel {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: #666;
+}

@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -155,6 +155,48 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════════
+          CURATED COLLECTIONS — Themed picks
+         ═══════════════════════════════════════════════ */}
+      {!isFiltering && (
+        <section style={{ padding: isMobile ? '32px 0' : '48px 0', transition: 'all 0.3s ease' }}>
+          <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
+            <h2 style={{
+              fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 22 : 28, fontWeight: 700,
+              color: theme.text, letterSpacing: '-0.02em', marginBottom: isMobile ? 16 : 24,
+            }}>🔥 Collections</h2>
+            <div style={{
+              display: 'flex', gap: isMobile ? 10 : 14, overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch', paddingBottom: 4,
+            }}>
+              {[
+                { title: 'Best Pizza in the Soo', emoji: '🍕', gradient: 'linear-gradient(135deg, #dc2626, #f97316)', count: 4 },
+                { title: 'Late Night Eats', emoji: '🌙', gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)', count: 6 },
+                { title: 'Family Favourites', emoji: '👨‍👩‍👧‍👦', gradient: 'linear-gradient(135deg, #059669, #10b981)', count: 8 },
+                { title: 'Quick Bites', emoji: '⚡', gradient: 'linear-gradient(135deg, #eab308, #f59e0b)', count: 5 },
+                { title: 'Local Artisan Picks', emoji: '🎨', gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)', count: 6 },
+              ].map(col => (
+                <div key={col.title} style={{
+                  minWidth: isMobile ? 200 : 230, padding: isMobile ? '24px 18px' : '28px 24px',
+                  borderRadius: 22, background: col.gradient, cursor: 'pointer',
+                  transition: 'transform 0.2s', flexShrink: 0,
+                }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                >
+                  <div style={{ fontSize: isMobile ? 28 : 36, marginBottom: 12 }}>{col.emoji}</div>
+                  <h3 style={{
+                    fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, fontWeight: 700,
+                    color: '#fff', margin: 0, marginBottom: 6, lineHeight: 1.2,
+                  }}>{col.title}</h3>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>{col.count} picks</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
@@ -496,6 +538,99 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* ═══════════════════════════════════════════════
+          SOOBER RIDES PROMO
+         ═══════════════════════════════════════════════ */}
+      <section style={{
+        padding: isMobile ? '48px 16px' : '72px 40px',
+        maxWidth: 1440, margin: '0 auto',
+      }}>
+        <div style={{
+          background: isDark
+            ? 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))'
+            : 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03))',
+          border: '1px solid rgba(16,185,129,0.15)',
+          borderRadius: 28, padding: isMobile ? 28 : 48, overflow: 'hidden',
+          position: 'relative',
+        }}>
+          <div style={{
+            position: 'absolute', top: -100, right: -100,
+            width: 400, height: 400, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)',
+            pointerEvents: 'none', filter: 'blur(60px)',
+          }} />
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)',
+              borderRadius: 100, padding: '6px 16px', marginBottom: 20,
+            }}>
+              <span style={{ fontSize: 14 }}>⚡</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#10b981' }}>New: SOOber Rides</span>
+            </div>
+
+            <h2 style={{
+              fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+              fontSize: isMobile ? 28 : 40, letterSpacing: '-0.04em',
+              color: theme.text, margin: '0 0 12px', lineHeight: 1.1,
+            }}>
+              Not just eats anymore.
+            </h2>
+            <p style={{
+              fontSize: isMobile ? 15 : 17, color: theme.textMuted,
+              maxWidth: 480, margin: '0 0 28px', lineHeight: 1.6,
+            }}>
+              On-demand rides, airport transfers, and premium event fleets — all 100% electric, all local, zero emissions.
+            </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: 12, marginBottom: 28,
+            }}>
+              {[
+                { href: '/rides', emoji: '🚗', title: 'SOOber Rides', desc: 'On-demand rides across the Soo' },
+                { href: '/rides/airport', emoji: '✈️', title: 'Airport Transfers', desc: 'Fixed-rate, no surprises' },
+                { href: '/rides/events', emoji: '💎', title: 'Events & Fleets', desc: 'Electric Hummers & luxury' },
+              ].map((item, i) => (
+                <Link key={i} href={item.href} style={{
+                  background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.7)',
+                  border: `1px solid ${theme.borderSubtle}`,
+                  borderRadius: 16, padding: '18px 20px', textDecoration: 'none',
+                  transition: 'all 0.25s ease',
+                }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.transform = 'translateY(0)'; }}
+                >
+                  <span style={{ fontSize: 28, display: 'block', marginBottom: 8 }}>{item.emoji}</span>
+                  <span style={{ fontWeight: 700, fontSize: 16, color: theme.text, display: 'block', fontFamily: "'DM Sans', sans-serif" }}>
+                    {item.title}
+                  </span>
+                  <span style={{ fontSize: 13, color: theme.textMuted }}>{item.desc}</span>
+                </Link>
+              ))}
+            </div>
+
+            <Link href="/rides" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '14px 28px', borderRadius: 14,
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              color: '#fff', fontWeight: 700, fontSize: 15,
+              fontFamily: "'DM Sans', sans-serif", textDecoration: 'none',
+              boxShadow: '0 4px 20px rgba(16,185,129,0.25)',
+              transition: 'transform 0.2s ease',
+            }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              Explore SOOber Rides →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════════════════════════════════
           FOOTER
          ═══════════════════════════════════════════════ */}
@@ -535,6 +670,7 @@ export default function Home() {
             fontSize: 13, fontWeight: 500, color: theme.textFaint,
           }}>
             <Link href="/" style={{ color: theme.textFaint, textDecoration: 'none' }}>Restaurants</Link>
+            <Link href="/rides" style={{ color: '#10b981', textDecoration: 'none' }}>Rides</Link>
             <Link href="/about" style={{ color: theme.textFaint, textDecoration: 'none' }}>About</Link>
             <Link href="/how-it-works" style={{ color: theme.textFaint, textDecoration: 'none' }}>How It Works</Link>
             <Link href="/corporate" style={{ color: theme.textFaint, textDecoration: 'none' }}>For Restaurants</Link>

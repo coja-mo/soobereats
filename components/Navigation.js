@@ -222,11 +222,38 @@ export const Navigation = () => {
                                 }}>
                                     Orders
                                 </Link>
+                                <Link href="/rides" style={{
+                                    color: '#10b981', fontSize: 14, fontWeight: 600,
+                                    textDecoration: 'none', letterSpacing: '-0.01em',
+                                }}>
+                                    ⚡ Rides
+                                </Link>
                                 <Link href="/corporate" style={{
                                     color: theme.textSecondary, fontSize: 14, fontWeight: 600,
                                     textDecoration: 'none', letterSpacing: '-0.01em',
                                 }}>
                                     For Business
+                                </Link>
+                                <Link href="/support" style={{
+                                    color: theme.textSecondary, fontSize: 14, fontWeight: 600,
+                                    textDecoration: 'none', letterSpacing: '-0.01em',
+                                }}>
+                                    Support
+                                </Link>
+                                <Link href="/dispatch" style={{
+                                    color: '#00ff80', fontSize: 14, fontWeight: 600,
+                                    textDecoration: 'none', letterSpacing: '-0.01em',
+                                    background: 'rgba(0, 255, 128, 0.1)', padding: '4px 8px', borderRadius: '4px'
+                                }}>
+                                    Dispatch
+                                </Link>
+                                <Link href="/founder" style={{
+                                    color: '#fff', fontSize: 14, fontWeight: 800,
+                                    textDecoration: 'none', letterSpacing: '0.02em',
+                                    background: '#09090b', border: '1px solid #3f3f46',
+                                    padding: '4px 10px', borderRadius: '6px'
+                                }}>
+                                    Founder
                                 </Link>
                             </>
                         )}
@@ -338,6 +365,12 @@ export const Navigation = () => {
                             { href: '/orders', label: 'My Orders', emoji: '📦' },
                             { href: '/account', label: 'Account', emoji: '👤' },
                             { href: '/rewards', label: 'Rewards', emoji: '🏆' },
+                            { href: '/rides', label: 'SOOber Rides', emoji: '🚗' },
+                            { href: '/rides/airport', label: 'Airport Transfers', emoji: '✈️' },
+                            { href: '/rides/events', label: 'Events & Fleets', emoji: '💎' },
+                            { href: '/founder', label: 'Founder Dash', emoji: '👑' },
+                            { href: '/dispatch', label: 'Dispatch', emoji: '📡' },
+                            { href: '/support', label: 'Support', emoji: '💬' },
                             { href: '/about', label: 'About SOOber', emoji: '🌿' },
                             { href: '/how-it-works', label: 'How It Works', emoji: '📖' },
                             { href: '/for-drivers', label: 'Drive Electric', emoji: '⚡' },

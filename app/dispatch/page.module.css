@@ -1,0 +1,333 @@
+.dispatchContainer {
+    min-height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-inter), sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge {
+    background: rgba(0, 255, 128, 0.1);
+    color: #00ff80;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(0, 255, 128, 0.2);
+}
+
+.systemStatus {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.statusItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff80;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff80;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 255, 128, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(0, 255, 128, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 255, 128, 0);
+    }
+}
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: 350px 1fr 350px;
+    grid-template-rows: 1fr;
+    flex: 1;
+    gap: 1rem;
+    padding: 1rem;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+}
+
+.panel {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.panelHeader {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panelTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.panelContent {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+/* Map Area */
+.mapArea {
+    position: relative;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.simulatedMap {
+    flex: 1;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mapOverlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.mapStat {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.mapStat:last-child {
+    margin-bottom: 0;
+}
+
+.mapStat span:first-child {
+    color: #888;
+}
+
+.mapStat span:last-child {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Lists & Items */
+.driverList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.driverCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.driverCard:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.driverTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.driverName {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.statusIndicator {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.statusIndicator.active {
+    background: rgba(0, 255, 128, 0.1);
+    color: #00ff80;
+}
+
+.statusIndicator.busy {
+    background: rgba(255, 166, 0, 0.1);
+    color: #ffa600;
+}
+
+.statusIndicator.offline {
+    background: rgba(255, 50, 50, 0.1);
+    color: #ff3232;
+}
+
+.driverDetails {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* AI Copilot */
+.aiPanel {
+    background: linear-gradient(180deg, rgba(30, 40, 60, 0.6) 0%, rgba(20, 20, 20, 0.6) 100%);
+    border-color: rgba(100, 150, 255, 0.2);
+}
+
+.aiHeader {
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom-color: rgba(100, 150, 255, 0.1);
+}
+
+.aiTitle {
+    color: #8bb4ff;
+}
+
+.aiLog {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.aiMessage {
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    border-left: 3px solid transparent;
+}
+
+.aiMessage.info {
+    background: rgba(100, 150, 255, 0.05);
+    border-left-color: #6496ff;
+    color: #e0e8ff;
+}
+
+.aiMessage.alert {
+    background: rgba(255, 100, 100, 0.05);
+    border-left-color: #ff6464;
+    color: #ffe0e0;
+}
+
+.aiMessage.success {
+    background: rgba(100, 255, 150, 0.05);
+    border-left-color: #64ff96;
+    color: #e0ffe8;
+}
+
+.messageTime {
+    display: block;
+    font-size: 0.65rem;
+    color: #888;
+    margin-bottom: 0.25rem;
+}
+
+.computeStats {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.statRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.statRow:last-child {
+    margin-bottom: 0;
+}
+
+.statRow span:first-child {
+    color: #888;
+}
+
+.statRow span:last-child {
+    color: #00ff80;
+    font-family: monospace;
+}

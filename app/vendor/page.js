@@ -142,9 +142,17 @@ export default function VendorDashboard() {
                             </div>
                         </div>
                     </div>
-                    <Link href="/vendor/kds" style={{ textDecoration: 'none', padding: '12px 24px', borderRadius: 14, background: theme.dark, color: theme.darkText, fontSize: 14, fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>
-                        Open KDS →
-                    </Link>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                        <Link href="/vendor/pos" style={{ textDecoration: 'none', padding: '12px 20px', borderRadius: 14, background: '#eab308', color: '#09090b', fontSize: 13, fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>
+                            💳 POS
+                        </Link>
+                        <Link href="/vendor/kds" style={{ textDecoration: 'none', padding: '12px 20px', borderRadius: 14, background: theme.dark, color: theme.darkText, fontSize: 13, fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>
+                            📋 KDS
+                        </Link>
+                        <Link href="/vendor/inventory" style={{ textDecoration: 'none', padding: '12px 20px', borderRadius: 14, background: theme.bgInput, color: theme.text, border: `1px solid ${theme.borderSubtle}`, fontSize: 13, fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>
+                            📦 Inventory
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Stats */}
