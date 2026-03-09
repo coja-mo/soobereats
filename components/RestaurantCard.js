@@ -26,7 +26,7 @@ export const RestaurantCard = ({ restaurant }) => {
                 }}
             >
                 {/* Image */}
-                <div style={{ position: 'relative', aspectRatio: '16/10', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', aspectRatio: '16/10', overflow: 'hidden', flex: '1 1 auto', minHeight: 180 }}>
                     <div style={{
                         position: 'absolute', inset: 0,
                         backgroundImage: `url(${restaurant.image})`,
