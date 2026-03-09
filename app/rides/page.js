@@ -559,6 +559,270 @@ export default function RidesPage() {
                 </div>
             </section>
 
+            {/* ═══ SOO GREYHOUNDS PARTNERSHIP ═══ */}
+            <section style={{
+                padding: isMobile ? '60px 16px' : '80px 40px',
+                maxWidth: 1440, margin: '0 auto', position: 'relative', overflow: 'hidden',
+            }}>
+                {/* Background glow effects */}
+                <div style={{
+                    position: 'absolute', top: -100, left: -150,
+                    width: 500, height: 500, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(178,34,34,0.15) 0%, transparent 70%)',
+                    pointerEvents: 'none', filter: 'blur(80px)',
+                }} />
+                <div style={{
+                    position: 'absolute', bottom: -100, right: -100,
+                    width: 400, height: 400, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)',
+                    pointerEvents: 'none', filter: 'blur(60px)',
+                }} />
+
+                {/* Divider */}
+                <div style={{
+                    width: '100%', height: 1, marginBottom: isMobile ? 48 : 64,
+                    background: `linear-gradient(90deg, transparent, ${theme.borderSubtle}, transparent)`,
+                }} />
+
+                {/* Partnership Badge */}
+                <div style={{ textAlign: 'center', marginBottom: 24 }}>
+                    <div style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 10,
+                        background: 'rgba(178,34,34,0.08)', border: '1px solid rgba(178,34,34,0.25)',
+                        borderRadius: 100, padding: '8px 20px',
+                    }}>
+                        <span style={{ fontSize: 18 }}>🏒</span>
+                        <span style={{
+                            fontSize: 13, fontWeight: 700, color: '#B22222',
+                            letterSpacing: '0.05em', textTransform: 'uppercase',
+                        }}>
+                            Official Ride Partner
+                        </span>
+                        <span style={{ fontSize: 18 }}>⚡</span>
+                    </div>
+                </div>
+
+                {/* Hero Title */}
+                <h2 style={{
+                    fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                    fontSize: isMobile ? 32 : 52, lineHeight: 1.05, letterSpacing: '-0.04em',
+                    color: theme.text, margin: '0 0 16px', textAlign: 'center',
+                }}>
+                    Soobér × <span style={{
+                        background: 'linear-gradient(135deg, #B22222, #FF4444)',
+                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                    }}>Soo Greyhounds</span>
+                </h2>
+
+                <p style={{
+                    fontSize: isMobile ? 16 : 18, lineHeight: 1.6, color: theme.textMuted,
+                    textAlign: 'center', maxWidth: 640, margin: '0 auto 48px',
+                }}>
+                    Game nights just got a whole lot easier. Soobér is the proud ride partner of the
+                    Soo Greyhounds OHL, providing <strong style={{ color: theme.text }}>dedicated drivers</strong> and
+                    <strong style={{ color: theme.text }}> enhanced ride services</strong> for every home game at the
+                    GFL Memorial Gardens.
+                </p>
+
+                {/* Feature Grid */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                    gap: 20, marginBottom: isMobile ? 48 : 64,
+                }}>
+                    {[
+                        {
+                            emoji: '🚗',
+                            title: 'Dedicated Game-Day Fleet',
+                            desc: 'Extra drivers deployed 2 hours before puck-drop through 1 hour after the final horn. No waiting, no surge.',
+                            accent: '#B22222',
+                        },
+                        {
+                            emoji: '📍',
+                            title: 'Arena Pickup Zone',
+                            desc: 'Designated Soobér pickup at the GFL Memorial Gardens main entrance. Follow the ⚡ signs — your driver is already waiting.',
+                            accent: electric,
+                        },
+                        {
+                            emoji: '🍺',
+                            title: 'Safe Rides Home',
+                            desc: 'Enjoy the game, enjoy the night. Zero-emission rides home for you and your crew — up to 6 passengers in our XL EVs.',
+                            accent: '#10b981',
+                        },
+                        {
+                            emoji: '🎟️',
+                            title: 'Fan Rewards',
+                            desc: 'Flash your Greyhounds ticket in the app and earn 2x Soobér Rewards points on every game-night ride. Stack \'em up.',
+                            accent: '#f59e0b',
+                        },
+                        {
+                            emoji: '⏰',
+                            title: 'Pre-Game Scheduling',
+                            desc: 'Book your ride home before the game even starts. Set your pickup time and never miss the post-game rush.',
+                            accent: '#a855f7',
+                        },
+                        {
+                            emoji: '🏆',
+                            title: 'Playoff Mode',
+                            desc: 'When the stakes are highest, so is our fleet. Extended hours, premium vehicles, and triple rewards during OHL playoff games.',
+                            accent: '#B22222',
+                        },
+                    ].map((feature, i) => (
+                        <div key={i} style={{
+                            background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                            border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: isMobile ? 24 : 28,
+                            transition: 'transform 0.3s ease, border-color 0.3s ease',
+                        }}
+                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.borderColor = feature.accent + '44'; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = theme.borderSubtle; }}
+                        >
+                            <span style={{ fontSize: 32, display: 'block', marginBottom: 16 }}>{feature.emoji}</span>
+                            <h3 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                fontSize: 17, color: theme.text, margin: '0 0 8px', letterSpacing: '-0.02em',
+                            }}>
+                                {feature.title}
+                            </h3>
+                            <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.6, margin: 0 }}>
+                                {feature.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Upcoming Games */}
+                <div style={{
+                    background: isDark
+                        ? 'linear-gradient(135deg, rgba(178,34,34,0.05), rgba(178,34,34,0.02))'
+                        : 'linear-gradient(135deg, rgba(178,34,34,0.06), rgba(178,34,34,0.03))',
+                    border: '1px solid rgba(178,34,34,0.15)',
+                    borderRadius: 28, padding: isMobile ? 28 : 48,
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
+                        <div>
+                            <h3 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                                fontSize: isMobile ? 20 : 26, letterSpacing: '-0.03em',
+                                color: theme.text, margin: 0,
+                            }}>
+                                🏒 Upcoming Home Games
+                            </h3>
+                            <p style={{ fontSize: 13, color: theme.textMuted, margin: '4px 0 0' }}>
+                                GFL Memorial Gardens · 2025–26 OHL Season
+                            </p>
+                        </div>
+                        <div style={{
+                            background: 'rgba(178,34,34,0.1)', border: '1px solid rgba(178,34,34,0.25)',
+                            borderRadius: 10, padding: '8px 16px',
+                        }}>
+                            <span style={{ fontSize: 12, fontWeight: 700, color: '#B22222' }}>
+                                ⚡ ENHANCED SERVICE ACTIVE
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {[
+                            { date: 'Sun, Mar 15', opponent: 'Brantford Bulldogs', time: '2:00 PM', special: null },
+                            { date: 'Fri, Mar 20', opponent: 'Saginaw Spirit', time: '7:07 PM', special: 'Rivalry Night' },
+                            { date: 'Sun, Mar 22', opponent: 'Windsor Spitfires', time: '2:00 PM', special: 'Season Finale 🎉' },
+                            { date: 'Thu, Mar 26+', opponent: 'OHL Playoffs Begin', time: 'TBD', special: 'PLAYOFF MODE 🏆' },
+                        ].map((game, i) => (
+                            <div key={i} style={{
+                                display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20,
+                                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
+                                border: `1px solid ${game.special ? 'rgba(178,34,34,0.2)' : theme.borderSubtle}`,
+                                borderRadius: 14, padding: isMobile ? '14px 16px' : '16px 24px',
+                                transition: 'transform 0.2s ease',
+                            }}
+                                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(4px)'}
+                                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
+                            >
+                                <div style={{
+                                    minWidth: isMobile ? 80 : 100,
+                                    fontSize: 13, fontWeight: 700, color: '#B22222',
+                                    fontFamily: "'DM Sans', sans-serif",
+                                }}>
+                                    {game.date}
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{
+                                        fontWeight: 600, fontSize: 15, color: theme.text,
+                                        fontFamily: "'DM Sans', sans-serif",
+                                    }}>
+                                        Greyhounds vs {game.opponent}
+                                    </div>
+                                    <div style={{ fontSize: 12, color: theme.textMuted, marginTop: 2 }}>
+                                        GFL Memorial Gardens · {game.time}
+                                    </div>
+                                </div>
+                                {game.special && (
+                                    <div style={{
+                                        background: 'rgba(178,34,34,0.1)', color: '#B22222',
+                                        padding: '4px 12px', borderRadius: 8,
+                                        fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap',
+                                    }}>
+                                        {game.special}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Promo code */}
+                    <div style={{
+                        marginTop: 28, textAlign: 'center',
+                        padding: '20px', borderRadius: 16,
+                        background: isDark ? 'rgba(178,34,34,0.06)' : 'rgba(178,34,34,0.04)',
+                        border: '1px dashed rgba(178,34,34,0.25)',
+                    }}>
+                        <p style={{ fontSize: 14, color: theme.textMuted, margin: '0 0 8px' }}>
+                            First game-night ride free (up to $12)
+                        </p>
+                        <div style={{
+                            fontSize: isMobile ? 24 : 32, fontWeight: 800,
+                            fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.03em',
+                            color: '#B22222',
+                        }}>
+                            Code: <span style={{
+                                background: 'rgba(178,34,34,0.12)', padding: '4px 16px',
+                                borderRadius: 10, border: '1px solid rgba(178,34,34,0.3)',
+                            }}>GOHOUNDS</span>
+                        </div>
+                        <p style={{ fontSize: 12, color: theme.textFaint, margin: '8px 0 0' }}>
+                            Valid for rides starting or ending at GFL Memorial Gardens on game days
+                        </p>
+                    </div>
+                </div>
+
+                {/* Trust bar */}
+                <div style={{
+                    marginTop: 48, display: 'flex', justifyContent: 'center',
+                    gap: isMobile ? 20 : 48, flexWrap: 'wrap',
+                }}>
+                    {[
+                        { value: '30+', label: 'Home Games / Season' },
+                        { value: '4,600', label: 'Arena Capacity' },
+                        { value: '0', label: 'Surge Pricing. Ever.' },
+                        { value: '100%', label: 'Electric Fleet' },
+                    ].map((stat, i) => (
+                        <div key={i} style={{ textAlign: 'center' }}>
+                            <div style={{
+                                fontSize: isMobile ? 24 : 32, fontWeight: 800,
+                                fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.03em',
+                                color: i === 2 ? '#10b981' : theme.text,
+                            }}>
+                                {stat.value}
+                            </div>
+                            <div style={{ fontSize: 12, color: theme.textMuted, marginTop: 4 }}>
+                                {stat.label}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
             <Footer />
         </div>
     );
