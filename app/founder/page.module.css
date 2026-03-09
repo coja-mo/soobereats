@@ -182,8 +182,12 @@
 
 .dashboardsGrid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+}
+
+.twoColSpan {
+    grid-column: span 2;
 }
 
 .panel {
@@ -390,4 +394,140 @@
     transform: translateX(-50%);
     font-size: 0.6rem;
     color: #666;
+}
+
+/* Dense Data Tables */
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.dataTable th {
+    text-align: left;
+    padding: 0.75rem 0.5rem;
+    color: #888;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dataTable td {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    color: #ccc;
+}
+
+/* Activity Feed (Audit Logs) */
+.activityFeed {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.8rem;
+}
+
+.feedItem {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.feedTime {
+    color: #666;
+    font-family: monospace;
+    min-width: 60px;
+}
+
+.feedContent {
+    color: #bbb;
+}
+
+.feedContent strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Feature Toggles */
+.toggleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.toggleLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.toggleTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.toggleDesc {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.toggleSwitch {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggleSwitch.on {
+    background: #10b981;
+}
+
+.toggleSwitch.off {
+    background: #444;
+}
+
+.toggleKnob {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    transition: transform 0.3s;
+}
+
+.toggleSwitch.on .toggleKnob {
+    transform: translateX(18px);
+}
+
+.toggleSwitch.off .toggleKnob {
+    transform: translateX(2px);
+}
+
+/* Progress Bars */
+.progressRow {
+    margin-bottom: 1rem;
+}
+
+.progressLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+    color: #aaa;
+}
+
+.progressBarBg {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    border-radius: 3px;
 }
