@@ -9,6 +9,7 @@ import { ThemedBody } from '../components/ThemedBody';
 import { PinGate } from '../components/PinGate';
 import { CookieConsent } from '../components/CookieConsent';
 import { ScrollRestoration } from '../components/ScrollRestoration';
+import AIChatWidget from '../components/AIChatWidget';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
                     {children}
                   </main>
                   <CookieConsent />
+                  <AIChatWidget />
                 </ThemedBody>
               </CartProvider>
             </LiveOrderProvider>

@@ -86,6 +86,7 @@ const sections = [
             { href: '/terms', label: 'Terms of Service', desc: 'Platform terms and policies' },
             { href: '/privacy', label: 'Privacy Policy', desc: 'How we handle your data' },
             { href: '/press', label: 'Press & Newsroom', desc: 'Press releases, media kit, brand assets' },
+            { href: '/safety', label: 'Safety & Trust', desc: 'Security, privacy, and rider safety measures' },
         ]
     }
 ];
