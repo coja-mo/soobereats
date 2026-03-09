@@ -60,16 +60,20 @@ export default function CorporatePortal() {
                         background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)',
                         fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
                         color: '#eab308', marginBottom: 24
-                    }}>🏢 Corporate Affairs</div>
+                    }}>🏢 Corporate Affairs · ⚡ Electric Delivery</div>
 
                     <h1 style={{
                         fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 36 : 56, fontWeight: 700,
                         letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20
                     }}>Partner with the<br />Soo's Local Platform</h1>
 
-                    <p style={{ fontSize: isMobile ? 16 : 18, color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 40px', lineHeight: 1.6 }}>
-                        Zero corporate middlemen. Fair commission rates. Direct access to the Sault Ste. Marie community. Join SOOber Eats and grow your business today.
+                    <p style={{ fontSize: isMobile ? 16 : 18, color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 24px', lineHeight: 1.6 }}>
+                        Zero corporate middlemen. Fair commission rates. Direct access to the Sault Ste. Marie community. Join SOOber Eats and grow your business with the Soo&apos;s only local delivery platform.
                     </p>
+
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 18px', borderRadius: 12, background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.2)', color: '#34d399', fontSize: 13, fontWeight: 600, marginBottom: 32 }}>
+                        ⚡ 100% Electric Fleet — emission-free delivery for your customers
+                    </div>
 
                     <a href="#apply" style={{
                         display: 'inline-block', background: '#eab308', color: '#111',
@@ -131,9 +135,12 @@ export default function CorporatePortal() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 24 : 32 }}>
                         {[
-                            { icon: '💰', title: 'Fair 10% Flat Rate', desc: 'Keep your margins. We only charge a flat 10% fee to cover our dispatchers and drivers. No hidden marketing fees.' },
-                            { icon: '📊', title: 'Own Your Data', desc: 'You get full access to your customer base. Know exactly who is ordering, when, and their feedback directly in your portal.' },
-                            { icon: '🚀', title: 'Live KDS Access', desc: 'Every partner gets our real-time Kitchen Display System to manage orders efficiently without needing tablets piling up on the counter.' }
+                            { icon: '💰', title: 'Fair 10% Flat Rate', desc: 'Keep your margins. We only charge a flat 10% fee to cover our dispatchers and drivers. No hidden marketing fees or surge pricing.' },
+                            { icon: '📊', title: 'Own Your Data', desc: 'You get full access to your customer base. Know exactly who is ordering, when, and their feedback directly in your vendor portal.' },
+                            { icon: '🚀', title: 'Live KDS Access', desc: 'Every partner gets our real-time Kitchen Display System to manage orders efficiently — no tablets piling up on the counter.' },
+                            { icon: '⚡', title: '100% Electric Fleet', desc: 'Every delivery made by our emission-free electric vehicles. Your customers get a green delivery — and you get the brand equity of being sustainable.' },
+                            { icon: '🏘️', title: 'Hyperlocal Focus', desc: 'We only serve Sault Ste. Marie and the Algoma region. Your restaurant gets top billing, not buried by chains.' },
+                            { icon: '🤝', title: 'Real Human Support', desc: 'No bots, no ticket queues. Your dedicated local account manager picks up the phone when you call.' }
                         ].map(benefit => (
                             <div key={benefit.title} style={{ background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`, padding: 32, borderRadius: 24, boxShadow: theme.shadow }}>
                                 <div style={{ fontSize: 36, marginBottom: 20 }}>{benefit.icon}</div>
@@ -158,7 +165,11 @@ export default function CorporatePortal() {
                     ) : (
                         <div style={{ background: theme.bgCard, padding: isMobile ? 24 : 40, borderRadius: 24, border: `1px solid ${theme.border}`, boxShadow: theme.shadow }}>
                             <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 700, color: theme.text, marginBottom: 8 }}>Apply to Join</h2>
-                            <p style={{ fontSize: 15, color: theme.textMuted, marginBottom: 32 }}>Tell us a bit about your business, and we'll be in touch shortly.</p>
+                            <p style={{ fontSize: 15, color: theme.textMuted, marginBottom: 16 }}>Tell us a bit about your business, and we&apos;ll be in touch within 24 hours.</p>
+                            <div style={{ padding: '10px 14px', borderRadius: 12, background: 'rgba(16,185,129,0.08)', border: `1px solid rgba(16,185,129,0.15)`, marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
+                                <span>⚡</span>
+                                <span style={{ fontSize: 13, color: '#10b981', fontWeight: 600 }}>Your orders will be delivered by our 100% electric fleet</span>
+                            </div>
 
                             <form onSubmit={handleSubmit}>
                                 <label style={labelStyle}>Your Name</label>
