@@ -1,202 +1,472 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import styles from './page.module.css';
+import { useTheme } from '../../lib/ThemeContext';
+import { processMessage, ConversationContext } from '../../lib/ai-engine';
+import { Footer } from '../../components/Footer';
 
-/* ─── Smart AI Response Engine ─── */
-const AI_RESPONSES = {
-    tracking: [
-        "I can see your driver, Marcus T., is currently 2 minutes away in a Black GMC Hummer EV. He's turning onto Main St now. Would you like me to share his live location link?",
-        "Your order #ORD-4012 is en route! Driver D-014 (Anika R.) is 4 minutes away with your Pino's grocery items. Everything was confirmed packed fresh.",
-        "Your ride is being dispatched now. Expected pickup in 3 minutes at your saved address. Vehicle: Cadillac VISTIQ (Pearl White).",
-    ],
-    refund: [
-        "I understand the concern. Since this involves a potential issue with your order, I can offer:\n\n• **Full credit** to your Soobér Wallet (instant)\n• **Partial refund** to original payment method (1-2 business days)\n• **Connect to Agent Sarah** for a detailed review\n\nWhich would you prefer?",
-        "I see the missing item — Organic 2% Milk ($5.99) from Pino's. I've already issued a $5.99 credit to your Soobér Wallet. Is there anything else I can help with?",
-    ],
-    greeting: [
-        "Hi there! I'm the Soobér AI Copilot, powered by local M2 Ultra compute right here in the Soo. How can I help you today?",
-        "Welcome back! I can see you're a valued member. How can I assist you today?",
-    ],
-    agent: [
-        "Absolutely — connecting you with a live agent right now. Agent Sarah C. is based right here in Sault Ste. Marie and will have full context of our conversation. One moment...",
-    ],
-    thanks: [
-        "You're very welcome! Remember, you can always access support through the app or type here. Have a great day! 💚",
-    ],
-    delivery: [
-        "Great news — we now deliver to Garden River First Nation, Goulais River, and Echo Bay! Premium rates apply for extended distance, but every restaurant and market vendor is available. Want me to update your delivery address?",
-    ],
-    fallback: [
-        "I'm not quite sure about that one. Let me connect you with a live agent who can help — they're local to Sault Ste. Marie and will have the answer. Would you like me to transfer?",
-    ],
-};
-
-function getAIResponse(text) {
-    const t = text.toLowerCase();
-    if (t.includes('where') || t.includes('status') || t.includes('track') || t.includes('how long') || t.includes('driver') || t.includes('eta'))
-        return AI_RESPONSES.tracking[Math.floor(Math.random() * AI_RESPONSES.tracking.length)];
-    if (t.includes('refund') || t.includes('cancel') || t.includes('wrong') || t.includes('missing') || t.includes('cold') || t.includes('late'))
-        return AI_RESPONSES.refund[Math.floor(Math.random() * AI_RESPONSES.refund.length)];
-    if (t.includes('hello') || t.includes('hi') || t.includes('hey'))
-        return AI_RESPONSES.greeting[Math.floor(Math.random() * AI_RESPONSES.greeting.length)];
-    if (t.includes('agent') || t.includes('human') || t.includes('real person') || t.includes('representative') || t.includes('talk to'))
-        return AI_RESPONSES.agent[0];
-    if (t.includes('thank') || t.includes('ok') || t.includes('perfect') || t.includes('great'))
-        return AI_RESPONSES.thanks[0];
-    if (t.includes('garden river') || t.includes('goulais') || t.includes('echo bay') || t.includes('deliver to'))
-        return AI_RESPONSES.delivery[0];
-    return AI_RESPONSES.fallback[0];
-}
+// ══════════════════════════════════════════════════════════════════════════════
+// QUICK ACTION CHIPS
+// ══════════════════════════════════════════════════════════════════════════════
 
 const QUICK_ACTIONS = [
     { label: '📍 Where is my order?', message: 'Where is my order right now?' },
     { label: '💳 I need a refund', message: 'I need a refund for my last order' },
-    { label: '🗣️ Talk to an agent', message: 'Can I talk to a real person?' },
-    { label: '🚗 Track my ride', message: 'Where is my driver right now?' },
+    { label: '🚗 Book a ride', message: 'I want to book a ride' },
+    { label: '🏆 My rewards', message: 'What are my rewards and loyalty status?' },
     { label: '📦 Missing items', message: 'My order is missing items' },
-    { label: '🏘️ Delivery to Garden River?', message: 'Do you deliver to Garden River First Nation?' },
+    { label: '🤝 Talk to agent', message: 'Can I talk to a real person?' },
+    { label: '✈️ Airport transfer', message: 'I need an airport transfer' },
+    { label: '🏘️ Community marketplace', message: 'Tell me about the community marketplace' },
 ];
 
-export default function CustomerSupport() {
-    const [chatMode, setChatMode] = useState("ai");
-    const messagesEndRef = useRef(null);
-    const [messages, setMessages] = useState([
-        {
-            id: 1, sender: "system", role: "ai", name: "Soobér Copilot",
-            text: "Hi! I'm the Soobér AI Copilot — powered by local compute right here in the Soo. I can see your recent activity and I'm ready to help. What's on your mind?"
-        }
-    ]);
-    const [inputText, setInputText] = useState("");
+export default function SupportPage() {
+    const { theme } = useTheme();
+    const [isMobile, setIsMobile] = useState(false);
+    const [chatMode, setChatMode] = useState('ai');
+    const [messages, setMessages] = useState([]);
+    const [inputText, setInputText] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [showQuickActions, setShowQuickActions] = useState(true);
+    const contextRef = useRef(new ConversationContext());
+    const messagesEndRef = useRef(null);
+    const inputRef = useRef(null);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    const isDark = theme.bg === '#09090b' || theme.bg === '#000';
+    const accent = '#00ccff';
 
-    useEffect(() => { scrollToBottom(); }, [messages]);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
 
-    const handleSend = (e, overrideText) => {
+    // Initial greeting
+    useEffect(() => {
+        const hour = new Date().getHours();
+        const timeGreeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+        setMessages([{
+            id: 1, sender: 'system', role: 'ai', name: 'Soobér Copilot',
+            text: `${timeGreeting}! 👋 I'm the **Soobér AI Copilot** — powered by local M2 Ultra compute right here in the Soo.\n\nI can help with order tracking, refunds, ride booking, rewards, and much more. What can I do for you?`,
+            suggestions: ['Where is my order?', 'I need a refund', 'Book a ride', 'Check my rewards'],
+            timestamp: Date.now(),
+        }]);
+    }, []);
+
+    const scrollToBottom = useCallback(() => {
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+    }, []);
+
+    useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
+
+    const handleSend = useCallback((e, overrideText) => {
         if (e) e.preventDefault();
         const userText = (overrideText || inputText).trim();
         if (!userText) return;
 
-        const newUserMsg = { id: Date.now(), sender: "user", text: userText };
-        setMessages(prev => [...prev, newUserMsg]);
-        setInputText("");
+        // Add user message
+        const userMsg = {
+            id: Date.now(), sender: 'user', text: userText,
+            timestamp: Date.now(),
+        };
+        setMessages(prev => [...prev, userMsg]);
+        setInputText('');
         setIsTyping(true);
+        setShowQuickActions(false);
 
+        // Process through AI engine
         setTimeout(() => {
             if (chatMode === 'ai') {
-                const responseText = getAIResponse(userText);
+                const result = processMessage(userText, contextRef.current);
 
-                // Check if user wants an agent
-                if (userText.toLowerCase().includes('agent') || userText.toLowerCase().includes('human') || userText.toLowerCase().includes('real person')) {
-                    setTimeout(() => setChatMode('human'), 2500);
+                const aiMsg = {
+                    id: Date.now() + 1,
+                    sender: 'system',
+                    role: 'ai',
+                    name: 'Soobér Copilot',
+                    text: result.response.text,
+                    actions: result.response.actions,
+                    suggestions: result.response.suggestions,
+                    card: result.response.card,
+                    intent: result.intent,
+                    confidence: result.confidence,
+                    sentiment: result.sentiment?.label,
+                    timestamp: Date.now(),
+                };
+                setMessages(prev => [...prev, aiMsg]);
+
+                // Auto-escalate if intent is to talk to agent
+                if (result.response.meta?.switchToHuman) {
+                    setTimeout(() => {
+                        setChatMode('human');
+                        setMessages(prev => [...prev, {
+                            id: Date.now() + 2,
+                            sender: 'system', role: 'human', name: 'Agent Sarah C.',
+                            text: "Hi there! I'm Sarah, based right here in Sault Ste. Marie. I've reviewed your full conversation with our AI Copilot and have all the context. How can I help?",
+                            timestamp: Date.now(),
+                        }]);
+                    }, 2500);
                 }
-
-                const aiResponse = {
-                    id: Date.now() + 1,
-                    sender: "system",
-                    role: "ai",
-                    name: "Soobér Copilot",
-                    text: responseText,
-                };
-                setMessages(prev => [...prev, aiResponse]);
             } else {
-                const agentResponse = {
+                // Human agent mode
+                const agentResponses = [
+                    "Absolutely, let me look into that for you right away. I can see your full history here.",
+                    "I understand completely. Let me pull up the details and get this sorted.",
+                    "Great question! Here's what I can tell you...",
+                ];
+                setMessages(prev => [...prev, {
                     id: Date.now() + 1,
-                    sender: "system",
-                    role: "human",
-                    name: "Agent Sarah C.",
-                    text: "Hi there! I'm taking over from the AI. I've got the full context of your conversation. Let me look into this for you right away.",
-                };
-                setMessages(prev => [...prev, agentResponse]);
+                    sender: 'system', role: 'human', name: 'Agent Sarah C.',
+                    text: agentResponses[Math.floor(Math.random() * agentResponses.length)],
+                    timestamp: Date.now(),
+                }]);
             }
             setIsTyping(false);
-        }, 800 + Math.random() * 900);
+        }, 600 + Math.random() * 800);
+    }, [inputText, chatMode]);
+
+    const handleActionClick = useCallback((action) => {
+        if (action.type === 'link') {
+            window.location.href = action.href;
+        } else if (action.action === 'escalate') {
+            handleSend(null, 'I want to talk to a real person');
+        } else {
+            // Simulate action confirmation
+            setMessages(prev => [...prev, {
+                id: Date.now(),
+                sender: 'system', role: 'ai', name: 'Soobér Copilot',
+                text: `✅ Done! I've initiated **${action.label.replace(/^[^\w]+/, '')}** for you. You should see the update shortly.`,
+                timestamp: Date.now(),
+            }]);
+        }
+    }, [handleSend]);
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // RENDER
+    // ══════════════════════════════════════════════════════════════════════════
+
+    const renderMarkdown = (text) => {
+        // Simple bold + newline support
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br />');
     };
 
     return (
-        <div className={styles.supportContainer}>
-            <div className={styles.chatBox}>
-                <header className={styles.chatHeader}>
-                    <div className={styles.headerLeft}>
-                        <h1 className={styles.title}>Soobér Support Center</h1>
-                        <span className={styles.subtitle}>
-                            {chatMode === 'ai' ? '◆ AI Copilot Active • Local Compute' : '● Live Agent — Sarah C. (Sault Ste. Marie)'}
-                        </span>
-                    </div>
-                    <div className={styles.headerRight}>
-                        <button
-                            className={`${styles.pillBtn} ${chatMode === 'ai' ? styles.active : ''}`}
-                            onClick={() => setChatMode('ai')}
-                        >
-                            <div className={styles.statusIndicator} style={{ marginRight: '0.5rem', background: '#00ccff', boxShadow: '0 0 8px #00ccff' }}></div>
-                            AI Copilot
-                        </button>
-                        <button
-                            className={`${styles.pillBtn} ${chatMode === 'human' ? styles.active : ''}`}
-                            onClick={() => setChatMode('human')}
-                        >
-                            <div className={styles.statusIndicator} style={{ marginRight: '0.5rem' }}></div>
-                            Live Agent
-                        </button>
-                    </div>
-                </header>
+        <div style={{ minHeight: '100vh', background: theme.bg, display: 'flex', flexDirection: 'column' }}>
 
-                {/* Quick Actions */}
-                <div className={styles.quickActions}>
-                    {QUICK_ACTIONS.map((action, i) => (
-                        <button key={i} className={styles.quickBtn} onClick={() => handleSend(null, action.message)}>
-                            {action.label}
+            {/* ═══ CHAT CONTAINER ═══ */}
+            <div style={{
+                flex: 1, maxWidth: 960, width: '100%', margin: '0 auto',
+                display: 'flex', flexDirection: 'column',
+                paddingTop: isMobile ? 60 : 70,
+                height: 'calc(100vh - 0px)',
+            }}>
+
+                {/* ─── Header ─── */}
+                <div style={{
+                    padding: isMobile ? '12px 16px' : '16px 24px',
+                    borderBottom: `1px solid ${theme.borderSubtle}`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)',
+                    flexShrink: 0,
+                }}>
+                    <div>
+                        <h1 style={{
+                            fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                            fontSize: isMobile ? 18 : 22, color: theme.text, margin: 0,
+                            letterSpacing: '-0.03em',
+                        }}>
+                            Soobér Support
+                        </h1>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 2 }}>
+                            <div style={{
+                                width: 7, height: 7, borderRadius: '50%',
+                                background: chatMode === 'ai' ? accent : '#22c55e',
+                                boxShadow: `0 0 8px ${chatMode === 'ai' ? accent : '#22c55e'}`,
+                            }} />
+                            <span style={{ fontSize: 11, color: theme.textMuted, fontWeight: 600 }}>
+                                {chatMode === 'ai' ? 'AI Copilot • Local Compute • M2 Ultra' : 'Live Agent — Sarah C. • Sault Ste. Marie'}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Mode Toggle */}
+                    <div style={{ display: 'flex', gap: 6 }}>
+                        <button onClick={() => setChatMode('ai')} style={{
+                            padding: '6px 14px', borderRadius: 10, border: 'none', cursor: 'pointer',
+                            background: chatMode === 'ai' ? accent : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'),
+                            color: chatMode === 'ai' ? '#000' : theme.textMuted,
+                            fontSize: 12, fontWeight: 700, fontFamily: "'DM Sans', sans-serif",
+                            transition: 'all 0.2s',
+                        }}>
+                            ◆ AI
                         </button>
-                    ))}
+                        <button onClick={() => setChatMode('human')} style={{
+                            padding: '6px 14px', borderRadius: 10, border: 'none', cursor: 'pointer',
+                            background: chatMode === 'human' ? '#22c55e' : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'),
+                            color: chatMode === 'human' ? '#000' : theme.textMuted,
+                            fontSize: 12, fontWeight: 700, fontFamily: "'DM Sans', sans-serif",
+                            transition: 'all 0.2s',
+                        }}>
+                            ● Agent
+                        </button>
+                    </div>
                 </div>
 
-                <div className={styles.chatArea}>
+                {/* ─── Quick Actions Bar ─── */}
+                {showQuickActions && (
+                    <div style={{
+                        display: 'flex', gap: 6, padding: '10px 16px',
+                        overflowX: 'auto', WebkitOverflowScrolling: 'touch',
+                        borderBottom: `1px solid ${theme.borderSubtle}`,
+                        background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)',
+                        flexShrink: 0, scrollbarWidth: 'none',
+                    }}>
+                        {QUICK_ACTIONS.map((qa, i) => (
+                            <button key={i} onClick={() => handleSend(null, qa.message)} style={{
+                                whiteSpace: 'nowrap', padding: '6px 12px', borderRadius: 8,
+                                border: `1px solid ${theme.borderSubtle}`,
+                                background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)',
+                                color: theme.textMuted, fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                                fontFamily: "'DM Sans', sans-serif", transition: 'all 0.2s',
+                            }}
+                                onMouseEnter={(e) => { e.currentTarget.style.background = `${accent}15`; e.currentTarget.style.borderColor = `${accent}44`; e.currentTarget.style.color = accent; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)'; e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.color = theme.textMuted; }}
+                            >
+                                {qa.label}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {/* ─── Chat Messages ─── */}
+                <div style={{
+                    flex: 1, padding: isMobile ? '16px 12px' : '20px 24px',
+                    overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16,
+                }}>
                     {messages.map((msg) => (
-                        <div key={msg.id} className={`${styles.messageRow} ${styles[msg.sender]} ${msg.sender === 'system' ? styles[msg.role] : ''}`}>
-                            <div className={styles.bubble}>
-                                {msg.sender === 'system' && <span className={styles.senderName}>{msg.name}</span>}
-                                <div style={{ whiteSpace: 'pre-line' }}>{msg.text}</div>
+                        <div key={msg.id} style={{
+                            display: 'flex',
+                            justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                            width: '100%',
+                        }}>
+                            <div style={{ maxWidth: isMobile ? '90%' : '75%' }}>
+
+                                {/* Sender name */}
+                                {msg.sender === 'system' && (
+                                    <div style={{
+                                        fontSize: 10, fontWeight: 700, color: theme.textFaint,
+                                        marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6,
+                                    }}>
+                                        {msg.role === 'ai' ? '◆' : '●'} {msg.name}
+                                        {msg.confidence !== undefined && (
+                                            <span style={{
+                                                fontSize: 9, padding: '1px 6px', borderRadius: 4,
+                                                background: msg.confidence > 0.6 ? 'rgba(34,197,94,0.1)' : 'rgba(234,179,8,0.1)',
+                                                color: msg.confidence > 0.6 ? '#22c55e' : '#eab308',
+                                                fontWeight: 600,
+                                            }}>
+                                                {Math.round(msg.confidence * 100)}% match
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* Message bubble */}
+                                <div style={{
+                                    padding: isMobile ? '10px 14px' : '12px 18px',
+                                    borderRadius: msg.sender === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                                    fontSize: 14, lineHeight: 1.6,
+                                    background: msg.sender === 'user'
+                                        ? (isDark ? '#fff' : '#111')
+                                        : msg.role === 'ai'
+                                            ? (isDark ? 'rgba(0,204,255,0.06)' : 'rgba(0,102,204,0.04)')
+                                            : (isDark ? 'rgba(34,197,94,0.06)' : 'rgba(34,197,94,0.04)'),
+                                    color: msg.sender === 'user'
+                                        ? (isDark ? '#000' : '#fff')
+                                        : theme.text,
+                                    border: msg.sender === 'system'
+                                        ? `1px solid ${msg.role === 'ai' ? `${accent}22` : 'rgba(34,197,94,0.15)'}`
+                                        : 'none',
+                                }}>
+                                    <div dangerouslySetInnerHTML={{ __html: renderMarkdown(msg.text) }} />
+                                </div>
+
+                                {/* Order Tracking Card */}
+                                {msg.card?.type === 'order_tracking' && (
+                                    <div style={{
+                                        marginTop: 8, padding: 14, borderRadius: 14,
+                                        background: isDark ? 'rgba(0,204,255,0.04)' : 'rgba(0,102,204,0.03)',
+                                        border: `1px solid ${accent}22`,
+                                    }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                                            <span style={{ fontSize: 12, fontWeight: 700, color: accent }}>{msg.card.orderId}</span>
+                                            <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 6, background: '#22c55e15', color: '#22c55e' }}>{msg.card.status}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: 16, fontSize: 11, color: theme.textMuted }}>
+                                            <div>🚗 {msg.card.driver}</div>
+                                            <div>🔋 {msg.card.vehicle}</div>
+                                            <div>⏱️ {msg.card.eta}</div>
+                                        </div>
+                                        {/* Progress bar */}
+                                        <div style={{ marginTop: 10, height: 4, borderRadius: 2, background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)' }}>
+                                            <div style={{ height: '100%', width: '72%', borderRadius: 2, background: `linear-gradient(90deg, ${accent}, #22c55e)`, transition: 'width 1s ease' }} />
+                                        </div>
+                                        <div style={{ fontSize: 9, color: theme.textFaint, marginTop: 4 }}>Order 72% complete — driver en route</div>
+                                    </div>
+                                )}
+
+                                {/* Action Buttons */}
+                                {msg.actions && msg.actions.length > 0 && (
+                                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+                                        {msg.actions.map((action, i) => (
+                                            action.type === 'link' ? (
+                                                <Link key={i} href={action.href} style={{
+                                                    padding: '6px 12px', borderRadius: 8, fontSize: 11,
+                                                    fontWeight: 700, textDecoration: 'none',
+                                                    background: isDark ? 'rgba(0,204,255,0.08)' : 'rgba(0,102,204,0.06)',
+                                                    border: `1px solid ${accent}33`,
+                                                    color: accent, fontFamily: "'DM Sans', sans-serif",
+                                                    transition: 'all 0.2s',
+                                                }}>
+                                                    {action.label}
+                                                </Link>
+                                            ) : (
+                                                <button key={i} onClick={() => handleActionClick(action)} style={{
+                                                    padding: '6px 12px', borderRadius: 8, fontSize: 11,
+                                                    fontWeight: 700, cursor: 'pointer',
+                                                    background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                                                    border: `1px solid ${theme.borderSubtle}`,
+                                                    color: theme.textMuted, fontFamily: "'DM Sans', sans-serif",
+                                                    transition: 'all 0.2s',
+                                                }}
+                                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${accent}44`; e.currentTarget.style.color = accent; }}
+                                                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.color = theme.textMuted; }}
+                                                >
+                                                    {action.label}
+                                                </button>
+                                            )
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Suggestion Chips */}
+                                {msg.suggestions && msg.suggestions.length > 0 && (
+                                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 6 }}>
+                                        {msg.suggestions.map((s, i) => (
+                                            <button key={i} onClick={() => handleSend(null, s)} style={{
+                                                padding: '4px 10px', borderRadius: 6, fontSize: 10,
+                                                fontWeight: 600, cursor: 'pointer',
+                                                background: 'transparent',
+                                                border: `1px dashed ${theme.borderSubtle}`,
+                                                color: theme.textFaint, fontFamily: "'DM Sans', sans-serif",
+                                                transition: 'all 0.2s',
+                                            }}
+                                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${accent}44`; e.currentTarget.style.color = accent; e.currentTarget.style.borderStyle = 'solid'; }}
+                                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.color = theme.textFaint; e.currentTarget.style.borderStyle = 'dashed'; }}
+                                            >
+                                                {s}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Timestamp */}
+                                {msg.timestamp && (
+                                    <div style={{ fontSize: 9, color: theme.textFaint, marginTop: 4, opacity: 0.6 }}>
+                                        {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}
+
+                    {/* Typing Indicator */}
                     {isTyping && (
-                        <div className={`${styles.messageRow} ${styles.system} ${styles[chatMode === 'ai' ? 'ai' : 'human']}`}>
-                            <div className={styles.bubble}>
-                                <span className={styles.senderName}>{chatMode === 'ai' ? 'Soobér Copilot' : 'Agent Sarah C.'}</span>
-                                <div className={styles.typingIndicator}>
-                                    <span></span><span></span><span></span>
+                        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                            <div style={{ maxWidth: '75%' }}>
+                                <div style={{ fontSize: 10, fontWeight: 700, color: theme.textFaint, marginBottom: 4 }}>
+                                    {chatMode === 'ai' ? '◆ Soobér Copilot' : '● Agent Sarah C.'}
+                                </div>
+                                <div style={{
+                                    padding: '12px 18px', borderRadius: '16px 16px 16px 4px',
+                                    background: isDark ? 'rgba(0,204,255,0.06)' : 'rgba(0,102,204,0.04)',
+                                    border: `1px solid ${chatMode === 'ai' ? `${accent}22` : 'rgba(34,197,94,0.15)'}`,
+                                    display: 'flex', gap: 4, alignItems: 'center',
+                                }}>
+                                    {[0, 1, 2].map(i => (
+                                        <div key={i} style={{
+                                            width: 6, height: 6, borderRadius: '50%',
+                                            background: chatMode === 'ai' ? accent : '#22c55e',
+                                            animation: 'typingBounce 1.4s infinite ease-in-out',
+                                            animationDelay: `${i * 0.16}s`,
+                                        }} />
+                                    ))}
+                                    <style jsx>{`
+                                        @keyframes typingBounce {
+                                            0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
+                                            40% { transform: scale(1); opacity: 1; }
+                                        }
+                                    `}</style>
                                 </div>
                             </div>
                         </div>
                     )}
+
                     <div ref={messagesEndRef} />
                 </div>
 
-                <div className={styles.inputArea}>
-                    <form onSubmit={handleSend} className={styles.inputWrapper}>
+                {/* ─── Input Area ─── */}
+                <div style={{
+                    padding: isMobile ? '10px 12px' : '12px 24px',
+                    borderTop: `1px solid ${theme.borderSubtle}`,
+                    background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)',
+                    flexShrink: 0,
+                }}>
+                    <form onSubmit={handleSend} style={{
+                        display: 'flex', gap: 8, alignItems: 'center',
+                        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                        borderRadius: 14, padding: '4px 4px 4px 16px',
+                        border: `1px solid ${theme.borderSubtle}`,
+                        transition: 'border 0.2s',
+                    }}>
                         <input
+                            ref={inputRef}
                             type="text"
-                            className={styles.textInput}
                             placeholder={chatMode === 'ai' ? "Ask the AI Copilot anything..." : "Message Agent Sarah C..."}
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
+                            style={{
+                                flex: 1, background: 'transparent', border: 'none', outline: 'none',
+                                fontSize: 14, color: theme.text, fontFamily: "'Inter', sans-serif",
+                                padding: '8px 0',
+                            }}
                         />
-                        <button type="submit" className={styles.sendBtn}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="22" y1="2" x2="11" y2="13"></line>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        <button type="submit" style={{
+                            width: 36, height: 36, borderRadius: 10, border: 'none',
+                            background: inputText.trim() ? `linear-gradient(135deg, ${accent}, #0088cc)` : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'),
+                            color: inputText.trim() ? '#fff' : theme.textFaint,
+                            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            transition: 'all 0.2s', flexShrink: 0,
+                        }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
                             </svg>
                         </button>
                     </form>
-                </div>
 
-                <div className={styles.privacyFooter}>
-                    Secure Chat Environment • Processed purely on <span>Local Node #04 (M2 Ultra)</span> • 100% Data Sovereignty • Algoma District
+                    {/* Privacy footer */}
+                    <div style={{
+                        textAlign: 'center', padding: '8px 0 4px', fontSize: 10, color: theme.textFaint,
+                    }}>
+                        Encrypted • Processed on <span style={{ color: accent, fontWeight: 700 }}>Local Node #04 (M2 Ultra)</span> • 100% Data Sovereignty • Algoma District
+                    </div>
                 </div>
             </div>
         </div>
