@@ -341,45 +341,169 @@ export default function RidesPage() {
                 </div>
             </section>
 
-            {/* ═══ Fleet Roster ═══ */}
+            {/* ═══ Fleet Roster — Cinematic Showcase ═══ */}
             <section style={{ padding: isMobile ? '40px 16px' : '60px 40px', maxWidth: 1440, margin: '0 auto' }}>
                 <h2 style={{
                     fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
-                    fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
-                    color: theme.text, margin: '0 0 12px',
+                    fontSize: isMobile ? 28 : 40, letterSpacing: '-0.04em',
+                    color: theme.text, margin: '0 0 12px', textAlign: 'center',
                 }}>
                     The Soobér Fleet
                 </h2>
                 <p style={{
-                    fontSize: 15, color: theme.textMuted, margin: '0 0 32px', maxWidth: 560,
+                    fontSize: isMobile ? 15 : 17, color: theme.textMuted, margin: '0 auto 48px', maxWidth: 600,
+                    textAlign: 'center', lineHeight: 1.6,
                 }}>
-                    12 vehicles. 6 manufacturers. 100% electric or hybrid. From BYD Dolphins to Hummer EVs — the most diverse EV fleet in Northern Ontario.
+                    13 vehicles. 7 manufacturers. From BYD Dolphins to a Lamborghini Urus SE — the most diverse electrified fleet in Northern Ontario.
                 </p>
 
+                {/* ★ Lamborghini Urus SE — Crown Jewel Spotlight */}
+                {fleetRoster.filter(v => v.exclusive).map(urus => (
+                    <div key={urus.id} style={{
+                        marginBottom: 48, borderRadius: 28, overflow: 'hidden',
+                        background: 'linear-gradient(135deg, #0a0a0a, #1a1a1a)',
+                        border: '1px solid rgba(234,179,8,0.2)',
+                        boxShadow: '0 12px 48px rgba(0,0,0,0.4)',
+                        position: 'relative',
+                    }}>
+                        {/* Gold accent line */}
+                        <div style={{
+                            position: 'absolute', top: 0, left: 0, right: 0, height: 2,
+                            background: 'linear-gradient(90deg, transparent, #eab308, transparent)',
+                        }} />
+
+                        <div style={{
+                            display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+                            alignItems: 'stretch',
+                        }}>
+                            {/* Image */}
+                            <div style={{
+                                flex: isMobile ? 'auto' : '1 1 55%',
+                                minHeight: isMobile ? 240 : 380,
+                                background: `url(${urus.heroImage}) center/cover no-repeat`,
+                                position: 'relative',
+                            }}>
+                                <div style={{
+                                    position: 'absolute', inset: 0,
+                                    background: isMobile
+                                        ? 'linear-gradient(to bottom, transparent 40%, #0a0a0a)'
+                                        : 'linear-gradient(to right, transparent 60%, #0a0a0a)',
+                                }} />
+                            </div>
+
+                            {/* Copy */}
+                            <div style={{
+                                flex: isMobile ? 'auto' : '1 1 45%',
+                                padding: isMobile ? '24px 24px 32px' : '48px 48px 48px 32px',
+                                display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                            }}>
+                                <div style={{
+                                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                                    background: 'rgba(234,179,8,0.1)', border: '1px solid rgba(234,179,8,0.3)',
+                                    borderRadius: 100, padding: '5px 14px', marginBottom: 16,
+                                    alignSelf: 'flex-start',
+                                }}>
+                                    <span style={{ fontSize: 12 }}>★</span>
+                                    <span style={{ fontSize: 11, fontWeight: 800, color: '#eab308', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                                        Executive Exclusive
+                                    </span>
+                                </div>
+
+                                <div style={{ fontSize: 12, fontWeight: 600, color: '#a1a1aa', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                                    {urus.year} {urus.make}
+                                </div>
+                                <h3 style={{
+                                    fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                                    fontSize: isMobile ? 32 : 42, color: '#fafafa', margin: '0 0 8px',
+                                    letterSpacing: '-0.04em', lineHeight: 1.05,
+                                }}>
+                                    {urus.model}
+                                </h3>
+                                <p style={{
+                                    fontSize: 18, fontStyle: 'italic', color: '#eab308',
+                                    margin: '0 0 16px', fontFamily: "'DM Sans', sans-serif",
+                                    letterSpacing: '-0.01em',
+                                }}>
+                                    "{urus.tagline}"
+                                </p>
+                                <p style={{
+                                    fontSize: 14, color: '#a1a1aa', lineHeight: 1.7, margin: '0 0 24px',
+                                }}>
+                                    {urus.description}
+                                </p>
+
+                                {/* Specs row */}
+                                <div style={{ display: 'flex', gap: isMobile ? 16 : 28, flexWrap: 'wrap', marginBottom: 20 }}>
+                                    {[
+                                        { val: '789 HP', label: 'Power' },
+                                        { val: '3.4s', label: '0-100 km/h' },
+                                        { val: urus.msrp, label: 'MSRP' },
+                                        { val: `${urus.seats} seats`, label: 'Capacity' },
+                                    ].map((s, i) => (
+                                        <div key={i}>
+                                            <div style={{ fontSize: 20, fontWeight: 800, color: '#fafafa', fontFamily: "'DM Sans', sans-serif" }}>{s.val}</div>
+                                            <div style={{ fontSize: 11, color: '#71717a' }}>{s.label}</div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Highlights */}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                                    {urus.highlights.map((h, i) => (
+                                        <span key={i} style={{
+                                            fontSize: 10, fontWeight: 700, color: '#eab308',
+                                            background: 'rgba(234,179,8,0.08)', border: '1px solid rgba(234,179,8,0.2)',
+                                            borderRadius: 8, padding: '4px 10px',
+                                        }}>
+                                            {h}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+
+                {/* Fleet Grid — All vehicles */}
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-                    gap: 16,
+                    gap: 20,
                 }}>
-                    {fleetRoster.map((vehicle) => (
+                    {fleetRoster.filter(v => !v.exclusive).map((vehicle) => (
                         <div key={vehicle.id} style={{
                             background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
                             borderRadius: 20, overflow: 'hidden',
                             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                         }}
-                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = `0 8px 28px rgba(0,0,0,0.1)`; }}
+                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 12px 36px rgba(0,0,0,0.12)`; }}
                             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                         >
-                            <div style={{
-                                background: `linear-gradient(135deg, ${vehicle.color}dd, ${vehicle.color}88)`,
-                                padding: '28px 20px', textAlign: 'center',
-                            }}>
-                                <span style={{ fontSize: 44, filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.2))' }}>
-                                    {vehicle.emoji}
-                                </span>
-                            </div>
-                            <div style={{ padding: '18px 20px' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                            {/* Image or Gradient fallback */}
+                            {vehicle.heroImage ? (
+                                <div style={{
+                                    height: 200,
+                                    background: `url(${vehicle.heroImage}) center/cover no-repeat`,
+                                    position: 'relative',
+                                }}>
+                                    <div style={{
+                                        position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%',
+                                        background: `linear-gradient(transparent, ${isDark ? theme.bgCard : '#fff'})`,
+                                    }} />
+                                </div>
+                            ) : (
+                                <div style={{
+                                    background: `linear-gradient(135deg, ${vehicle.color}dd, ${vehicle.color}88)`,
+                                    padding: '32px 20px', textAlign: 'center',
+                                }}>
+                                    <span style={{ fontSize: 48, filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.2))' }}>
+                                        {vehicle.emoji}
+                                    </span>
+                                </div>
+                            )}
+
+                            <div style={{ padding: '18px 22px 22px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                                     <span style={{ fontSize: 11, fontWeight: 600, color: theme.textFaint, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                         {vehicle.year} {vehicle.make}
                                     </span>
@@ -392,19 +516,42 @@ export default function RidesPage() {
                                 </div>
                                 <h4 style={{
                                     fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-                                    fontSize: 18, color: theme.text, margin: '2px 0 6px', letterSpacing: '-0.02em',
+                                    fontSize: 20, color: theme.text, margin: '2px 0 4px', letterSpacing: '-0.02em',
                                 }}>
                                     {vehicle.model}
                                 </h4>
-                                <p style={{ fontSize: 12, color: theme.textMuted, lineHeight: 1.5, margin: '0 0 10px' }}>
+                                {vehicle.tagline && (
+                                    <p style={{
+                                        fontSize: 13, fontStyle: 'italic', color: electric,
+                                        margin: '0 0 8px', fontWeight: 500,
+                                    }}>
+                                        "{vehicle.tagline}"
+                                    </p>
+                                )}
+                                <p style={{ fontSize: 12, color: theme.textMuted, lineHeight: 1.5, margin: '0 0 12px' }}>
                                     {vehicle.type} · {vehicle.seats} seats · {vehicle.range}
                                 </p>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                                    {vehicle.tier.map((t, i) => (
+
+                                {/* Highlights */}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 12 }}>
+                                    {vehicle.highlights.slice(0, 3).map((h, i) => (
                                         <span key={i} style={{
                                             fontSize: 10, fontWeight: 600, color: theme.textMuted,
                                             background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
                                             borderRadius: 6, padding: '3px 8px',
+                                        }}>
+                                            {h}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* Tier badges */}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                                    {vehicle.tier.map((t, i) => (
+                                        <span key={i} style={{
+                                            fontSize: 10, fontWeight: 700, color: electric,
+                                            background: electricBg, border: `1px solid ${electric}33`,
+                                            borderRadius: 8, padding: '3px 10px',
                                         }}>
                                             {t}
                                         </span>
