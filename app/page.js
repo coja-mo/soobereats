@@ -36,7 +36,11 @@ export default function Home() {
         <section style={{
           position: 'relative', paddingTop: isMobile ? 56 : 100,
           paddingBottom: isMobile ? 48 : 80,
-          overflow: 'hidden', background: theme.bg,
+          overflow: 'hidden',
+          background: theme.mode === 'dark'
+            ? 'rgba(9,9,11,0.4)'
+            : 'rgba(253,253,253,0.5)',
+          backdropFilter: 'blur(1px)', WebkitBackdropFilter: 'blur(1px)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           textAlign: 'center', transition: 'background 0.3s ease',
         }}>
