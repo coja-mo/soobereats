@@ -14,6 +14,8 @@ export default function RidesPage() {
     const [selectedVehicle, setSelectedVehicle] = useState('comfort');
     const [showEstimate, setShowEstimate] = useState(false);
     const [scheduleMode, setScheduleMode] = useState(false);
+    const [selectedDest, setSelectedDest] = useState(null);
+    const [selectedSafety, setSelectedSafety] = useState(null);
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -568,10 +570,13 @@ export default function RidesPage() {
                 <h2 style={{
                     fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
                     fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
-                    color: theme.text, margin: '0 0 24px',
+                    color: theme.text, margin: '0 0 8px',
                 }}>
                     Popular destinations
                 </h2>
+                <p style={{ fontSize: 14, color: theme.textMuted, margin: '0 0 24px' }}>
+                    Tap any destination for details, tips, and features
+                </p>
 
                 <div style={{
                     display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
@@ -580,7 +585,7 @@ export default function RidesPage() {
                     {popularDestinations.map((dest, i) => (
                         <button
                             key={i}
-                            onClick={() => { setDropoff(dest.name); }}
+                            onClick={() => setSelectedDest(dest)}
                             style={{
                                 background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
                                 borderRadius: 16, padding: '16px', textAlign: 'left', cursor: 'pointer',
@@ -599,10 +604,87 @@ export default function RidesPage() {
                             <span style={{ fontSize: 13, color: electric, fontWeight: 600, marginTop: 4, display: 'block' }}>
                                 {dest.estimate}
                             </span>
+                            <span style={{ fontSize: 11, color: theme.textMuted, marginTop: 4, display: 'block' }}>Tap for details →</span>
                         </button>
                     ))}
                 </div>
             </section>
+
+            {/* ═══ Destination Detail Modal ═══ */}
+            {selectedDest && (
+                <div onClick={() => setSelectedDest(null)} style={{
+                    position: 'fixed', inset: 0, zIndex: 9999,
+                    background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    padding: 20, animation: 'fadeIn 0.2s ease',
+                }}>
+                    <div onClick={(e) => e.stopPropagation()} style={{
+                        background: isDark ? '#18181b' : '#fff',
+                        borderRadius: 24, maxWidth: 520, width: '100%',
+                        border: `1px solid ${theme.borderSubtle}`,
+                        boxShadow: '0 24px 64px rgba(0,0,0,0.4)',
+                        overflow: 'hidden', animation: 'slideUp 0.3s ease',
+                    }}>
+                        {/* Header */}
+                        <div style={{
+                            background: `linear-gradient(135deg, ${electric}15, ${electric}05)`,
+                            padding: '28px 28px 20px', borderBottom: `1px solid ${theme.borderSubtle}`,
+                        }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                <div>
+                                    <span style={{ fontSize: 36, display: 'block', marginBottom: 8 }}>{selectedDest.emoji}</span>
+                                    <h3 style={{
+                                        fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                                        fontSize: 22, color: theme.text, margin: '0 0 4px', letterSpacing: '-0.02em',
+                                    }}>
+                                        {selectedDest.name}
+                                    </h3>
+                                    <span style={{ fontSize: 22, fontWeight: 800, color: electric }}>{selectedDest.estimate}</span>
+                                </div>
+                                <button onClick={() => setSelectedDest(null)} style={{
+                                    background: 'none', border: 'none', color: theme.textMuted,
+                                    fontSize: 24, cursor: 'pointer', padding: 4,
+                                }}>✕</button>
+                            </div>
+                        </div>
+                        {/* Body */}
+                        <div style={{ padding: '24px 28px' }}>
+                            <p style={{ fontSize: 12, color: theme.textFaint, margin: '0 0 4px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Address</p>
+                            <p style={{ fontSize: 14, color: theme.text, margin: '0 0 16px', lineHeight: 1.4 }}>{selectedDest.address}</p>
+
+                            <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 16px' }}>{selectedDest.description}</p>
+
+                            <div style={{
+                                background: isDark ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.06)',
+                                border: '1px solid rgba(16,185,129,0.2)',
+                                borderRadius: 12, padding: '12px 16px', marginBottom: 16,
+                            }}>
+                                <span style={{ fontSize: 12, fontWeight: 700, color: '#10b981', display: 'block', marginBottom: 4 }}>💡 Pro Tip</span>
+                                <span style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.5 }}>{selectedDest.tip}</span>
+                            </div>
+
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                                {selectedDest.features.map((f, i) => (
+                                    <span key={i} style={{
+                                        fontSize: 11, fontWeight: 600, color: electric,
+                                        background: electricBg, border: `1px solid ${electric}33`,
+                                        borderRadius: 8, padding: '4px 10px',
+                                    }}>{f}</span>
+                                ))}
+                            </div>
+
+                            <button onClick={() => { setDropoff(selectedDest.name); setSelectedDest(null); }} style={{
+                                marginTop: 20, width: '100%', padding: '14px',
+                                background: electric, color: '#fff', border: 'none',
+                                borderRadius: 14, fontWeight: 700, fontSize: 15,
+                                cursor: 'pointer', fontFamily: "'DM Sans', sans-serif",
+                            }}>
+                                Ride here — {selectedDest.estimate}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* ═══ Safety Section ═══ */}
             <section style={{
@@ -626,7 +708,7 @@ export default function RidesPage() {
                         fontSize: 15, color: theme.textMuted, textAlign: 'center',
                         margin: '0 auto 36px', maxWidth: 420,
                     }}>
-                        Every ride supports the local economy and produces zero tailpipe emissions
+                        Every ride supports the local economy and produces zero tailpipe emissions. Tap to learn more.
                     </p>
 
                     <div style={{
@@ -634,11 +716,19 @@ export default function RidesPage() {
                         gap: 20,
                     }}>
                         {safetyFeatures.map((sf, i) => (
-                            <div key={i} style={{
-                                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
-                                borderRadius: 16, padding: 20, textAlign: 'center',
-                                border: `1px solid ${theme.borderSubtle}`,
-                            }}>
+                            <div key={i}
+                                onClick={() => setSelectedSafety(selectedSafety?.title === sf.title ? null : sf)}
+                                style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
+                                    borderRadius: 16, padding: 20, textAlign: 'center',
+                                    border: selectedSafety?.title === sf.title ? `1px solid ${electric}` : `1px solid ${theme.borderSubtle}`,
+                                    cursor: 'pointer', transition: 'all 0.3s ease',
+                                    transform: selectedSafety?.title === sf.title ? 'translateY(-2px)' : 'none',
+                                    boxShadow: selectedSafety?.title === sf.title ? `0 8px 24px ${electric}22` : 'none',
+                                }}
+                                onMouseEnter={(e) => { if (selectedSafety?.title !== sf.title) e.currentTarget.style.borderColor = `${electric}66`; }}
+                                onMouseLeave={(e) => { if (selectedSafety?.title !== sf.title) e.currentTarget.style.borderColor = theme.borderSubtle; }}
+                            >
                                 <span style={{ fontSize: 28, display: 'block', marginBottom: 12 }}>{sf.emoji}</span>
                                 <h4 style={{
                                     fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
@@ -651,6 +741,25 @@ export default function RidesPage() {
                                 }}>
                                     {sf.description}
                                 </p>
+                                {selectedSafety?.title === sf.title && sf.details && (
+                                    <div style={{
+                                        marginTop: 16, textAlign: 'left',
+                                        borderTop: `1px solid ${theme.borderSubtle}`, paddingTop: 12,
+                                        animation: 'fadeIn 0.3s ease',
+                                    }}>
+                                        {sf.details.map((d, j) => (
+                                            <div key={j} style={{
+                                                display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 8,
+                                            }}>
+                                                <span style={{ color: electric, fontWeight: 700, fontSize: 12, marginTop: 1 }}>✓</span>
+                                                <span style={{ fontSize: 12, color: theme.textMuted, lineHeight: 1.4 }}>{d}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                <span style={{ display: 'block', fontSize: 11, color: electric, fontWeight: 600, marginTop: 10 }}>
+                                    {selectedSafety?.title === sf.title ? 'Tap to close ▲' : 'Tap to learn more ▼'}
+                                </span>
                             </div>
                         ))}
                     </div>

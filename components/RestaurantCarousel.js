@@ -7,6 +7,7 @@ export const RestaurantCarousel = ({ restaurants }) => {
     const scrollRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
     const { theme } = useTheme();
 
     const checkScroll = () => {
@@ -18,21 +19,24 @@ export const RestaurantCarousel = ({ restaurants }) => {
     };
 
     useEffect(() => {
-        checkScroll();
-        window.addEventListener('resize', checkScroll);
-        return () => window.removeEventListener('resize', checkScroll);
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+            checkScroll();
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {
-        // Re-check scroll on content change
         checkScroll();
     }, [restaurants]);
 
     const scroll = (direction) => {
         if (scrollRef.current) {
-            const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 800;
+            const scrollAmount = isMobile ? window.innerWidth * 0.8 : 800;
             scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-            setTimeout(checkScroll, 400); // Wait for smooth scroll to finish
+            setTimeout(checkScroll, 400);
         }
     };
 
@@ -80,7 +84,7 @@ export const RestaurantCarousel = ({ restaurants }) => {
                     <div
                         key={restaurant.id}
                         style={{
-                            minWidth: window.innerWidth < 768 ? '85vw' : '360px',
+                            minWidth: isMobile ? '85vw' : '360px',
                             flexShrink: 0,
                             scrollSnapAlign: 'start',
                         }}
