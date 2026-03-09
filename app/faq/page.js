@@ -54,6 +54,27 @@ const faqCategories = [
             { q: 'Do you provide a tablet or POS system?', a: 'Yes! We provide a Kitchen Display System (KDS) accessible from any device. It shows incoming orders in real-time with a kanban-style interface.' },
         ]
     },
+    {
+        title: 'Soob\u00e9r Rides',
+        icon: '\u26a1',
+        questions: [
+            { q: 'How does ride booking work?', a: 'Enter your pickup and dropoff addresses on the Rides page. Real addresses auto-populate via GPS, and we calculate the exact route, distance, time, and fare before you confirm.' },
+            { q: 'Is there surge pricing?', a: 'Never. Soob\u00e9r Rides uses flat-rate pricing based on distance and time. No surge, no surge multipliers, no demand pricing. The price you see is the price you pay.' },
+            { q: 'What vehicle classes are available?', a: 'We offer Economy, Comfort, Premium, XL (6+ passengers), and Luxury. Each class has different pricing and vehicle models ranging from the Chevy Equinox EV to the Cadillac VISTIQ.' },
+            { q: 'How do airport transfers work?', a: 'Airport transfers to/from YAM (Sault Ste. Marie Airport) use fixed zone-based pricing. Select your zone, choose your vehicle, and book in advance. We even track your flight number.' },
+            { q: 'Can I rent electric scooters?', a: 'Yes! Soob\u00e9r offers boardwalk electric scooter rentals along the waterfront. Unlock via the app, ride along the boardwalk, and return to any designated dock.' },
+        ]
+    },
+    {
+        title: 'Community',
+        icon: '\ud83c\udfe0',
+        questions: [
+            { q: 'What is the Community Marketplace?', a: 'It\'s a free platform for local sellers \u2014 home bakers, crafters, second-hand sellers, and more. Think Kijiji meets farmers market meets Facebook Marketplace, with Soob\u00e9r\'s local focus.' },
+            { q: 'Does it cost anything to sell?', a: 'No! The Community Marketplace is free forever. No listing fees, no commission, no monthly charges. It\'s our gift to the community.' },
+            { q: 'How does AI moderation work?', a: 'All listings are automatically reviewed by our AI moderation system. It checks for prohibited items, inappropriate content, and suspicious activity to keep everyone safe.' },
+            { q: 'Can I sell used items?', a: 'Absolutely. Clothing, furniture, vehicles, electronics, collectibles \u2014 you name it. It\'s like a digital Value Village for the Soo.' },
+        ]
+    },
 ];
 
 export default function FAQPage() {
@@ -61,6 +82,12 @@ export default function FAQPage() {
     const [isMobile, setIsMobile] = useState(false);
     const [activeCategory, setActiveCategory] = useState(0);
     const [openQuestion, setOpenQuestion] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Filter questions by search
+    const filteredQuestions = searchQuery.length >= 2
+        ? faqCategories.flatMap(cat => cat.questions.map(q => ({ ...q, category: cat.title, icon: cat.icon }))).filter(q => q.q.toLowerCase().includes(searchQuery.toLowerCase()) || q.a.toLowerCase().includes(searchQuery.toLowerCase()))
+        : null;
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -87,28 +114,54 @@ export default function FAQPage() {
 
             <div style={{ maxWidth: 900, margin: '0 auto', padding: pad, paddingTop: isMobile ? 24 : 40 }}>
 
-                {/* Category Tabs */}
-                <div style={{
-                    display: 'flex', gap: 6, overflowX: 'auto', WebkitOverflowScrolling: 'touch',
-                    paddingBottom: 4, marginBottom: isMobile ? 20 : 32,
-                }}>
-                    {faqCategories.map((cat, i) => (
-                        <button key={cat.title} onClick={() => { setActiveCategory(i); setOpenQuestion(null); }} style={{
-                            padding: isMobile ? '10px 16px' : '12px 22px', borderRadius: 100, whiteSpace: 'nowrap',
-                            border: `1.5px solid ${activeCategory === i ? theme.accent : theme.borderSubtle}`,
-                            background: activeCategory === i ? theme.accentBg : 'transparent',
-                            color: activeCategory === i ? theme.accent : theme.textMuted,
-                            fontSize: isMobile ? 13 : 14, fontWeight: 700, cursor: 'pointer',
-                            transition: 'all 0.2s', fontFamily: "'DM Sans', sans-serif",
-                        }}>
-                            {cat.icon} {cat.title}
-                        </button>
-                    ))}
+                {/* Search */}
+                <div style={{ position: 'relative', marginBottom: 20 }}>
+                    <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: 16 }}>🔍</span>
+                    <input
+                        type="text" placeholder="Search all questions..."
+                        value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                        style={{
+                            width: '100%', background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 16, padding: '14px 18px 14px 44px', fontSize: 15, fontWeight: 500,
+                            color: theme.text, outline: 'none', fontFamily: "'Inter', sans-serif",
+                            transition: 'border 0.2s ease', boxSizing: 'border-box',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = theme.accent}
+                        onBlur={(e) => e.target.style.borderColor = theme.borderSubtle}
+                    />
                 </div>
+
+                {/* Category Tabs (hidden during search) */}
+                {!filteredQuestions && (
+                    <div style={{
+                        display: 'flex', gap: 6, overflowX: 'auto', WebkitOverflowScrolling: 'touch',
+                        paddingBottom: 4, marginBottom: isMobile ? 20 : 32,
+                    }}>
+                        {faqCategories.map((cat, i) => (
+                            <button key={cat.title} onClick={() => { setActiveCategory(i); setOpenQuestion(null); }} style={{
+                                padding: isMobile ? '10px 16px' : '12px 22px', borderRadius: 100, whiteSpace: 'nowrap',
+                                border: `1.5px solid ${activeCategory === i ? theme.accent : theme.borderSubtle}`,
+                                background: activeCategory === i ? theme.accentBg : 'transparent',
+                                color: activeCategory === i ? theme.accent : theme.textMuted,
+                                fontSize: isMobile ? 13 : 14, fontWeight: 700, cursor: 'pointer',
+                                transition: 'all 0.2s', fontFamily: "'DM Sans', sans-serif",
+                            }}>
+                                {cat.icon} {cat.title}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {/* Search results */}
+                {filteredQuestions && (
+                    <div style={{ marginBottom: 20 }}>
+                        <span style={{ fontSize: 13, color: theme.textFaint, fontWeight: 600 }}>{filteredQuestions.length} result{filteredQuestions.length !== 1 ? 's' : ''} found</span>
+                    </div>
+                )}
 
                 {/* Questions */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    {faqCategories[activeCategory].questions.map((faq, i) => {
+                    {(filteredQuestions || faqCategories[activeCategory].questions).map((faq, i) => {
                         const isOpen = openQuestion === i;
                         return (
                             <div key={i} style={{

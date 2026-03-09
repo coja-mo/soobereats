@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { airportZones, airportVehicles } from '../../../lib/data/rides';
 import { useTheme } from '../../../lib/ThemeContext';
 import Link from 'next/link';
@@ -16,6 +16,9 @@ export default function AirportPage() {
     const [time, setTime] = useState('');
     const [flightNumber, setFlightNumber] = useState('');
     const [booked, setBooked] = useState(false);
+    const mapContainerRef = useRef(null);
+    const mapRef = useRef(null);
+    const routeLayerRef = useRef(null);
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -37,6 +40,100 @@ export default function AirportPage() {
     const handleBook = () => {
         if (selectedZone && date && time) setBooked(true);
     };
+
+    // YAM Airport coordinates
+    const YAM = [46.4850, -84.5094];
+
+    // Zone center coordinates for map
+    const zoneCenters = {
+        'downtown': [46.5136, -84.3358],
+        'east': [46.5250, -84.2900],
+        'west': [46.5200, -84.3800],
+        'north': [46.5500, -84.3200],
+        'extended': [46.5800, -84.3000],
+    };
+
+    // Init map
+    useEffect(() => {
+        if (typeof window === 'undefined' || !mapContainerRef.current) return;
+
+        const loadMap = async () => {
+            if (!window.L) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                document.head.appendChild(link);
+                await new Promise(r => {
+                    const s = document.createElement('script');
+                    s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                    s.onload = r;
+                    document.head.appendChild(s);
+                });
+            }
+
+            if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; }
+
+            const L = window.L;
+            const map = L.map(mapContainerRef.current, {
+                center: [46.50, -84.40], zoom: 12,
+                zoomControl: false, attributionControl: false,
+            });
+
+            L.tileLayer(
+                isDark
+                    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+                    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+                { maxZoom: 18, subdomains: 'abcd' }
+            ).addTo(map);
+
+            L.control.zoom({ position: 'topright' }).addTo(map);
+
+            // Airport marker
+            const airportIcon = L.divIcon({
+                className: 'yam-marker',
+                html: `<div style="width:28px;height:28px;border-radius:8px;background:${sky};border:3px solid #fff;box-shadow:0 0 12px rgba(14,165,233,0.5);display:flex;align-items:center;justify-content:center;font-size:14px;">\u2708\ufe0f</div>`,
+                iconSize: [28, 28], iconAnchor: [14, 14],
+            });
+            L.marker(YAM, { icon: airportIcon }).addTo(map)
+                .bindPopup('<strong style="font-family:\'DM Sans\',sans-serif">YAM \u2014 Sault Ste. Marie Airport</strong>');
+
+            mapRef.current = map;
+        };
+
+        loadMap();
+        return () => { if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; } };
+    }, [isDark]);
+
+    // Update route when zone selected
+    useEffect(() => {
+        if (!mapRef.current || !window.L || !selectedZone) return;
+
+        const L = window.L;
+        const map = mapRef.current;
+
+        // Clear old route
+        if (routeLayerRef.current) { map.removeLayer(routeLayerRef.current); routeLayerRef.current = null; }
+
+        const zoneCenter = zoneCenters[selectedZone.id] || [46.5136, -84.3358];
+
+        // Zone marker
+        const zoneIcon = L.divIcon({
+            className: 'zone-marker',
+            html: `<div style="width:22px;height:22px;border-radius:50%;background:#22c55e;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
+            iconSize: [22, 22], iconAnchor: [11, 11],
+        });
+
+        // Draw line from zone to airport
+        routeLayerRef.current = L.layerGroup([
+            L.marker(zoneCenter, { icon: zoneIcon }).bindPopup(`<strong>${selectedZone.name}</strong>`),
+            L.polyline([zoneCenter, YAM], {
+                color: sky, weight: 3, opacity: 0.7, dashArray: '8 6',
+            }),
+        ]).addTo(map);
+
+        // Fit bounds
+        map.fitBounds(L.latLngBounds([zoneCenter, YAM]), { padding: [50, 50] });
+    }, [selectedZone]);
 
     return (
         <div style={{ minHeight: '100vh', background: theme.bg, transition: 'background 0.3s ease' }}>
@@ -284,6 +381,36 @@ export default function AirportPage() {
                             }}>
                                 {booked ? '✓ Transfer Booked!' : 'Book Transfer'}
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ═══ Airport Map ═══ */}
+            <section style={{ padding: isMobile ? '0 16px 40px' : '0 40px 40px', maxWidth: 1440, margin: '0 auto' }}>
+                <div style={{
+                    borderRadius: 24, overflow: 'hidden',
+                    border: `1px solid ${theme.borderSubtle}`,
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                    position: 'relative',
+                }}>
+                    <div ref={mapContainerRef} style={{ width: '100%', height: isMobile ? 220 : 320 }} />
+                    <div style={{
+                        position: 'absolute', bottom: 12, left: 12,
+                        background: isDark ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.92)',
+                        backdropFilter: 'blur(12px)',
+                        borderRadius: 12, padding: '8px 12px', zIndex: 1000,
+                        border: `1px solid ${theme.borderSubtle}`,
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ fontSize: 12 }}>✈️</span>
+                            <span style={{ fontSize: 11, fontWeight: 700, color: sky }}>YAM Airport</span>
+                            {selectedZone && (
+                                <>
+                                    <span style={{ fontSize: 10, color: theme.textFaint }}>→</span>
+                                    <span style={{ fontSize: 11, fontWeight: 600, color: theme.text }}>{selectedZone.name}</span>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
