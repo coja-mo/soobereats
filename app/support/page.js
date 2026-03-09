@@ -4,53 +4,96 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 
+/* ─── Smart AI Response Engine ─── */
+const AI_RESPONSES = {
+    tracking: [
+        "I can see your driver, Marcus T., is currently 2 minutes away in a Black GMC Hummer EV. He's turning onto Main St now. Would you like me to share his live location link?",
+        "Your order #ORD-4012 is en route! Driver D-014 (Anika R.) is 4 minutes away with your Pino's grocery items. Everything was confirmed packed fresh.",
+        "Your ride is being dispatched now. Expected pickup in 3 minutes at your saved address. Vehicle: Cadillac VISTIQ (Pearl White).",
+    ],
+    refund: [
+        "I understand the concern. Since this involves a potential issue with your order, I can offer:\n\n• **Full credit** to your SOOber Wallet (instant)\n• **Partial refund** to original payment method (1-2 business days)\n• **Connect to Agent Sarah** for a detailed review\n\nWhich would you prefer?",
+        "I see the missing item — Organic 2% Milk ($5.99) from Pino's. I've already issued a $5.99 credit to your SOOber Wallet. Is there anything else I can help with?",
+    ],
+    greeting: [
+        "Hi there! I'm the SOOber AI Copilot, powered by local M2 Ultra compute right here in the Soo. How can I help you today?",
+        "Welcome back! I can see you're a valued member. How can I assist you today?",
+    ],
+    agent: [
+        "Absolutely — connecting you with a live agent right now. Agent Sarah C. is based right here in Sault Ste. Marie and will have full context of our conversation. One moment...",
+    ],
+    thanks: [
+        "You're very welcome! Remember, you can always access support through the app or type here. Have a great day! 💚",
+    ],
+    delivery: [
+        "Great news — we now deliver to Garden River First Nation, Goulais River, and Echo Bay! Premium rates apply for extended distance, but every restaurant and market vendor is available. Want me to update your delivery address?",
+    ],
+    fallback: [
+        "I'm not quite sure about that one. Let me connect you with a live agent who can help — they're local to Sault Ste. Marie and will have the answer. Would you like me to transfer?",
+    ],
+};
+
+function getAIResponse(text) {
+    const t = text.toLowerCase();
+    if (t.includes('where') || t.includes('status') || t.includes('track') || t.includes('how long') || t.includes('driver') || t.includes('eta'))
+        return AI_RESPONSES.tracking[Math.floor(Math.random() * AI_RESPONSES.tracking.length)];
+    if (t.includes('refund') || t.includes('cancel') || t.includes('wrong') || t.includes('missing') || t.includes('cold') || t.includes('late'))
+        return AI_RESPONSES.refund[Math.floor(Math.random() * AI_RESPONSES.refund.length)];
+    if (t.includes('hello') || t.includes('hi') || t.includes('hey'))
+        return AI_RESPONSES.greeting[Math.floor(Math.random() * AI_RESPONSES.greeting.length)];
+    if (t.includes('agent') || t.includes('human') || t.includes('real person') || t.includes('representative') || t.includes('talk to'))
+        return AI_RESPONSES.agent[0];
+    if (t.includes('thank') || t.includes('ok') || t.includes('perfect') || t.includes('great'))
+        return AI_RESPONSES.thanks[0];
+    if (t.includes('garden river') || t.includes('goulais') || t.includes('echo bay') || t.includes('deliver to'))
+        return AI_RESPONSES.delivery[0];
+    return AI_RESPONSES.fallback[0];
+}
+
+const QUICK_ACTIONS = [
+    { label: '📍 Where is my order?', message: 'Where is my order right now?' },
+    { label: '💳 I need a refund', message: 'I need a refund for my last order' },
+    { label: '🗣️ Talk to an agent', message: 'Can I talk to a real person?' },
+    { label: '🚗 Track my ride', message: 'Where is my driver right now?' },
+    { label: '📦 Missing items', message: 'My order is missing items' },
+    { label: '🏘️ Delivery to Garden River?', message: 'Do you deliver to Garden River First Nation?' },
+];
+
 export default function CustomerSupport() {
-    const [chatMode, setChatMode] = useState("ai"); // 'ai' or 'human'
+    const [chatMode, setChatMode] = useState("ai");
     const messagesEndRef = useRef(null);
-
     const [messages, setMessages] = useState([
-        { id: 1, sender: "system", role: "ai", name: "SOOber Copilot", text: "Hi Elena! I see you currently have an active ride request (Order #SBR-88219) picking up at 123 Main St. How can I help you today?" }
+        {
+            id: 1, sender: "system", role: "ai", name: "SOOber Copilot",
+            text: "Hi! I'm the SOOber AI Copilot — powered by local compute right here in the Soo. I can see your recent activity and I'm ready to help. What's on your mind?"
+        }
     ]);
-
     const [inputText, setInputText] = useState("");
+    const [isTyping, setIsTyping] = useState(false);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+    useEffect(() => { scrollToBottom(); }, [messages]);
 
-    const handleSend = (e) => {
-        e.preventDefault();
-        if (!inputText.trim()) return;
+    const handleSend = (e, overrideText) => {
+        if (e) e.preventDefault();
+        const userText = (overrideText || inputText).trim();
+        if (!userText) return;
 
-        const userText = inputText.trim();
-        const userTextLower = userText.toLowerCase();
-
-        // Add user message
         const newUserMsg = { id: Date.now(), sender: "user", text: userText };
         setMessages(prev => [...prev, newUserMsg]);
         setInputText("");
+        setIsTyping(true);
 
-        // Simulate response delay
         setTimeout(() => {
             if (chatMode === 'ai') {
-                let aiResponseText = "I'm sorry, I didn't quite catch that. Could you rephrase your question, or would you like me to connect you with a live agent for further assistance?";
+                const responseText = getAIResponse(userText);
 
-                // Mock Intelligence Logic
-                if (userTextLower.includes('where is') || userTextLower.includes('status') || userTextLower.includes('track') || userTextLower.includes('how long')) {
-                    aiResponseText = "I can see your driver, Marcus T., is currently 2 minutes away in a Black GMC Hummer EV. Would you like me to ping him or share his live location link?";
-                } else if (userTextLower.includes('refund') || userTextLower.includes('cancel') || userTextLower.includes('wrong') || userTextLower.includes('missing')) {
-                    aiResponseText = "I understand you have an issue with your order. Because this involves a potential refund or cancellation for Order #SBR-88219, I can process a standard 100% credit to your SOOber Wallet immediately, or I can connect you to agent Sarah to review the details. What would you prefer?";
-                } else if (userTextLower.includes('thank') || userTextLower.includes('ok') || userTextLower.includes('good') || userTextLower.includes('perfect')) {
-                    aiResponseText = "You're very welcome! Is there anything else I can assist you with today regarding your SOOber experience?";
-                } else if (userTextLower.includes('hello') || userTextLower.includes('hi ') || userTextLower === 'hi') {
-                    aiResponseText = "Hi there! How can I help you with your active ride today?";
-                } else if (userTextLower.includes('agent') || userTextLower.includes('human') || userTextLower.includes('real person') || userTextLower.includes('representative')) {
-                    aiResponseText = "I'd be happy to connect you with a live agent. Please hold for just a moment while I transfer this chat to our local support team in Sault Ste. Marie.";
-                    setTimeout(() => setChatMode('human'), 2000); // Auto-switch to human mode
+                // Check if user wants an agent
+                if (userText.toLowerCase().includes('agent') || userText.toLowerCase().includes('human') || userText.toLowerCase().includes('real person')) {
+                    setTimeout(() => setChatMode('human'), 2500);
                 }
 
                 const aiResponse = {
@@ -58,21 +101,21 @@ export default function CustomerSupport() {
                     sender: "system",
                     role: "ai",
                     name: "SOOber Copilot",
-                    text: aiResponseText
+                    text: responseText,
                 };
                 setMessages(prev => [...prev, aiResponse]);
             } else {
-                // Human mode simulated response
                 const agentResponse = {
                     id: Date.now() + 1,
                     sender: "system",
                     role: "human",
                     name: "Agent Sarah C.",
-                    text: "Hi Elena, I'm taking over from the AI. I can see you're looking for Marcus. He just turned onto your street, you should see him in about 30 seconds."
+                    text: "Hi there! I'm taking over from the AI. I've got the full context of your conversation. Let me look into this for you right away.",
                 };
                 setMessages(prev => [...prev, agentResponse]);
             }
-        }, 800 + Math.random() * 700); // Random delay between 800ms and 1500ms
+            setIsTyping(false);
+        }, 800 + Math.random() * 900);
     };
 
     return (
@@ -81,7 +124,9 @@ export default function CustomerSupport() {
                 <header className={styles.chatHeader}>
                     <div className={styles.headerLeft}>
                         <h1 className={styles.title}>SOOber Support Center</h1>
-                        <span className={styles.subtitle}>Order #SBR-88219</span>
+                        <span className={styles.subtitle}>
+                            {chatMode === 'ai' ? '◆ AI Copilot Active • Local Compute' : '● Live Agent — Sarah C. (Sault Ste. Marie)'}
+                        </span>
                     </div>
                     <div className={styles.headerRight}>
                         <button
@@ -101,15 +146,34 @@ export default function CustomerSupport() {
                     </div>
                 </header>
 
+                {/* Quick Actions */}
+                <div className={styles.quickActions}>
+                    {QUICK_ACTIONS.map((action, i) => (
+                        <button key={i} className={styles.quickBtn} onClick={() => handleSend(null, action.message)}>
+                            {action.label}
+                        </button>
+                    ))}
+                </div>
+
                 <div className={styles.chatArea}>
                     {messages.map((msg) => (
                         <div key={msg.id} className={`${styles.messageRow} ${styles[msg.sender]} ${msg.sender === 'system' ? styles[msg.role] : ''}`}>
                             <div className={styles.bubble}>
                                 {msg.sender === 'system' && <span className={styles.senderName}>{msg.name}</span>}
-                                {msg.text}
+                                <div style={{ whiteSpace: 'pre-line' }}>{msg.text}</div>
                             </div>
                         </div>
                     ))}
+                    {isTyping && (
+                        <div className={`${styles.messageRow} ${styles.system} ${styles[chatMode === 'ai' ? 'ai' : 'human']}`}>
+                            <div className={styles.bubble}>
+                                <span className={styles.senderName}>{chatMode === 'ai' ? 'SOOber Copilot' : 'Agent Sarah C.'}</span>
+                                <div className={styles.typingIndicator}>
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     <div ref={messagesEndRef} />
                 </div>
 
@@ -118,7 +182,7 @@ export default function CustomerSupport() {
                         <input
                             type="text"
                             className={styles.textInput}
-                            placeholder={chatMode === 'ai' ? "Ask the AI Copilot..." : "Message Agent Sarah..."}
+                            placeholder={chatMode === 'ai' ? "Ask the AI Copilot anything..." : "Message Agent Sarah C..."}
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
                         />
@@ -132,7 +196,7 @@ export default function CustomerSupport() {
                 </div>
 
                 <div className={styles.privacyFooter}>
-                    Secure Chat Environment • Processed purely on <span>Local Node #04</span> • Max Data Privacy
+                    Secure Chat Environment • Processed purely on <span>Local Node #04 (M2 Ultra)</span> • 100% Data Sovereignty • Algoma District
                 </div>
             </div>
         </div>

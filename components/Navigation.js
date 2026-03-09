@@ -91,112 +91,9 @@ export const Navigation = () => {
                         </span>
                     </Link>
 
-                    {/* Search Bar — desktop only */}
-                    {!isMobile && (
-                        <div ref={searchRef} style={{ flex: 1, maxWidth: 480, margin: '0 40px', position: 'relative' }}>
-                            <div style={{ position: 'relative' }}>
-                                <svg style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', width: 18, height: 18, color: theme.textFaint, pointerEvents: 'none' }}
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                                <input
-                                    type="text"
-                                    placeholder="Search restaurants, cuisines, dishes..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    style={{
-                                        width: '100%', background: searchFocused ? theme.bgCard : theme.bgInput,
-                                        border: `1.5px solid ${searchFocused ? theme.border : 'transparent'}`, borderRadius: 14,
-                                        padding: '12px 18px 12px 44px', fontSize: 14, fontWeight: 500,
-                                        color: theme.text, outline: 'none',
-                                        transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)',
-                                        fontFamily: "'Inter', sans-serif",
-                                        boxShadow: searchFocused ? `0 0 0 4px ${theme.accentBg}, 0 8px 24px rgba(0,0,0,0.06)` : 'none',
-                                    }}
-                                    onFocus={() => setSearchFocused(true)}
-                                    onBlur={() => setTimeout(() => { setSearchFocused(false); setSearchQuery(''); }, 200)}
-                                />
-                            </div>
-
-                            {/* Search Results Dropdown */}
-                            {searchFocused && searchResults.length > 0 && (
-                                <div style={{
-                                    position: 'absolute', top: '100%', left: 0, right: 0,
-                                    marginTop: 8, background: theme.bgCard,
-                                    border: `1px solid ${theme.borderSubtle}`,
-                                    borderRadius: 18, overflow: 'hidden',
-                                    boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
-                                    zIndex: 200, maxHeight: 420, overflowY: 'auto',
-                                }}>
-                                    <div style={{ padding: '8px 12px 4px', fontSize: 11, fontWeight: 700, color: theme.textFaint, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                                        {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
-                                    </div>
-                                    {searchResults.map((r, i) => (
-                                        <Link key={`${r.href}-${i}`} href={r.href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                            <div style={{
-                                                display: 'flex', alignItems: 'center', gap: 14,
-                                                padding: '12px 16px', cursor: 'pointer',
-                                                transition: 'background 0.15s',
-                                                borderTop: i === 0 ? 'none' : `1px solid ${theme.borderSubtle}`,
-                                            }}
-                                                onMouseEnter={e => e.currentTarget.style.background = theme.bgCardHover}
-                                                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                                            >
-                                                <div style={{
-                                                    width: 40, height: 40, borderRadius: 12,
-                                                    background: theme.bgInput, display: 'flex',
-                                                    alignItems: 'center', justifyContent: 'center',
-                                                    fontSize: 20, flexShrink: 0,
-                                                }}>{r.emoji}</div>
-                                                <div style={{ flex: 1, minWidth: 0 }}>
-                                                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: theme.text, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
-                                                    <div style={{ fontSize: 12, color: theme.textFaint }}>{r.sub}</div>
-                                                </div>
-                                                <span style={{
-                                                    fontSize: 10, fontWeight: 700, color: theme.textFaint,
-                                                    background: theme.bgInput, padding: '3px 8px',
-                                                    borderRadius: 6, textTransform: 'uppercase', letterSpacing: '0.04em',
-                                                }}>{r.type}</span>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* No results */}
-                            {searchFocused && searchQuery.trim() && searchResults.length === 0 && (
-                                <div style={{
-                                    position: 'absolute', top: '100%', left: 0, right: 0,
-                                    marginTop: 8, background: theme.bgCard,
-                                    border: `1px solid ${theme.borderSubtle}`,
-                                    borderRadius: 18, padding: '24px 20px', textAlign: 'center',
-                                    boxShadow: '0 20px 60px rgba(0,0,0,0.2)', zIndex: 200,
-                                }}>
-                                    <div style={{ fontSize: 28, marginBottom: 8 }}>🔍</div>
-                                    <p style={{ fontSize: 14, fontWeight: 600, color: theme.text, margin: 0, marginBottom: 4 }}>No results found</p>
-                                    <p style={{ fontSize: 13, color: theme.textFaint, margin: 0 }}>Try searching for a restaurant, dish, or vendor</p>
-                                </div>
-                            )}
-                        </div>
-                    )}
 
                     {/* Right Actions */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20 }}>
-                        {/* Dark mode toggle */}
-                        <button
-                            onClick={toggleTheme}
-                            style={{
-                                width: isMobile ? 34 : 38, height: isMobile ? 34 : 38,
-                                borderRadius: 12, background: theme.bgInput, border: 'none',
-                                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                fontSize: isMobile ? 16 : 18,
-                                transition: 'all 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => { e.currentTarget.style.background = theme.border; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.background = theme.bgInput; }}
-                        >
-                            {isDark ? '☀️' : '🌙'}
-                        </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 12, marginLeft: 'auto' }}>
 
                         {/* Mobile hamburger */}
                         {isMobile && (
@@ -240,22 +137,113 @@ export const Navigation = () => {
                                 }}>
                                     Support
                                 </Link>
-                                <Link href="/dispatch" style={{
-                                    color: '#00ff80', fontSize: 14, fontWeight: 600,
-                                    textDecoration: 'none', letterSpacing: '-0.01em',
-                                    background: 'rgba(0, 255, 128, 0.1)', padding: '4px 8px', borderRadius: '4px'
-                                }}>
-                                    Dispatch
-                                </Link>
-                                <Link href="/founder" style={{
-                                    color: '#fff', fontSize: 14, fontWeight: 800,
-                                    textDecoration: 'none', letterSpacing: '0.02em',
-                                    background: '#09090b', border: '1px solid #3f3f46',
-                                    padding: '4px 10px', borderRadius: '6px'
-                                }}>
-                                    Founder
-                                </Link>
                             </>
+                        )}
+
+                        {/* Search — animated magnifying glass (next to cart) */}
+                        {!isMobile && (
+                            <div ref={searchRef} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                                {!searchFocused && (
+                                    <button onClick={() => setSearchFocused(true)} style={{
+                                        width: 38, height: 38, borderRadius: 12,
+                                        background: theme.bgInput, border: 'none', cursor: 'pointer',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        transition: 'all 0.3s ease',
+                                    }}
+                                        onMouseEnter={(e) => { e.currentTarget.style.background = theme.border; }}
+                                        onMouseLeave={(e) => { e.currentTarget.style.background = theme.bgInput; }}
+                                    >
+                                        <svg style={{ width: 18, height: 18, color: theme.textFaint }}
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                    </button>
+                                )}
+                                {searchFocused && (
+                                    <div style={{
+                                        position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
+                                        animation: 'searchExpand 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards',
+                                        width: 380,
+                                    }}>
+                                        <svg style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', width: 18, height: 18, color: theme.textFaint, pointerEvents: 'none' }}
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                        <input
+                                            type="text"
+                                            placeholder="Search restaurants, dishes..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            autoFocus
+                                            style={{
+                                                width: '100%', background: theme.bgCard,
+                                                border: `1.5px solid ${theme.border}`, borderRadius: 14,
+                                                padding: '12px 18px 12px 44px', fontSize: 14, fontWeight: 500,
+                                                color: theme.text, outline: 'none',
+                                                fontFamily: "'Inter', sans-serif",
+                                                boxShadow: `0 0 0 4px ${theme.accentBg}, 0 8px 24px rgba(0,0,0,0.06)`,
+                                            }}
+                                            onBlur={() => setTimeout(() => { setSearchFocused(false); setSearchQuery(''); }, 200)}
+                                        />
+                                    </div>
+                                )}
+                                {searchFocused && searchResults.length > 0 && (
+                                    <div style={{
+                                        position: 'absolute', top: '100%', right: 0,
+                                        width: 380, marginTop: 8, background: theme.bgCard,
+                                        border: `1px solid ${theme.borderSubtle}`,
+                                        borderRadius: 18, overflow: 'hidden',
+                                        boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+                                        zIndex: 200, maxHeight: 420, overflowY: 'auto',
+                                    }}>
+                                        <div style={{ padding: '8px 12px 4px', fontSize: 11, fontWeight: 700, color: theme.textFaint, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                                            {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
+                                        </div>
+                                        {searchResults.map((r, i) => (
+                                            <Link key={`${r.href}-${i}`} href={r.href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                <div style={{
+                                                    display: 'flex', alignItems: 'center', gap: 14,
+                                                    padding: '12px 16px', cursor: 'pointer',
+                                                    transition: 'background 0.15s',
+                                                    borderTop: i === 0 ? 'none' : `1px solid ${theme.borderSubtle}`,
+                                                }}
+                                                    onMouseEnter={e => e.currentTarget.style.background = theme.bgCardHover}
+                                                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                                                >
+                                                    <div style={{
+                                                        width: 36, height: 36, borderRadius: 10,
+                                                        background: theme.bgInput, display: 'flex',
+                                                        alignItems: 'center', justifyContent: 'center',
+                                                        fontSize: 18, flexShrink: 0,
+                                                    }}>{r.emoji}</div>
+                                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                                        <div style={{ fontSize: 14, fontWeight: 700, color: theme.text, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
+                                                        <div style={{ fontSize: 12, color: theme.textFaint }}>{r.sub}</div>
+                                                    </div>
+                                                    <span style={{
+                                                        fontSize: 10, fontWeight: 700, color: theme.textFaint,
+                                                        background: theme.bgInput, padding: '3px 8px',
+                                                        borderRadius: 6, textTransform: 'uppercase',
+                                                    }}>{r.type}</span>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                                {searchFocused && searchQuery.trim() && searchResults.length === 0 && (
+                                    <div style={{
+                                        position: 'absolute', top: '100%', right: 0,
+                                        width: 380, marginTop: 8, background: theme.bgCard,
+                                        border: `1px solid ${theme.borderSubtle}`,
+                                        borderRadius: 18, padding: '24px 20px', textAlign: 'center',
+                                        boxShadow: '0 20px 60px rgba(0,0,0,0.2)', zIndex: 200,
+                                    }}>
+                                        <div style={{ fontSize: 28, marginBottom: 8 }}>🔍</div>
+                                        <p style={{ fontSize: 14, fontWeight: 600, color: theme.text, margin: 0, marginBottom: 4 }}>No results found</p>
+                                        <p style={{ fontSize: 13, color: theme.textFaint, margin: 0 }}>Try a restaurant, dish, or vendor</p>
+                                    </div>
+                                )}
+                            </div>
                         )}
 
                         {/* Cart Button */}
@@ -371,6 +359,7 @@ export const Navigation = () => {
                             { href: '/founder', label: 'Founder Dash', emoji: '👑' },
                             { href: '/dispatch', label: 'Dispatch', emoji: '📡' },
                             { href: '/support', label: 'Support', emoji: '💬' },
+                            { href: '/academy', label: 'SOOber Academy', emoji: '🎓' },
                             { href: '/about', label: 'About SOOber', emoji: '🌿' },
                             { href: '/how-it-works', label: 'How It Works', emoji: '📖' },
                             { href: '/for-drivers', label: 'Drive Electric', emoji: '⚡' },
@@ -404,6 +393,10 @@ export const Navigation = () => {
                 @keyframes fadeIn {
                     0% { opacity: 0; transform: translateY(-10px); }
                     100% { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes searchExpand {
+                    0% { width: 38px; opacity: 0; }
+                    100% { width: 420px; opacity: 1; }
                 }
             `}</style>
         </>

@@ -12,7 +12,7 @@ import { useTheme } from '../lib/ThemeContext';
 import Link from 'next/link';
 
 export default function Home() {
-  const { theme, isDark } = useTheme();
+  const { theme, isDark, toggleTheme } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function Home() {
               transition: 'all 0.3s ease',
             }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', animation: 'pulse 2s infinite' }}></span>
-              Now delivering in Sault Ste. Marie
+              Now delivering across the Algoma District
               <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(255,255,255,0.3)', display: 'inline-block', margin: '0 4px' }}></span>
               <span style={{ color: '#10b981', fontWeight: 800 }}>⚡ 100% Electric Fleet</span>
             </div>
@@ -93,7 +93,7 @@ export default function Home() {
               margin: `0 auto ${isMobile ? 28 : 40}px`,
               fontWeight: 400, letterSpacing: '-0.01em',
             }}>
-              Skip the corporations. Support the Soo. Your favorite local restaurants and market vendors, delivered with zero gatekeepers.
+              Skip the corporations. Support the Soo. Your favorite local restaurants and market vendors, delivered to the Soo, Garden River, Goulais River & Echo Bay.
             </p>
 
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -331,6 +331,166 @@ export default function Home() {
           </div>
           <div style={{ marginTop: 32 }}>
             <Link href="/about" style={{ color: '#10b981', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Learn more about our electric fleet →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          EXTENDED DELIVERY — Garden River, Goulais, Echo Bay
+         ═══════════════════════════════════════════════ */}
+      <section style={{
+        padding: isMobile ? '56px 0' : '80px 0',
+        background: theme.mode === 'dark'
+          ? 'linear-gradient(180deg, #09090b 0%, #1a0f0a 30%, #1a1005 60%, #09090b 100%)'
+          : 'linear-gradient(180deg, #fdfdfd 0%, #fef9f0 30%, #fef3e2 60%, #fdfdfd 100%)',
+        borderTop: `1px solid ${theme.borderSubtle}`,
+        borderBottom: `1px solid ${theme.borderSubtle}`,
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* Ambient glow */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          width: 800, height: 500,
+          background: 'radial-gradient(circle, rgba(234,179,8,0.08) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: sectionPad, position: 'relative', zIndex: 10 }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '10px 24px', borderRadius: 100,
+              background: 'rgba(234,179,8,0.12)', border: '1px solid rgba(234,179,8,0.3)',
+              fontSize: 13, fontWeight: 700, color: '#eab308', marginBottom: 24,
+              letterSpacing: '0.06em', textTransform: 'uppercase',
+            }}>🚀 Extended Coverage — NEW</div>
+            <h2 style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: isMobile ? 32 : 48, fontWeight: 800,
+              letterSpacing: '-0.04em', color: theme.text,
+              lineHeight: 1.05, marginBottom: 16,
+            }}>
+              Now delivering{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, #eab308, #f59e0b, #d97706)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              }}>beyond the Soo.</span>
+            </h2>
+            <p style={{
+              fontSize: isMobile ? 16 : 19, color: theme.textMuted,
+              lineHeight: 1.7, maxWidth: 640, margin: '0 auto 40px',
+            }}>
+              We&apos;re proud to extend SOOber Eats service to communities that have been underserved for too long.
+              Garden River First Nation, Goulais River, and Echo Bay now have access to the same local food delivery
+              and quality service as downtown Sault Ste. Marie.
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: isMobile ? 16 : 24,
+            marginBottom: isMobile ? 32 : 48,
+          }}>
+            {[
+              {
+                name: 'Garden River First Nation',
+                emoji: '🏠',
+                distance: '~12 km',
+                fee: '$7.99',
+                eta: '35–50 min',
+                desc: 'Serving the Anishinaabe community of Ketegaunseebee. Full restaurant and market access.',
+                highlight: '#eab308',
+              },
+              {
+                name: 'Goulais River',
+                emoji: '🏔️',
+                distance: '~25 km',
+                fee: '$11.99',
+                eta: '45–65 min',
+                desc: "Nestled along the shore of Lake Superior, now connected to the Soo's local food scene.",
+                highlight: '#f97316',
+              },
+              {
+                name: 'Echo Bay',
+                emoji: '🌊',
+                distance: '~20 km',
+                fee: '$9.99',
+                eta: '40–55 min',
+                desc: 'A vibrant rural community east of the Soo, now with full SOOber Eats delivery access.',
+                highlight: '#10b981',
+              },
+            ].map((zone) => (
+              <div key={zone.name} style={{
+                background: theme.bgCard,
+                border: `1px solid ${theme.borderSubtle}`,
+                borderRadius: 24,
+                padding: isMobile ? '24px 20px' : '32px 28px',
+                boxShadow: theme.shadow,
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.3s ease',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = zone.highlight; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, right: 0, height: 3,
+                  background: `linear-gradient(90deg, ${zone.highlight}, transparent)`,
+                }} />
+                <div style={{ fontSize: 36, marginBottom: 12 }}>{zone.emoji}</div>
+                <h3 style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: isMobile ? 18 : 20, fontWeight: 700,
+                  color: theme.text, marginBottom: 8, letterSpacing: '-0.02em',
+                }}>{zone.name}</h3>
+                <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, marginBottom: 16 }}>
+                  {zone.desc}
+                </p>
+                <div style={{
+                  display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8,
+                }}>
+                  {[
+                    { label: 'Distance', value: zone.distance },
+                    { label: 'Delivery Fee', value: zone.fee },
+                    { label: 'ETA', value: zone.eta },
+                  ].map(stat => (
+                    <div key={stat.label} style={{ textAlign: 'center' }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: theme.textFaint, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 2 }}>
+                        {stat.label}
+                      </div>
+                      <div style={{ fontSize: 15, fontWeight: 700, color: zone.highlight }}>
+                        {stat.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{
+            textAlign: 'center',
+            padding: isMobile ? '20px 16px' : '24px 32px',
+            background: theme.mode === 'dark' ? 'rgba(234,179,8,0.06)' : 'rgba(234,179,8,0.08)',
+            border: '1px solid rgba(234,179,8,0.15)',
+            borderRadius: 20,
+          }}>
+            <p style={{
+              fontSize: isMobile ? 14 : 16, color: theme.textSecondary,
+              lineHeight: 1.6, margin: 0, maxWidth: 700, marginLeft: 'auto', marginRight: 'auto',
+            }}>
+              <strong style={{ color: theme.text }}>Our commitment:</strong> Every community in the Algoma District deserves
+              access to quality food delivery. Premium rates reflect the extended distance — not a premium on the people.
+              We&apos;re working to lower these as volume grows.
+            </p>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 28 }}>
+            <Link href="/delivery-zone" style={{
+              color: '#eab308', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+            }}>View all delivery zones & coverage →</Link>
           </div>
         </div>
       </section>
@@ -611,58 +771,119 @@ export default function Home() {
          ═══════════════════════════════════════════════ */}
       <footer style={{
         borderTop: `1px solid ${theme.borderSubtle}`,
-        padding: isMobile ? '32px 16px' : '48px 40px',
+        padding: isMobile ? '40px 20px 24px' : '56px 40px 24px',
         background: theme.bg,
         transition: 'all 0.3s ease',
       }}>
-        <div style={{
-          maxWidth: 1440, margin: '0 auto',
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: isMobile ? 'center' : 'flex-start',
-          justifyContent: 'space-between',
-          gap: isMobile ? 24 : 0,
-          textAlign: isMobile ? 'center' : 'left',
-        }}>
-          <div>
-            <div style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 18, fontWeight: 700,
-              color: theme.text, letterSpacing: '-0.02em',
-              marginBottom: 8,
-            }}>
-              Soober<span style={{ color: theme.textFaint }}> Eats</span>
-            </div>
-            <p style={{
-              fontSize: 13, color: theme.textMuted,
-              lineHeight: 1.5, maxWidth: 300,
-            }}>
-              The Soo&apos;s local food delivery platform. Built in Sault Ste. Marie, for Sault Ste. Marie.
-            </p>
-          </div>
+        <div style={{ maxWidth: 1440, margin: '0 auto' }}>
+          {/* Footer Grid */}
           <div style={{
-            display: 'flex', gap: isMobile ? 20 : 32,
-            fontSize: 13, fontWeight: 500, color: theme.textFaint,
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1.5fr 1fr 1fr 1fr',
+            gap: isMobile ? 32 : 48,
+            marginBottom: 40,
           }}>
-            <Link href="/" style={{ color: theme.textFaint, textDecoration: 'none' }}>Restaurants</Link>
-            <Link href="/rides" style={{ color: '#10b981', textDecoration: 'none' }}>Rides</Link>
-            <Link href="/about" style={{ color: theme.textFaint, textDecoration: 'none' }}>About</Link>
-            <Link href="/how-it-works" style={{ color: theme.textFaint, textDecoration: 'none' }}>How It Works</Link>
-            <Link href="/corporate" style={{ color: theme.textFaint, textDecoration: 'none' }}>For Restaurants</Link>
-            <Link href="/for-drivers" style={{ color: theme.textFaint, textDecoration: 'none' }}>Drive Electric</Link>
-            <Link href="/contact" style={{ color: theme.textFaint, textDecoration: 'none' }}>Contact</Link>
-            <Link href="/rewards" style={{ color: theme.textFaint, textDecoration: 'none' }}>Rewards</Link>
-            <Link href="/delivery-zone" style={{ color: theme.textFaint, textDecoration: 'none' }}>Delivery Zone</Link>
-            <Link href="/terms" style={{ color: theme.textFaint, textDecoration: 'none' }}>Terms</Link>
-            <Link href="/privacy" style={{ color: theme.textFaint, textDecoration: 'none' }}>Privacy</Link>
-            <Link href="/links" style={{ color: theme.textFaint, textDecoration: 'none' }}>All Links</Link>
+            {/* Brand Column */}
+            <div>
+              <div style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 20, fontWeight: 700,
+                color: theme.text, letterSpacing: '-0.02em',
+                marginBottom: 12,
+              }}>
+                Soober<span style={{ color: theme.textFaint }}> Eats</span>
+              </div>
+              <p style={{
+                fontSize: 13, color: theme.textMuted,
+                lineHeight: 1.6, maxWidth: 280, margin: 0, marginBottom: 16,
+              }}>
+                The Algoma District&apos;s local delivery platform. Built in Sault Ste. Marie, for the Soo and beyond.
+              </p>
+              <div style={{ display: 'flex', gap: 8, fontSize: 12, color: theme.textFaint }}>
+                <span>🌿 Zero-emission fleet</span>
+                <span>·</span>
+                <span>🍁 100% local</span>
+              </div>
+            </div>
+
+            {/* Explore Column */}
+            <div>
+              <h4 style={{ fontSize: 12, fontWeight: 700, color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, marginTop: 0 }}>Explore</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[
+                  { href: '/', label: 'Restaurants' },
+                  { href: '/rides', label: 'SOOber Rides', accent: true },
+                  { href: '/delivery-zone', label: 'Delivery Zones' },
+                  { href: '/rewards', label: 'Rewards' },
+                  { href: '/how-it-works', label: 'How It Works' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} style={{ color: l.accent ? '#10b981' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>{l.label}</Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Services Column */}
+            <div>
+              <h4 style={{ fontSize: 12, fontWeight: 700, color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, marginTop: 0 }}>Services</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[
+                  { href: '/corporate', label: 'For Business' },
+                  { href: '/for-drivers', label: 'Drive Electric' },
+                  { href: '/support', label: 'Support' },
+                  { href: '/contact', label: 'Contact' },
+                  { href: '/links', label: 'All Links' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} style={{ color: theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>{l.label}</Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Company Column */}
+            <div>
+              <h4 style={{ fontSize: 12, fontWeight: 700, color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, marginTop: 0 }}>Company</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[
+                  { href: '/about', label: 'About SOOber' },
+                  { href: '/terms', label: 'Terms of Service' },
+                  { href: '/privacy', label: 'Privacy Policy' },
+                  { href: '/faq', label: 'FAQ' },
+                ].map(l => (
+                  <Link key={l.href} href={l.href} style={{ color: theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>{l.label}</Link>
+                ))}
+              </div>
+            </div>
           </div>
-          <p style={{
-            fontSize: 12, color: theme.textFaint,
-            fontWeight: 400,
+
+          {/* Bottom Bar */}
+          <div style={{
+            borderTop: `1px solid ${theme.borderSubtle}`,
+            paddingTop: 20,
+            display: 'flex',
+            alignItems: isMobile ? 'center' : 'center',
+            justifyContent: 'space-between',
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: isMobile ? 16 : 0,
           }}>
-            © 2026 SOOber Eats · Sault Ste. Marie, ON
-          </p>
+            <p style={{
+              fontSize: 12, color: theme.textFaint,
+              fontWeight: 400, margin: 0,
+            }}>
+              © 2026 SOOber Eats · Sault Ste. Marie, ON · Antigravity Solutions
+            </p>
+            <button
+              onClick={toggleTheme}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                background: theme.bgInput, border: `1px solid ${theme.borderSubtle}`,
+                borderRadius: 100, padding: '8px 16px',
+                cursor: 'pointer', fontSize: 13, fontWeight: 500,
+                color: theme.textMuted, transition: 'all 0.3s ease',
+              }}
+            >
+              {isDark ? '☀️' : '🌙'}
+              <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+            </button>
+          </div>
         </div>
       </footer>
     </div>

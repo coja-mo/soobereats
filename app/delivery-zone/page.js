@@ -9,7 +9,10 @@ const zones = [
     { name: 'East End', radius: '3–6 km', fee: '$2.99', time: '20–35 min', color: '#eab308', desc: 'Trunk Rd, Second Line, McNabb St, Pine St area' },
     { name: 'West End', radius: '3–6 km', fee: '$2.99', time: '20–35 min', color: '#eab308', desc: 'Great Northern Rd, Northern Ave, Old Garden River Rd' },
     { name: 'North End', radius: '4–8 km', fee: '$3.99', time: '25–40 min', color: '#f97316', desc: 'Third Line, Peoples Rd, Sackville area' },
-    { name: 'Extended Zone', radius: '8–12 km', fee: '$5.99', time: '30–50 min', color: '#ef4444', desc: 'Garden River, Goulais River approaches, Heyden corridor' },
+    { name: 'Extended Zone', radius: '8–12 km', fee: '$5.99', time: '30–50 min', color: '#ef4444', desc: 'Garden River approaches, Heyden corridor' },
+    { name: 'Garden River First Nation', radius: '~12 km', fee: '$7.99', time: '35–50 min', color: '#8b5cf6', desc: 'Ketegaunseebee — full delivery access for the Anishinaabe community' },
+    { name: 'Echo Bay', radius: '~20 km', fee: '$9.99', time: '40–55 min', color: '#06b6d4', desc: 'Rural community east of the Soo, now connected to local food delivery' },
+    { name: 'Goulais River', radius: '~25 km', fee: '$11.99', time: '45–65 min', color: '#ec4899', desc: 'Along the Lake Superior shore — premium delivery to an underserved corridor' },
 ];
 
 const landmarks = [
@@ -61,7 +64,7 @@ export default function DeliveryZonePage() {
                         letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 16,
                     }}>We Deliver Across<br />the Entire Soo</h1>
                     <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.6)', maxWidth: 500, margin: '0 auto', lineHeight: 1.6 }}>
-                        Five delivery zones covering Sault Ste. Marie and surrounding areas. All on our 100% electric fleet.
+                        Five delivery zones covering Sault Ste. Marie plus extended premium delivery to Garden River First Nation, Goulais River, and Echo Bay. All on our 100% electric fleet.
                     </p>
                 </div>
             </section>
@@ -134,6 +137,26 @@ export default function DeliveryZonePage() {
                                 <span style={{ fontSize: 12, color: theme.textFaint }}>{lm.zone}</span>
                             </div>
                         ))}
+                    </div>
+                </div>
+
+                {/* Community Access Callout */}
+                <div style={{
+                    padding: isMobile ? '28px 20px' : '40px 40px', borderRadius: 28,
+                    background: 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(234,179,8,0.04) 100%)',
+                    border: '1px solid rgba(139,92,246,0.15)',
+                    display: 'flex', alignItems: isMobile ? 'flex-start' : 'center',
+                    gap: isMobile ? 16 : 24, flexDirection: isMobile ? 'column' : 'row',
+                    marginBottom: isMobile ? 24 : 32,
+                }}>
+                    <div style={{ fontSize: 48, flexShrink: 0 }}>🤝</div>
+                    <div>
+                        <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: theme.text, margin: 0, marginBottom: 8 }}>Community Access Initiative</h3>
+                        <p style={{ fontSize: 15, color: theme.textSecondary, margin: 0, lineHeight: 1.6 }}>
+                            Garden River First Nation, Goulais River, and Echo Bay are communities that have been underserved by delivery platforms.
+                            SOOber Eats is committed to providing equal access. Premium rates reflect distance, not a premium on the people we serve.
+                            As volume grows, we&apos;re working to bring these fees down.
+                        </p>
                     </div>
                 </div>
 
