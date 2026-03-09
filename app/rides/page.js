@@ -815,6 +815,164 @@ export default function RidesPage() {
                 </div>
             </section>
 
+            {/* ═══ E-SCOOTERS / MICRO-MOBILITY ═══ */}
+            <section style={{
+                padding: isMobile ? '60px 16px' : '80px 40px', maxWidth: 1440, margin: '0 auto',
+            }}>
+                <div style={{
+                    background: isDark
+                        ? 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))'
+                        : 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03))',
+                    border: '1px solid rgba(16,185,129,0.2)',
+                    borderRadius: 28, padding: isMobile ? 28 : 48, overflow: 'hidden',
+                    position: 'relative',
+                }}>
+                    <div style={{
+                        position: 'absolute', top: -60, right: -60,
+                        width: 300, height: 300, borderRadius: '50%',
+                        background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)',
+                        pointerEvents: 'none',
+                    }} />
+
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                        <div style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 8,
+                            background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)',
+                            borderRadius: 100, padding: '6px 16px', marginBottom: 20,
+                        }}>
+                            <span style={{ fontSize: 14 }}>🛴</span>
+                            <span style={{ fontSize: 12, fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Micro-Mobility</span>
+                        </div>
+
+                        <h2 style={{
+                            fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                            fontSize: isMobile ? 28 : 40, letterSpacing: '-0.04em',
+                            color: theme.text, margin: '0 0 12px', lineHeight: 1.1,
+                        }}>
+                            Soobér <span style={{ color: '#10b981' }}>Scooters</span>
+                        </h2>
+                        <p style={{
+                            fontSize: isMobile ? 15 : 17, color: theme.textMuted,
+                            maxWidth: 520, margin: '0 0 36px', lineHeight: 1.6,
+                        }}>
+                            Hop on, ride electric, park anywhere in the zone. The fastest way to get around downtown Sault Ste. Marie — zero emissions, pure freedom.
+                        </p>
+
+                        {/* Pricing Plans */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                            gap: 16, marginBottom: 36,
+                        }}>
+                            {[
+                                { title: 'Single Ride', price: '$1.50', unit: 'unlock + $0.35/min', desc: 'Perfect for a quick trip across downtown', emoji: '⚡', highlight: false },
+                                { title: 'Day Pass', price: '$12', unit: '/day', desc: 'Unlimited 30-min rides all day. Explore the Soo at your pace.', emoji: '☀️', highlight: true },
+                                { title: 'Monthly Pass', price: '$39', unit: '/month', desc: 'Unlimited 45-min rides. Best value for daily commuters and students.', emoji: '🏆', highlight: false },
+                            ].map((plan, i) => (
+                                <div key={i} style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
+                                    borderRadius: 20, padding: '24px 20px',
+                                    border: plan.highlight ? '2px solid #10b981' : `1px solid ${theme.borderSubtle}`,
+                                    position: 'relative', overflow: 'hidden',
+                                }}>
+                                    {plan.highlight && (
+                                        <div style={{
+                                            position: 'absolute', top: 12, right: 12,
+                                            fontSize: 10, fontWeight: 700, color: '#fff',
+                                            background: '#10b981', borderRadius: 8, padding: '3px 10px',
+                                            textTransform: 'uppercase', letterSpacing: '0.05em',
+                                        }}>Best Value</div>
+                                    )}
+                                    <span style={{ fontSize: 28, display: 'block', marginBottom: 12 }}>{plan.emoji}</span>
+                                    <h4 style={{
+                                        fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                        fontSize: 15, color: theme.text, margin: '0 0 4px',
+                                    }}>{plan.title}</h4>
+                                    <div style={{ marginBottom: 8 }}>
+                                        <span style={{ fontSize: 28, fontWeight: 800, color: '#10b981' }}>{plan.price}</span>
+                                        <span style={{ fontSize: 13, color: theme.textMuted, marginLeft: 4 }}>{plan.unit}</span>
+                                    </div>
+                                    <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.5, margin: 0 }}>{plan.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Coverage Zones */}
+                        <h3 style={{
+                            fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                            fontSize: 18, color: theme.text, margin: '0 0 16px',
+                        }}>Coverage Zones</h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                            gap: 12, marginBottom: 36,
+                        }}>
+                            {[
+                                { zone: 'Downtown Core', streets: 'Queen St to Bay St', emoji: '🏙️' },
+                                { zone: 'Waterfront Trail', streets: 'Boardwalk to Canal', emoji: '🌊' },
+                                { zone: 'Queen St Corridor', streets: 'Pine to Trunk Rd', emoji: '🛤️' },
+                                { zone: 'Campus Zone', streets: 'Algoma U & Sault College', emoji: '🎓' },
+                            ].map((z, i) => (
+                                <div key={i} style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.5)',
+                                    borderRadius: 14, padding: '16px', textAlign: 'center',
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                }}>
+                                    <span style={{ fontSize: 22, display: 'block', marginBottom: 8 }}>{z.emoji}</span>
+                                    <span style={{ fontSize: 13, fontWeight: 700, color: theme.text, display: 'block' }}>{z.zone}</span>
+                                    <span style={{ fontSize: 11, color: theme.textMuted }}>{z.streets}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* How Scooters Work */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                            gap: 12, marginBottom: 24,
+                        }}>
+                            {[
+                                { step: '1', title: 'Find', desc: 'Locate a nearby scooter on the Soobér app map', emoji: '📍' },
+                                { step: '2', title: 'Scan', desc: 'Scan the QR code to unlock — it\'s instant', emoji: '📱' },
+                                { step: '3', title: 'Ride', desc: 'Cruise the Soo at up to 25 km/h. Helmets encouraged!', emoji: '🛴' },
+                                { step: '4', title: 'Park', desc: 'Park responsibly in any zone. Lock in the app to end trip.', emoji: '🅿️' },
+                            ].map((s, i) => (
+                                <div key={i} style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.5)',
+                                    borderRadius: 14, padding: '16px', textAlign: 'center',
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                }}>
+                                    <span style={{
+                                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                        width: 28, height: 28, borderRadius: '50%',
+                                        background: '#10b981', color: '#fff', fontWeight: 700, fontSize: 13,
+                                        marginBottom: 8,
+                                    }}>{s.step}</span>
+                                    <span style={{ fontSize: 20, display: 'block', marginBottom: 4 }}>{s.emoji}</span>
+                                    <span style={{ fontSize: 14, fontWeight: 700, color: theme.text, display: 'block', marginBottom: 2 }}>{s.title}</span>
+                                    <span style={{ fontSize: 12, color: theme.textMuted, lineHeight: 1.4 }}>{s.desc}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Safety */}
+                        <div style={{
+                            background: isDark ? 'rgba(234,179,8,0.06)' : 'rgba(234,179,8,0.04)',
+                            border: '1px solid rgba(234,179,8,0.15)', borderRadius: 14,
+                            padding: '16px 20px', display: 'flex', alignItems: 'flex-start', gap: 12,
+                        }}>
+                            <span style={{ fontSize: 20 }}>⚠️</span>
+                            <div>
+                                <span style={{ fontSize: 13, fontWeight: 700, color: theme.text, display: 'block', marginBottom: 4 }}>Safety First</span>
+                                <span style={{ fontSize: 12, color: theme.textMuted, lineHeight: 1.5 }}>
+                                    Riders must be 16+. Helmets strongly encouraged. Stay in bike lanes where available. Max speed 25 km/h. Do not ride on sidewalks. Park upright in designated zones. Report damaged scooters in-app.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* ═══ SOO GREYHOUNDS PARTNERSHIP ═══ */}
             <section style={{
                 padding: isMobile ? '60px 16px' : '80px 40px',
