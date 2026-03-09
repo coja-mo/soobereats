@@ -11,6 +11,7 @@ export default function sitemap() {
         '/driver-portal', '/orders', '/status', '/partner', '/changelog',
         '/gift-cards', '/impact', '/pricing',
         '/fleet', '/blog', '/notifications',
+        '/team', '/events', '/history',
     ];
 
     return routes.map((route) => ({
