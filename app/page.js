@@ -437,6 +437,9 @@ export default function Home() {
             <Link href="/how-it-works" style={{ color: theme.textFaint, textDecoration: 'none' }}>How It Works</Link>
             <Link href="/corporate" style={{ color: theme.textFaint, textDecoration: 'none' }}>For Restaurants</Link>
             <Link href="/for-drivers" style={{ color: theme.textFaint, textDecoration: 'none' }}>Drive Electric</Link>
+            <Link href="/contact" style={{ color: theme.textFaint, textDecoration: 'none' }}>Contact</Link>
+            <Link href="/terms" style={{ color: theme.textFaint, textDecoration: 'none' }}>Terms</Link>
+            <Link href="/privacy" style={{ color: theme.textFaint, textDecoration: 'none' }}>Privacy</Link>
             <Link href="/links" style={{ color: theme.textFaint, textDecoration: 'none' }}>All Links</Link>
           </div>
           <p style={{

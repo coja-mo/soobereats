@@ -101,6 +101,12 @@ export default function RestaurantPage() {
                                     padding: '4px 12px', borderRadius: 10,
                                     color: '#fff', fontSize: isMobile ? 11 : 13, fontWeight: 600,
                                 }}>🕐 {restaurant.deliveryTime} min</div>
+                                <div style={{
+                                    display: 'flex', alignItems: 'center', gap: 5,
+                                    background: 'rgba(16,185,129,0.15)', backdropFilter: 'blur(8px)',
+                                    padding: '4px 12px', borderRadius: 10,
+                                    color: '#34d399', fontSize: isMobile ? 11 : 13, fontWeight: 600,
+                                }}>⚡ Electric</div>
                             </div>
                         </div>
                     </div>
@@ -179,11 +185,14 @@ export default function RestaurantPage() {
 
 function MenuItem({ item, restaurant, theme, isMobile }) {
     const [hovered, setHovered] = useState(false);
+    const [added, setAdded] = useState(false);
     const { addToCart } = useCart();
 
     const handleAdd = (e) => {
         e.stopPropagation();
         addToCart(item, restaurant);
+        setAdded(true);
+        setTimeout(() => setAdded(false), 1200);
     };
 
     return (
@@ -216,12 +225,14 @@ function MenuItem({ item, restaurant, theme, isMobile }) {
             </div>
             <button onClick={handleAdd} style={{
                 width: isMobile ? 38 : 44, height: isMobile ? 38 : 44, borderRadius: isMobile ? 12 : 14,
-                background: hovered ? theme.dark : theme.bgInput,
-                color: hovered ? theme.darkText : theme.textMuted,
+                background: added ? '#22c55e' : (hovered ? theme.dark : theme.bgInput),
+                color: added ? '#fff' : (hovered ? theme.darkText : theme.textMuted),
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0, marginTop: 4, border: 'none', cursor: 'pointer',
-                transition: 'all 0.25s ease', fontSize: 20,
-            }}>+</button>
+                transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                fontSize: 20,
+                transform: added ? 'scale(1.1)' : 'scale(1)',
+            }}>{added ? '✓' : '+'}</button>
         </div>
     );
 }

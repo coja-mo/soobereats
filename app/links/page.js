@@ -58,6 +58,9 @@ const sections = [
             { href: '/about', label: 'About SOOber Eats', desc: 'Our story, mission, and 100% electric fleet' },
             { href: '/how-it-works', label: 'How It Works', desc: '3-step ordering guide and FAQ' },
             { href: '/for-drivers', label: 'Drive Electric', desc: 'Join the EV fleet — earnings calculator & application' },
+            { href: '/contact', label: 'Contact Us', desc: 'Get in touch with our local team' },
+            { href: '/terms', label: 'Terms of Service', desc: 'Platform terms and policies' },
+            { href: '/privacy', label: 'Privacy Policy', desc: 'How we handle your data' },
         ]
     }
 ];

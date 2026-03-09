@@ -1,14 +1,48 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useCart } from '../lib/CartContext';
 import { useTheme } from '../lib/ThemeContext';
+import { restaurants, localArtisans, sooMrktVendors } from '../lib/data/restaurants';
 
 export const Navigation = () => {
     const { itemCount, setIsCartOpen } = useCart();
     const { theme, isDark, toggleTheme } = useTheme();
     const [isMobile, setIsMobile] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchFocused, setSearchFocused] = useState(false);
+    const searchRef = useRef(null);
+
+    const searchResults = useMemo(() => {
+        if (!searchQuery.trim()) return [];
+        const q = searchQuery.toLowerCase();
+        const results = [];
+        restaurants.forEach(r => {
+            if (r.name.toLowerCase().includes(q) || r.category.toLowerCase().includes(q)) {
+                results.push({ type: 'Restaurant', name: r.name, emoji: r.logo, href: `/restaurant/${r.id}`, sub: r.category });
+            }
+        });
+        (sooMrktVendors || []).forEach(v => {
+            if (v.name.toLowerCase().includes(q) || v.category.toLowerCase().includes(q)) {
+                results.push({ type: 'Market', name: v.name, emoji: v.emoji, href: `/market/${v.id}`, sub: v.category });
+            }
+        });
+        (localArtisans || []).forEach(a => {
+            if (a.name.toLowerCase().includes(q) || a.category.toLowerCase().includes(q)) {
+                results.push({ type: 'Artisan', name: a.name, emoji: a.emoji, href: `/artisans/${a.id}`, sub: a.category });
+            }
+        });
+        // Search menu items too
+        restaurants.forEach(r => {
+            (r.menu || []).forEach(m => {
+                if (m.name.toLowerCase().includes(q) && results.length < 8) {
+                    results.push({ type: 'Dish', name: m.name, emoji: r.logo, href: `/restaurant/${r.id}`, sub: `at ${r.name} · $${m.price.toFixed(2)}` });
+                }
+            });
+        });
+        return results.slice(0, 8);
+    }, [searchQuery]);
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -59,7 +93,7 @@ export const Navigation = () => {
 
                     {/* Search Bar — desktop only */}
                     {!isMobile && (
-                        <div style={{ flex: 1, maxWidth: 480, margin: '0 40px', position: 'relative' }}>
+                        <div ref={searchRef} style={{ flex: 1, maxWidth: 480, margin: '0 40px', position: 'relative' }}>
                             <div style={{ position: 'relative' }}>
                                 <svg style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', width: 18, height: 18, color: theme.textFaint, pointerEvents: 'none' }}
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -68,26 +102,81 @@ export const Navigation = () => {
                                 <input
                                     type="text"
                                     placeholder="Search restaurants, cuisines, dishes..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
                                     style={{
-                                        width: '100%', background: theme.bgInput,
-                                        border: '1.5px solid transparent', borderRadius: 14,
+                                        width: '100%', background: searchFocused ? theme.bgCard : theme.bgInput,
+                                        border: `1.5px solid ${searchFocused ? theme.border : 'transparent'}`, borderRadius: 14,
                                         padding: '12px 18px 12px 44px', fontSize: 14, fontWeight: 500,
                                         color: theme.text, outline: 'none',
                                         transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)',
                                         fontFamily: "'Inter', sans-serif",
+                                        boxShadow: searchFocused ? `0 0 0 4px ${theme.accentBg}, 0 8px 24px rgba(0,0,0,0.06)` : 'none',
                                     }}
-                                    onFocus={(e) => {
-                                        e.target.style.background = theme.bgCard;
-                                        e.target.style.borderColor = theme.border;
-                                        e.target.style.boxShadow = `0 0 0 4px ${theme.accentBg}, 0 8px 24px rgba(0,0,0,0.06)`;
-                                    }}
-                                    onBlur={(e) => {
-                                        e.target.style.background = theme.bgInput;
-                                        e.target.style.borderColor = 'transparent';
-                                        e.target.style.boxShadow = 'none';
-                                    }}
+                                    onFocus={() => setSearchFocused(true)}
+                                    onBlur={() => setTimeout(() => { setSearchFocused(false); setSearchQuery(''); }, 200)}
                                 />
                             </div>
+
+                            {/* Search Results Dropdown */}
+                            {searchFocused && searchResults.length > 0 && (
+                                <div style={{
+                                    position: 'absolute', top: '100%', left: 0, right: 0,
+                                    marginTop: 8, background: theme.bgCard,
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                    borderRadius: 18, overflow: 'hidden',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+                                    zIndex: 200, maxHeight: 420, overflowY: 'auto',
+                                }}>
+                                    <div style={{ padding: '8px 12px 4px', fontSize: 11, fontWeight: 700, color: theme.textFaint, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                                        {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
+                                    </div>
+                                    {searchResults.map((r, i) => (
+                                        <Link key={`${r.href}-${i}`} href={r.href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <div style={{
+                                                display: 'flex', alignItems: 'center', gap: 14,
+                                                padding: '12px 16px', cursor: 'pointer',
+                                                transition: 'background 0.15s',
+                                                borderTop: i === 0 ? 'none' : `1px solid ${theme.borderSubtle}`,
+                                            }}
+                                                onMouseEnter={e => e.currentTarget.style.background = theme.bgCardHover}
+                                                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                                            >
+                                                <div style={{
+                                                    width: 40, height: 40, borderRadius: 12,
+                                                    background: theme.bgInput, display: 'flex',
+                                                    alignItems: 'center', justifyContent: 'center',
+                                                    fontSize: 20, flexShrink: 0,
+                                                }}>{r.emoji}</div>
+                                                <div style={{ flex: 1, minWidth: 0 }}>
+                                                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: theme.text, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
+                                                    <div style={{ fontSize: 12, color: theme.textFaint }}>{r.sub}</div>
+                                                </div>
+                                                <span style={{
+                                                    fontSize: 10, fontWeight: 700, color: theme.textFaint,
+                                                    background: theme.bgInput, padding: '3px 8px',
+                                                    borderRadius: 6, textTransform: 'uppercase', letterSpacing: '0.04em',
+                                                }}>{r.type}</span>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* No results */}
+                            {searchFocused && searchQuery.trim() && searchResults.length === 0 && (
+                                <div style={{
+                                    position: 'absolute', top: '100%', left: 0, right: 0,
+                                    marginTop: 8, background: theme.bgCard,
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                    borderRadius: 18, padding: '24px 20px', textAlign: 'center',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.2)', zIndex: 200,
+                                }}>
+                                    <div style={{ fontSize: 28, marginBottom: 8 }}>🔍</div>
+                                    <p style={{ fontSize: 14, fontWeight: 600, color: theme.text, margin: 0, marginBottom: 4 }}>No results found</p>
+                                    <p style={{ fontSize: 13, color: theme.textFaint, margin: 0 }}>Try searching for a restaurant, dish, or vendor</p>
+                                </div>
+                            )}
                         </div>
                     )}
 
