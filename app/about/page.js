@@ -53,7 +53,7 @@ export default function AboutPage() {
                 <div style={{ maxWidth: 800, margin: '0 auto', padding: pad }}>
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 28 : 36, fontWeight: 700, color: theme.text, letterSpacing: '-0.02em', marginBottom: 20 }}>The Mission</h2>
                     <p style={{ fontSize: isMobile ? 16 : 18, color: theme.textMuted, lineHeight: 1.8, marginBottom: 24 }}>
-                        Sault Ste. Marie has some of the best food in Northern Ontario. Aurora&apos;s legendary Italian. Uncle Gino&apos;s weekend buffets. Tandoori Garden&apos;s butter chicken. The Saturday Farmers Market vendors who wake up at 4 AM to bring you the freshest produce in Algoma.
+                        Sault Ste. Marie has some of the best food in Northern Ontario. Aurora&apos;s legendary Italian. Uncle Gino&apos;s weekend buffets. Tandoori Gardan&apos;s butter chicken. The Saturday Farmers Market vendors who wake up at 4 AM to bring you the freshest produce in Algoma.
                     </p>
                     <p style={{ fontSize: isMobile ? 16 : 18, color: theme.textMuted, lineHeight: 1.8, marginBottom: 24 }}>
                         But when Skip The Dishes and Uber Eats came to town, they didn&apos;t come to celebrate our food culture. They came to extract from it. Thirty cents of every dollar you spent on delivery went straight to San Francisco. Not to the cook who made your meal. Not to the driver who brought it to your door. To shareholders who&apos;ve never tasted a Soo pierogi.

@@ -140,7 +140,7 @@ export default function AccountPage() {
                     {[
                         { name: "Aurora's Restaurant", items: 3, date: 'Mar 7, 2026 at 7:23 PM', total: 52.47, status: 'Delivered', logo: '🍝' },
                         { name: "Sandro's", items: 2, date: 'Mar 5, 2026 at 6:10 PM', total: 38.99, status: 'Delivered', logo: '🍕' },
-                        { name: "Tandoori Garden", items: 4, date: 'Mar 3, 2026 at 8:45 PM', total: 67.20, status: 'Delivered', logo: '🍛' },
+                        { name: "Tandoori Gardan", items: 4, date: 'Mar 3, 2026 at 8:45 PM', total: 67.20, status: 'Delivered', logo: '🍛' },
                     ].map((order, i) => (
                         <div key={i} style={{ ...cardStyle, display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20 }}>
                             <div style={{
