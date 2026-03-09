@@ -12,6 +12,8 @@ import { ScrollRestoration } from '../components/ScrollRestoration';
 import AIChatWidget from '../components/AIChatWidget';
 import { ToastProvider } from '../components/ToastProvider';
 import { SplashWrapper } from '../components/SplashWrapper';
+import { CommandPalette } from '../components/CommandPalette';
+import { BackToTop } from '../components/BackToTop';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,6 +77,8 @@ export default function RootLayout({ children }) {
                       </main>
                       <CookieConsent />
                       <AIChatWidget />
+                      <BackToTop />
+                      <CommandPalette />
                     </SplashWrapper>
                   </ToastProvider>
                 </ThemedBody>

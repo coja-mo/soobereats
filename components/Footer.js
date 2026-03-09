@@ -103,6 +103,7 @@ export function Footer() {
                                 { href: '/safety', label: '🛡️ Safety & Trust' },
                                 { href: '/accessibility', label: '♿ Accessibility' },
                                 { href: '/careers', label: 'Careers' },
+                                { href: '/partner', label: 'Partner With Us' },
                                 { href: '/investors', label: 'Investors' },
                                 { href: '/press', label: 'Press & Media' },
                                 { href: '/socials', label: 'Social Media' },
