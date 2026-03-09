@@ -38,9 +38,8 @@ export default function Home() {
           paddingBottom: isMobile ? 48 : 80,
           overflow: 'hidden',
           background: theme.mode === 'dark'
-            ? 'rgba(9,9,11,0.4)'
-            : 'rgba(253,253,253,0.5)',
-          backdropFilter: 'blur(1px)', WebkitBackdropFilter: 'blur(1px)',
+            ? 'rgba(9,9,11,0.15)'
+            : 'rgba(253,253,253,0.3)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           textAlign: 'center', transition: 'background 0.3s ease',
         }}>
