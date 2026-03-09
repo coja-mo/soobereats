@@ -254,7 +254,7 @@ export default function FounderDashboard() {
                                 </div>
                                 <div className={styles.toggleRow} style={{ borderBottom: 'none' }}>
                                     <div className={styles.toggleLabel}>
-                                        <span className={styles.toggleTitle}>Pino's Fresh Mode</span>
+                                        <span className={styles.toggleTitle}>Vendor Fresh Mode</span>
                                         <span className={styles.toggleDesc}>Enables advanced prep times</span>
                                     </div>
                                     <div className={`${styles.toggleSwitch} ${styles.on}`}><div className={styles.toggleKnob}></div></div>
@@ -288,7 +288,7 @@ export default function FounderDashboard() {
                                             <strong style={{ fontSize: '0.85rem' }}>Cancel Order MKT-881</strong>
                                             <span className={`${styles.authBadge} ${styles.orange}`}>KDS Void</span>
                                         </div>
-                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Pino's Kitchen requested to void 4x items.</div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Soo Fresh Market requested to void 4x items.</div>
                                         <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
                                             <button className={styles.btnAuth}>Approve Void</button>
                                         </div>
@@ -417,7 +417,7 @@ export default function FounderDashboard() {
                             </div>
                             <div className={styles.panelContent} style={{ padding: '1rem', fontSize: '0.8rem' }}>
                                 <div className={styles.telemetryRow}>
-                                    <span style={{ color: '#888' }}>Pino's Avg Prep Time</span>
+                                    <span style={{ color: '#888' }}>Vendor Avg Prep Time</span>
                                     <strong className={styles.telemetryValue}>4m 12s</strong>
                                 </div>
                                 <div className={styles.telemetryRow}>

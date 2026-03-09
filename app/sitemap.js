@@ -8,7 +8,7 @@ export default function sitemap() {
         '/academy', '/corporate', '/safety', '/accessibility', '/careers',
         '/investors', '/press', '/socials', '/login', '/download',
         '/checkout', '/account', '/refer', '/links', '/terms', '/privacy',
-        '/driver-portal', '/orders', '/status', '/partner',
+        '/driver-portal', '/orders', '/status', '/partner', '/changelog',
     ];
 
     return routes.map((route) => ({

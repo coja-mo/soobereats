@@ -16,8 +16,8 @@ const INITIAL_TICKETS = [
     },
     {
         id: 'TKT-002', customer: 'Thomas M.', issue: 'Missing item in grocery order', category: 'Delivery', order: '#ORD-4012', waitTime: 5, urgent: false, status: 'active', tier: 'Gold', messages: [
-            { id: 1, sender: 'customer', text: "Hi, my order is missing the organic milk I ordered from Pino's.", time: '10:55 AM' },
-            { id: 2, sender: 'ai', text: "AI Copilot: Order #ORD-4012 from Pino's Fresh Grocery confirmed 6 items, receipt shows 5 scanned. Missing: Organic 2% Milk ($5.99). Recommend immediate credit.", time: '10:55 AM' },
+            { id: 1, sender: 'customer', text: "Hi, my order is missing the organic milk I ordered from Soo Fresh Market.", time: '10:55 AM' },
+            { id: 2, sender: 'ai', text: "AI Copilot: Order #ORD-4012 from Soo Fresh Market confirmed 6 items, receipt shows 5 scanned. Missing: Organic 2% Milk ($5.99). Recommend immediate credit.", time: '10:55 AM' },
         ]
     },
     {

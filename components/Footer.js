@@ -107,6 +107,7 @@ export function Footer() {
                                 { href: '/investors', label: 'Investors' },
                                 { href: '/press', label: 'Press & Media' },
                                 { href: '/socials', label: 'Social Media' },
+                                { href: '/changelog', label: "What's New" },
                                 { href: '/terms', label: 'Terms of Service' },
                                 { href: '/privacy', label: 'Privacy Policy' },
                                 { href: '/faq', label: 'FAQ' },

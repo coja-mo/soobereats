@@ -14,6 +14,8 @@ import { ToastProvider } from '../components/ToastProvider';
 import { SplashWrapper } from '../components/SplashWrapper';
 import { CommandPalette } from '../components/CommandPalette';
 import { BackToTop } from '../components/BackToTop';
+import { LiveActivityFeed } from '../components/LiveActivityFeed';
+import { getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from '../lib/structured-data';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -62,6 +64,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${dmSans.variable}`}>
       <body style={{ margin: 0, padding: 0 }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              getOrganizationSchema(),
+              getWebsiteSchema(),
+              getLocalBusinessSchema(),
+            ])
+          }}
+        />
         <PinGate>
           <ThemeProvider>
             <LiveOrderProvider>
@@ -79,6 +91,7 @@ export default function RootLayout({ children }) {
                       <AIChatWidget />
                       <BackToTop />
                       <CommandPalette />
+                      <LiveActivityFeed />
                     </SplashWrapper>
                   </ToastProvider>
                 </ThemedBody>

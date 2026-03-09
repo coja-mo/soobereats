@@ -24,7 +24,7 @@ const sections = [
             { href: '/support', label: 'AI Support Chat', desc: 'Customer-facing copilot support' },
             { href: '/dispatch', label: 'Dispatch Portal', desc: 'Live fleet & order management' },
             { href: '/scheduler', label: 'Workforce Scheduler', desc: 'Enterprise staff scheduling' },
-            { href: '/vendor', label: 'Vendor Dashboard', desc: 'Store management & analytics (Pino\'s)' },
+            { href: '/vendor', label: 'Vendor Dashboard', desc: "Store management & analytics" },
         ]
     },
     {

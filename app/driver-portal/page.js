@@ -23,7 +23,7 @@ const RECENT_DELIVERIES = [
     { id: 'DEL-3846', restaurant: "Tandoori Gardan", emoji: '🍛', items: 2, total: 32.99, tip: 6.00, distance: '2.1 km', time: '14 min', rating: 5, status: 'delivered', timestamp: '7:08 PM' },
     { id: 'DEL-3845', restaurant: "Sandro's", emoji: '🍕', items: 4, total: 56.75, tip: 10.00, distance: '4.5 km', time: '22 min', rating: 4, status: 'delivered', timestamp: '6:31 PM' },
     { id: 'DEL-3844', restaurant: "Thai Basil", emoji: '🥘', items: 1, total: 18.99, tip: 4.00, distance: '1.8 km', time: '11 min', rating: 5, status: 'delivered', timestamp: '5:55 PM' },
-    { id: 'DEL-3843', restaurant: "Pino's", emoji: '🥖', items: 5, total: 71.20, tip: 12.00, distance: '5.1 km', time: '25 min', rating: 5, status: 'delivered', timestamp: '5:12 PM' },
+    { id: 'DEL-3843', restaurant: "Soo Fresh Market", emoji: '🥖', items: 5, total: 71.20, tip: 12.00, distance: '5.1 km', time: '25 min', rating: 5, status: 'delivered', timestamp: '5:12 PM' },
     { id: 'DEL-3842', restaurant: "Jenn Bakes", emoji: '🧁', items: 2, total: 24.50, tip: 5.00, distance: '2.8 km', time: '16 min', rating: 5, status: 'delivered', timestamp: '4:38 PM' },
 ];
 

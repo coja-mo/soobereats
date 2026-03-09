@@ -16,7 +16,7 @@ const GEOFENCE_ZONES = [
 
 /* ─── Order Queue Generator ─── */
 const ORDER_RESTAURANTS = [
-    { name: "Pino's Fresh Grocery", emoji: '🥬', zone: 'Downtown Core' },
+    { name: "Soo Fresh Market", emoji: '🥬', zone: 'Downtown Core' },
     { name: 'Sakura Ramen House', emoji: '🍜', zone: 'East Side' },
     { name: 'El Fuego Taqueria', emoji: '🌮', zone: 'North End' },
     { name: 'Bella Napoli', emoji: '🍕', zone: 'Downtown Core' },

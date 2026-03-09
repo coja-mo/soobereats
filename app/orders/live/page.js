@@ -8,7 +8,7 @@ import { Footer } from '../../../components/Footer';
 // Simulated live order data
 const ORDER = {
     id: 'ORD-4012',
-    restaurant: "Pino's Fresh Market",
+    restaurant: "Soo Fresh Market",
     restaurantAddr: '123 Queen St E',
     items: [
         { name: 'Organic 2% Milk', qty: 1, price: 5.99 },
@@ -102,7 +102,7 @@ export default function LiveTrackingPage() {
                 iconSize: [30, 30], iconAnchor: [15, 15],
             });
             L.marker(restaurantCoords, { icon: restIcon }).addTo(map)
-                .bindPopup(`<strong style="font-family:'DM Sans',sans-serif">Pino's Fresh Market</strong><br><span style="font-size:11px;color:#666">123 Queen St E</span>`);
+                .bindPopup(`<strong style="font-family:'DM Sans',sans-serif">Soo Fresh Market</strong><br><span style="font-size:11px;color:#666">123 Queen St E</span>`);
 
             // Delivery marker
             const delIcon = L.divIcon({
