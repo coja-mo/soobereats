@@ -24,9 +24,9 @@ export default function AirportPage() {
     }, []);
 
     const isDark = theme.bg === '#09090b' || theme.bg === '#000';
-    const emerald = '#10b981';
-    const emeraldBg = 'rgba(16,185,129,0.1)';
-    const emeraldGlow = 'rgba(16,185,129,0.25)';
+    const electric = '#0066FF';
+    const electricBg = 'rgba(0,102,255,0.1)';
+    const electricGlow = 'rgba(0,102,255,0.3)';
     const sky = '#0ea5e9';
     const skyBg = 'rgba(14,165,233,0.1)';
 
@@ -57,7 +57,7 @@ export default function AirportPage() {
                     textDecoration: 'none', fontSize: 14, fontWeight: 500, marginBottom: 24,
                     transition: 'color 0.2s ease',
                 }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = emerald}
+                    onMouseEnter={(e) => e.currentTarget.style.color = electric}
                     onMouseLeave={(e) => e.currentTarget.style.color = theme.textMuted}
                 >
                     ← Back to Soobér Rides

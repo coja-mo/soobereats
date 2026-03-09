@@ -23,9 +23,9 @@ export default function RidesPage() {
 
     const isDark = theme.bg === '#09090b' || theme.bg === '#000';
     const pad = isMobile ? '0 16px' : '0 40px';
-    const emerald = '#10b981';
-    const emeraldBg = 'rgba(16,185,129,0.1)';
-    const emeraldGlow = 'rgba(16,185,129,0.25)';
+    const electric = '#0066FF';
+    const electricBg = 'rgba(0,102,255,0.1)';
+    const electricGlow = 'rgba(0,102,255,0.3)';
 
     const handleEstimate = () => {
         if (pickup && dropoff) setShowEstimate(true);
@@ -44,7 +44,7 @@ export default function RidesPage() {
                 <div style={{
                     position: 'absolute', top: -200, right: -200,
                     width: 600, height: 600, borderRadius: '50%',
-                    background: `radial-gradient(circle, ${emeraldGlow} 0%, transparent 70%)`,
+                    background: `radial-gradient(circle, ${electricGlow} 0%, transparent 70%)`,
                     pointerEvents: 'none', filter: 'blur(80px)',
                 }} />
 
@@ -56,11 +56,11 @@ export default function RidesPage() {
                     <div style={{ flex: 1 }}>
                         <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: 8,
-                            background: emeraldBg, border: `1px solid ${emerald}33`,
+                            background: electricBg, border: `1px solid ${electric}33`,
                             borderRadius: 100, padding: '6px 16px', marginBottom: 24,
                         }}>
                             <span style={{ fontSize: 14 }}>⚡</span>
-                            <span style={{ fontSize: 13, fontWeight: 600, color: emerald, letterSpacing: '-0.01em' }}>
+                            <span style={{ fontSize: 13, fontWeight: 600, color: electric, letterSpacing: '-0.01em' }}>
                                 100% Electric Fleet
                             </span>
                         </div>
@@ -71,7 +71,7 @@ export default function RidesPage() {
                             color: theme.text, margin: '0 0 16px',
                         }}>
                             Go anywhere.<br />
-                            <span style={{ color: emerald }}>Zero emissions.</span>
+                            <span style={{ color: electric }}>Zero emissions.</span>
                         </h1>
 
                         <p style={{
@@ -94,8 +94,8 @@ export default function RidesPage() {
                                 <div style={{ position: 'relative' }}>
                                     <div style={{
                                         position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)',
-                                        width: 10, height: 10, borderRadius: '50%', background: emerald,
-                                        boxShadow: `0 0 8px ${emerald}`,
+                                        width: 10, height: 10, borderRadius: '50%', background: electric,
+                                        boxShadow: `0 0 8px ${electric}`,
                                     }} />
                                     <input
                                         type="text" placeholder="Pickup location"
@@ -106,14 +106,14 @@ export default function RidesPage() {
                                             color: theme.text, outline: 'none', fontFamily: "'Inter', sans-serif",
                                             transition: 'border 0.2s ease', boxSizing: 'border-box',
                                         }}
-                                        onFocus={(e) => e.target.style.borderColor = emerald}
+                                        onFocus={(e) => e.target.style.borderColor = electric}
                                         onBlur={(e) => e.target.style.borderColor = theme.borderSubtle}
                                     />
                                 </div>
                                 {/* Connector */}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 0, paddingLeft: 20 }}>
                                     <div style={{
-                                        width: 2, height: 20, background: `linear-gradient(${emerald}, ${theme.textFaint})`,
+                                        width: 2, height: 20, background: `linear-gradient(${electric}, ${theme.textFaint})`,
                                     }} />
                                 </div>
                                 {/* Dropoff */}
@@ -131,7 +131,7 @@ export default function RidesPage() {
                                             color: theme.text, outline: 'none', fontFamily: "'Inter', sans-serif",
                                             transition: 'border 0.2s ease', boxSizing: 'border-box',
                                         }}
-                                        onFocus={(e) => e.target.style.borderColor = emerald}
+                                        onFocus={(e) => e.target.style.borderColor = electric}
                                         onBlur={(e) => e.target.style.borderColor = theme.borderSubtle}
                                     />
                                 </div>
@@ -141,7 +141,7 @@ export default function RidesPage() {
                             <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
                                 <button onClick={() => setScheduleMode(false)} style={{
                                     flex: 1, padding: '10px 16px', borderRadius: 12, border: 'none', cursor: 'pointer',
-                                    background: !scheduleMode ? emerald : theme.bgInput,
+                                    background: !scheduleMode ? electric : theme.bgInput,
                                     color: !scheduleMode ? '#fff' : theme.textMuted,
                                     fontWeight: 600, fontSize: 13, fontFamily: "'Inter', sans-serif",
                                     transition: 'all 0.2s ease',
@@ -150,7 +150,7 @@ export default function RidesPage() {
                                 </button>
                                 <button onClick={() => setScheduleMode(true)} style={{
                                     flex: 1, padding: '10px 16px', borderRadius: 12, border: 'none', cursor: 'pointer',
-                                    background: scheduleMode ? emerald : theme.bgInput,
+                                    background: scheduleMode ? electric : theme.bgInput,
                                     color: scheduleMode ? '#fff' : theme.textMuted,
                                     fontWeight: 600, fontSize: 13, fontFamily: "'Inter', sans-serif",
                                     transition: 'all 0.2s ease',
@@ -163,12 +163,12 @@ export default function RidesPage() {
                             <button onClick={handleEstimate} style={{
                                 width: '100%', padding: '16px', borderRadius: 14, border: 'none', cursor: 'pointer',
                                 background: pickup && dropoff
-                                    ? `linear-gradient(135deg, ${emerald}, #059669)`
+                                    ? `linear-gradient(135deg, ${electric}, #0044CC)`
                                     : theme.bgInput,
                                 color: pickup && dropoff ? '#fff' : theme.textFaint,
                                 fontWeight: 700, fontSize: 16, fontFamily: "'DM Sans', sans-serif",
                                 letterSpacing: '-0.02em',
-                                boxShadow: pickup && dropoff ? `0 4px 20px ${emeraldGlow}` : 'none',
+                                boxShadow: pickup && dropoff ? `0 4px 20px ${electricGlow}` : 'none',
                                 transition: 'all 0.3s ease',
                             }}>
                                 {showEstimate ? '✓ Ride Requested!' : 'See Prices'}
@@ -193,15 +193,15 @@ export default function RidesPage() {
                                     style={{
                                         width: '100%', textAlign: 'left', cursor: 'pointer',
                                         background: selectedVehicle === vc.id
-                                            ? (isDark ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.04)')
+                                            ? (isDark ? 'rgba(0,102,255,0.08)' : 'rgba(0,102,255,0.04)')
                                             : theme.bgCard,
                                         border: selectedVehicle === vc.id
-                                            ? `2px solid ${emerald}`
+                                            ? `2px solid ${electric}`
                                             : `1px solid ${theme.borderSubtle}`,
                                         borderRadius: 16, padding: isMobile ? 16 : 20,
                                         transition: 'all 0.25s cubic-bezier(0.19, 1, 0.22, 1)',
                                         transform: selectedVehicle === vc.id ? 'scale(1.01)' : 'scale(1)',
-                                        boxShadow: selectedVehicle === vc.id ? `0 4px 20px ${emeraldGlow}` : '0 2px 8px rgba(0,0,0,0.04)',
+                                        boxShadow: selectedVehicle === vc.id ? `0 4px 20px ${electricGlow}` : '0 2px 8px rgba(0,0,0,0.04)',
                                     }}
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -215,7 +215,7 @@ export default function RidesPage() {
                                                     {vc.name}
                                                 </span>
                                                 <span style={{
-                                                    fontWeight: 700, fontSize: 15, color: emerald,
+                                                    fontWeight: 700, fontSize: 15, color: electric,
                                                     fontFamily: "'DM Sans', sans-serif",
                                                 }}>
                                                     ${vc.minFare.toFixed(2)}+
@@ -235,7 +235,7 @@ export default function RidesPage() {
                                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
                                                 {vc.features.map((f, i) => (
                                                     <span key={i} style={{
-                                                        background: emeraldBg, color: emerald, borderRadius: 8,
+                                                        background: electricBg, color: electric, borderRadius: 8,
                                                         padding: '4px 10px', fontSize: 11, fontWeight: 600,
                                                     }}>
                                                         {f}
@@ -278,12 +278,12 @@ export default function RidesPage() {
                 }}>
                     {/* Rides Card */}
                     <div style={{
-                        background: `linear-gradient(135deg, ${emerald}15, ${emerald}05)`,
-                        border: `1px solid ${emerald}33`,
+                        background: `linear-gradient(135deg, ${electric}15, ${electric}05)`,
+                        border: `1px solid ${electric}33`,
                         borderRadius: 24, padding: isMobile ? 28 : 36, position: 'relative', overflow: 'hidden',
                         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                     }}
-                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${emeraldGlow}`; }}
+                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${electricGlow}`; }}
                         onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                     >
                         <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>🚗</span>
@@ -293,7 +293,7 @@ export default function RidesPage() {
                         <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
                             On-demand rides across the Soo. Tap, ride, arrive — all in a zero-emission EV.
                         </p>
-                        <span style={{ fontSize: 13, fontWeight: 600, color: emerald }}>You&apos;re here →</span>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: electric }}>You&apos;re here →</span>
                     </div>
 
                     {/* Airport Card */}
@@ -303,7 +303,7 @@ export default function RidesPage() {
                             borderRadius: 24, padding: isMobile ? 28 : 36, height: '100%',
                             transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
                         }}
-                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = emerald; e.currentTarget.style.boxShadow = `0 12px 40px ${emeraldGlow}`; }}
+                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = electric; e.currentTarget.style.boxShadow = `0 12px 40px ${electricGlow}`; }}
                             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.boxShadow = 'none'; }}
                         >
                             <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>✈️</span>
@@ -313,7 +313,7 @@ export default function RidesPage() {
                             <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
                                 Fixed-rate airport transfers. Schedule ahead, meet-and-greet, zero surprises.
                             </p>
-                            <span style={{ fontSize: 13, fontWeight: 600, color: emerald }}>Book a transfer →</span>
+                            <span style={{ fontSize: 13, fontWeight: 600, color: electric }}>Book a transfer →</span>
                         </div>
                     </Link>
 
@@ -324,7 +324,7 @@ export default function RidesPage() {
                             borderRadius: 24, padding: isMobile ? 28 : 36, height: '100%',
                             transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
                         }}
-                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = emerald; e.currentTarget.style.boxShadow = `0 12px 40px ${emeraldGlow}`; }}
+                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = electric; e.currentTarget.style.boxShadow = `0 12px 40px ${electricGlow}`; }}
                             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.boxShadow = 'none'; }}
                         >
                             <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>💎</span>
@@ -334,7 +334,7 @@ export default function RidesPage() {
                             <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
                                 Electric Hummers, luxury fleets, red carpet arrivals. Make it unforgettable.
                             </p>
-                            <span style={{ fontSize: 13, fontWeight: 600, color: emerald }}>Explore fleets →</span>
+                            <span style={{ fontSize: 13, fontWeight: 600, color: electric }}>Explore fleets →</span>
                         </div>
                     </Link>
                 </div>
@@ -383,8 +383,8 @@ export default function RidesPage() {
                                         {vehicle.year} {vehicle.make}
                                     </span>
                                     <span style={{
-                                        fontSize: 10, fontWeight: 600, color: emerald,
-                                        background: emeraldBg, borderRadius: 6, padding: '2px 8px',
+                                        fontSize: 10, fontWeight: 600, color: electric,
+                                        background: electricBg, borderRadius: 6, padding: '2px 8px',
                                     }}>
                                         {vehicle.powertrain}
                                     </span>
@@ -438,7 +438,7 @@ export default function RidesPage() {
                                 borderRadius: 16, padding: '16px', textAlign: 'left', cursor: 'pointer',
                                 transition: 'all 0.25s ease',
                             }}
-                            onMouseEnter={(e) => { e.currentTarget.style.borderColor = emerald; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                            onMouseEnter={(e) => { e.currentTarget.style.borderColor = electric; e.currentTarget.style.transform = 'translateY(-2px)'; }}
                             onMouseLeave={(e) => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.transform = 'translateY(0)'; }}
                         >
                             <span style={{ fontSize: 24, display: 'block', marginBottom: 8 }}>{dest.emoji}</span>
@@ -448,7 +448,7 @@ export default function RidesPage() {
                             }}>
                                 {dest.name}
                             </span>
-                            <span style={{ fontSize: 13, color: emerald, fontWeight: 600, marginTop: 4, display: 'block' }}>
+                            <span style={{ fontSize: 13, color: electric, fontWeight: 600, marginTop: 4, display: 'block' }}>
                                 {dest.estimate}
                             </span>
                         </button>
@@ -462,9 +462,9 @@ export default function RidesPage() {
             }}>
                 <div style={{
                     background: isDark
-                        ? `linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))`
-                        : `linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03))`,
-                    border: `1px solid ${emerald}22`,
+                        ? `linear-gradient(135deg, rgba(0,102,255,0.06), rgba(0,102,255,0.02))`
+                        : `linear-gradient(135deg, rgba(0,102,255,0.08), rgba(0,102,255,0.03))`,
+                    border: `1px solid ${electric}22`,
                     borderRadius: 28, padding: isMobile ? 28 : 48,
                 }}>
                     <h2 style={{
@@ -519,22 +519,22 @@ export default function RidesPage() {
                     fontSize: isMobile ? 28 : 40, letterSpacing: '-0.04em',
                     color: theme.text, margin: '0 0 16px',
                 }}>
-                    Ready to ride <span style={{ color: emerald }}>electric</span>?
+                    Ready to ride <span style={{ color: electric }}>electric</span>?
                 </h2>
                 <p style={{
                     fontSize: 16, color: theme.textMuted, margin: '0 auto 32px', maxWidth: 400,
                 }}>
-                    First ride is on us. Use code <strong style={{ color: emerald }}>SOOELECTRIC</strong> for a free ride up to $15.
+                    First ride is on us. Use code <strong style={{ color: electric }}>SOOELECTRIC</strong> for a free ride up to $15.
                 </p>
                 <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
                     <button
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                         style={{
                             padding: '16px 36px', borderRadius: 14, border: 'none', cursor: 'pointer',
-                            background: `linear-gradient(135deg, ${emerald}, #059669)`,
+                            background: `linear-gradient(135deg, ${electric}, #0044CC)`,
                             color: '#fff', fontWeight: 700, fontSize: 16,
                             fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.02em',
-                            boxShadow: `0 4px 20px ${emeraldGlow}`,
+                            boxShadow: `0 4px 20px ${electricGlow}`,
                             transition: 'transform 0.2s ease',
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
@@ -550,7 +550,7 @@ export default function RidesPage() {
                         transition: 'transform 0.2s ease, border-color 0.2s ease',
                         display: 'inline-block',
                     }}
-                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.borderColor = emerald; }}
+                        onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.borderColor = electric; }}
                         onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = theme.borderSubtle; }}
                     >
                         Explore Events

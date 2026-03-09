@@ -12,7 +12,28 @@ export const Navigation = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchFocused, setSearchFocused] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
     const searchRef = useRef(null);
+    const profileRef = useRef(null);
+
+    // Membership data (simulated)
+    const memberTier = 2; // 0=Bronze, 1=Silver, 2=Gold, 3=Diamond
+    const TIER_CONFIG = [
+        { name: 'Bronze', emoji: '🥉', badge: '⭐', color: '#cd7f32', points: 420 },
+        { name: 'Silver', emoji: '🥈', badge: '⭐', color: '#a8a9ad', points: 890 },
+        { name: 'Gold', emoji: '🥇', badge: '✦', color: '#eab308', points: 1847 },
+        { name: 'Diamond', emoji: '💎', badge: '💎', color: '#60a5fa', points: 5200 },
+    ];
+    const tier = TIER_CONFIG[memberTier];
+
+    // Close profile popup on outside click
+    useEffect(() => {
+        const handleClick = (e) => {
+            if (profileRef.current && !profileRef.current.contains(e.target)) setProfileOpen(false);
+        };
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    }, []);
 
     const searchResults = useMemo(() => {
         if (!searchQuery.trim()) return [];
@@ -92,14 +113,9 @@ export const Navigation = () => {
                     {/* Nav Links — left of header */}
                     {!isMobile && (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginLeft: 32 }}>
-                            <Link href="/orders" style={{
-                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                textDecoration: 'none', letterSpacing: '-0.01em',
-                            }}>
-                                Orders
-                            </Link>
+
                             <Link href="/rides" style={{
-                                color: '#10b981', fontSize: 14, fontWeight: 600,
+                                color: '#0066FF', fontSize: 14, fontWeight: 700,
                                 textDecoration: 'none', letterSpacing: '-0.01em',
                             }}>
                                 ⚡ Rides
@@ -241,15 +257,15 @@ export const Navigation = () => {
                             </div>
                         )}
 
-                        {/* Support — icon between search & cart */}
+                        {/* Support — emergency red icon between search & cart */}
                         {!isMobile && (
                             <Link href="/support" style={{
                                 width: 38, height: 38, borderRadius: 12,
-                                background: theme.bgInput, border: 'none',
+                                background: 'rgba(239,68,68,0.1)', border: 'none',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 textDecoration: 'none', transition: 'all 0.2s',
                             }}>
-                                <svg style={{ width: 18, height: 18, color: theme.textFaint }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                                <svg style={{ width: 18, height: 18, color: '#ef4444' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
                             </Link>
@@ -286,20 +302,122 @@ export const Navigation = () => {
                             )}
                         </button>
 
-                        {/* Avatar */}
-                        <Link href="/account" style={{ textDecoration: 'none' }}>
-                            <div style={{
-                                width: isMobile ? 34 : 38, height: isMobile ? 34 : 38,
-                                borderRadius: '50%', overflow: 'hidden',
-                                border: `2px solid ${theme.border}`, cursor: 'pointer',
-                                transition: 'border-color 0.2s',
-                            }}
-                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = theme.accent; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = theme.border; }}
+                        {/* Avatar with Profile Popup */}
+                        <div ref={profileRef} style={{ position: 'relative' }}>
+                            <button
+                                onClick={() => setProfileOpen(!profileOpen)}
+                                style={{
+                                    position: 'relative', background: 'none', border: 'none',
+                                    padding: 0, cursor: 'pointer',
+                                }}
                             >
-                                <img src="https://ui-avatars.com/api/?name=C+M&background=09090b&color=fafafa&bold=true&font-size=0.38" alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            </div>
-                        </Link>
+                                {/* Tier badge above avatar */}
+                                <span style={{
+                                    position: 'absolute', top: -6, right: -4, zIndex: 2,
+                                    fontSize: memberTier >= 3 ? 14 : 12,
+                                    filter: memberTier >= 2 ? `drop-shadow(0 0 4px ${tier.color}80)` : 'none',
+                                    animation: 'badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                                }}>
+                                    {tier.badge}
+                                </span>
+                                <div style={{
+                                    width: isMobile ? 34 : 38, height: isMobile ? 34 : 38,
+                                    borderRadius: '50%', overflow: 'hidden',
+                                    border: `2px solid ${profileOpen ? tier.color : theme.border}`,
+                                    transition: 'border-color 0.2s',
+                                }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = tier.color; }}
+                                    onMouseLeave={(e) => { if (!profileOpen) e.currentTarget.style.borderColor = theme.border; }}
+                                >
+                                    <img src="https://ui-avatars.com/api/?name=C+M&background=09090b&color=fafafa&bold=true&font-size=0.38" alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                            </button>
+
+                            {/* Profile Dropdown */}
+                            {profileOpen && (
+                                <div style={{
+                                    position: 'absolute', top: 'calc(100% + 10px)', right: 0,
+                                    width: 260, background: theme.bgCard,
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                    borderRadius: 20, overflow: 'hidden',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+                                    zIndex: 200, animation: 'fadeIn 0.2s ease',
+                                }}>
+                                    {/* Member header */}
+                                    <div style={{
+                                        padding: '18px 18px 14px', textAlign: 'center',
+                                        borderBottom: `1px solid ${theme.borderSubtle}`,
+                                        background: `linear-gradient(180deg, ${tier.color}10, transparent)`,
+                                    }}>
+                                        <div style={{ position: 'relative', display: 'inline-block', marginBottom: 10 }}>
+                                            <span style={{
+                                                position: 'absolute', top: -8, right: -6, fontSize: memberTier >= 3 ? 18 : 14,
+                                                filter: `drop-shadow(0 0 6px ${tier.color}80)`,
+                                            }}>{tier.badge}</span>
+                                            <div style={{
+                                                width: 52, height: 52, borderRadius: '50%', overflow: 'hidden',
+                                                border: `2.5px solid ${tier.color}`,
+                                                boxShadow: `0 0 16px ${tier.color}30`,
+                                            }}>
+                                                <img src="https://ui-avatars.com/api/?name=C+M&background=09090b&color=fafafa&bold=true&font-size=0.38" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            </div>
+                                        </div>
+                                        <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 16, color: theme.text, marginBottom: 2 }}>Cody M.</div>
+                                        <div style={{
+                                            display: 'inline-flex', alignItems: 'center', gap: 5,
+                                            background: `${tier.color}18`, border: `1px solid ${tier.color}30`,
+                                            borderRadius: 8, padding: '3px 10px',
+                                            fontSize: 11, fontWeight: 700, color: tier.color,
+                                        }}>
+                                            {tier.emoji} {tier.name} · {tier.points.toLocaleString()} pts
+                                        </div>
+                                    </div>
+
+                                    {/* Menu items */}
+                                    <div style={{ padding: '6px 6px' }}>
+                                        {[
+                                            { icon: '📦', label: 'Orders', href: '/orders' },
+                                            { icon: '👤', label: 'Account', href: '/account' },
+                                            { icon: '🏆', label: 'Rewards', href: '/rewards' },
+                                            { icon: '🎓', label: 'Academy', href: '/academy' },
+                                        ].map(item => (
+                                            <Link key={item.label} href={item.href} onClick={() => setProfileOpen(false)} style={{ textDecoration: 'none' }}>
+                                                <div style={{
+                                                    display: 'flex', alignItems: 'center', gap: 12,
+                                                    padding: '11px 14px', borderRadius: 12,
+                                                    transition: 'background 0.15s',
+                                                    cursor: 'pointer',
+                                                }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.background = theme.bgCardHover}
+                                                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                                >
+                                                    <span style={{ fontSize: 16 }}>{item.icon}</span>
+                                                    <span style={{ fontSize: 14, fontWeight: 600, color: theme.text }}>{item.label}</span>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+
+                                    {/* Log Out */}
+                                    <div style={{ padding: '4px 6px 8px', borderTop: `1px solid ${theme.borderSubtle}` }}>
+                                        <button
+                                            onClick={() => { setProfileOpen(false); }}
+                                            style={{
+                                                width: '100%', display: 'flex', alignItems: 'center', gap: 12,
+                                                padding: '11px 14px', borderRadius: 12,
+                                                background: 'none', border: 'none', cursor: 'pointer',
+                                                transition: 'background 0.15s',
+                                            }}
+                                            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239,68,68,0.08)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                        >
+                                            <span style={{ fontSize: 16 }}>🚪</span>
+                                            <span style={{ fontSize: 14, fontWeight: 600, color: '#ef4444' }}>Log Out</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </nav>

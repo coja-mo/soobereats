@@ -21,7 +21,7 @@ export default function EventsPage() {
     }, []);
 
     const isDark = theme.bg === '#09090b' || theme.bg === '#000';
-    const emerald = '#10b981';
+    const electric = '#0066FF';
     const gold = '#f59e0b';
     const goldBg = 'rgba(245,158,11,0.1)';
     const goldGlow = 'rgba(245,158,11,0.25)';
@@ -314,7 +314,7 @@ export default function EventsPage() {
                                 }}>
                                     {pkg.includes.map((item, i) => (
                                         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                            <span style={{ color: emerald, fontSize: 12 }}>✓</span>
+                                            <span style={{ color: electric, fontSize: 12 }}>✓</span>
                                             <span style={{ fontSize: 12, color: theme.textMuted }}>{item}</span>
                                         </div>
                                     ))}
