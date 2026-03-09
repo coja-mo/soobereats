@@ -125,7 +125,7 @@ export function SooMrktSection() {
                     borderRadius: 24,
                 }}>
                     <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 18 : 22, fontWeight: 700, color: theme.text, marginBottom: 8 }}>
-                        {sooMrktVendors.length} local vendors. Zero middlemen. 100% Soo.
+                        {sooMrktVendors.length} local vendors. Zero intermediaries. 100% Soo.
                     </p>
                     <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 0 }}>
                         Every product delivered by our ⚡ electric fleet.

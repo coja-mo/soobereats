@@ -68,7 +68,7 @@ export default function CorporatePortal() {
                     }}>Partner with the<br />Soo's Local Platform</h1>
 
                     <p style={{ fontSize: isMobile ? 16 : 18, color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 24px', lineHeight: 1.6 }}>
-                        Zero corporate middlemen. Fair commission rates. Direct access to the Sault Ste. Marie community. Join SOOber Eats and grow your business with the Soo&apos;s only local delivery platform.
+                        Zero corporate gatekeepers. Fair commission rates. Direct access to the Sault Ste. Marie community. Join SOOber Eats and grow your business with the Soo&apos;s only local delivery platform.
                     </p>
 
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 18px', borderRadius: 12, background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.2)', color: '#34d399', fontSize: 13, fontWeight: 600, marginBottom: 32 }}>

@@ -95,7 +95,7 @@ export default function Home() {
               margin: `0 auto ${isMobile ? 28 : 40}px`,
               fontWeight: 400, letterSpacing: '-0.01em',
             }}>
-              Skip the corporations. Support the Soo. Your favorite local restaurants and market vendors, delivered with zero middlemen.
+              Skip the corporations. Support the Soo. Your favorite local restaurants and market vendors, delivered with zero gatekeepers.
             </p>
 
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -366,7 +366,7 @@ export default function Home() {
                   { emoji: '💰', title: 'Keep $ Local', desc: 'Your money stays in the Soo. Not Silicon Valley.' },
                   { emoji: '🤝', title: 'Real Relationships', desc: 'Know who makes your food by name.' },
                   { emoji: '🥬', title: 'Fresher Food', desc: 'Local farms. Local kitchens. Shorter supply chains.' },
-                  { emoji: '🚫', title: 'Zero Middlemen', desc: 'No corporate fees eating into local business profits.' },
+                  { emoji: '🚫', title: 'Direct to You', desc: 'No corporate fees eating into local business profits.' },
                 ].map((benefit) => (
                   <div key={benefit.title} style={{
                     background: theme.bgCard,
