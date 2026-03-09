@@ -54,11 +54,11 @@ export default function AccountPage() {
                     <div style={{
                         width: isMobile ? 72 : 100, height: isMobile ? 72 : 100,
                         borderRadius: isMobile ? 20 : 28,
-                        background: 'linear-gradient(135deg, #eab308, #ca8a04)',
+                        background: 'linear-gradient(135deg, #60a5fa, #3b82f6)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: isMobile ? 28 : 40, fontWeight: 800, color: '#fff',
                         fontFamily: "'DM Sans', sans-serif",
-                        boxShadow: '0 8px 32px rgba(234,179,8,0.25)',
+                        boxShadow: '0 8px 32px rgba(96,165,250,0.3)',
                         flexShrink: 0,
                     }}>CM</div>
                     <div style={{ flex: 1 }}>
@@ -70,10 +70,10 @@ export default function AccountPage() {
                         <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', margin: 0, marginBottom: 10 }}>cody@antigravitysolutions.ca</p>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                             <span style={{
-                                fontSize: 12, fontWeight: 700, color: '#eab308',
-                                background: 'rgba(234,179,8,0.15)', padding: '5px 14px', borderRadius: 8,
+                                fontSize: 12, fontWeight: 700, color: '#60a5fa',
+                                background: 'rgba(96,165,250,0.15)', padding: '5px 14px', borderRadius: 8,
                                 textTransform: 'uppercase', letterSpacing: '0.05em',
-                            }}>Soober Gold</span>
+                            }}>💎 Soobér Diamond</span>
                             <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>Member since 2026</span>
                         </div>
                     </div>

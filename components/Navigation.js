@@ -17,7 +17,7 @@ export const Navigation = () => {
     const profileRef = useRef(null);
 
     // Membership data (simulated)
-    const memberTier = 2; // 0=Bronze, 1=Silver, 2=Gold, 3=Diamond
+    const memberTier = 3; // 0=Bronze, 1=Silver, 2=Gold, 3=Diamond
     const TIER_CONFIG = [
         { name: 'Bronze', emoji: '🥉', badge: '⭐', color: '#cd7f32', points: 420 },
         { name: 'Silver', emoji: '🥈', badge: '⭐', color: '#a8a9ad', points: 890 },
