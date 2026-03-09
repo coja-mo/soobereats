@@ -11,7 +11,7 @@ export default function FounderDashboard() {
             <header className={styles.header}>
                 <div className={styles.brand}>
                     <div className={styles.logo}>SOOber Founder</div>
-                    <div className={styles.badge}>God Mode</div>
+                    <div className={styles.badge}>Superadmin</div>
                 </div>
 
                 <div className={styles.systemStatus}>
@@ -375,6 +375,63 @@ export default function FounderDashboard() {
                         </section>
 
                     </div>
+
+                    {/* --- FULL WIDTH ROW (Vector Intelligence) --- */}
+                    <div className={styles.threeColSpan}>
+                        <section className={styles.panel}>
+                            <div className={styles.panelHeader}>
+                                <h2 className={styles.panelTitle}>Live Vector Intelligence & Anomaly Detection</h2>
+                                <span className={styles.statTrend} style={{ fontSize: '0.8rem', color: '#3b82f6' }}>Scanning SOO-Core</span>
+                            </div>
+                            <div className={styles.panelContent} style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                                {/* Radar */}
+                                <div className={styles.radarWrapper}>
+                                    <div className={styles.radarContainer}>
+                                        <div className={styles.radarRing1}></div>
+                                        <div className={styles.radarRing2}></div>
+                                        <div className={styles.radarRing3}></div>
+                                        <div className={styles.radarBlip} style={{ top: '30%', left: '70%' }}></div>
+                                        <div className={styles.radarBlip} style={{ top: '60%', left: '25%', animationDelay: '1.2s' }}></div>
+                                    </div>
+                                    <div style={{ textAlign: 'center', color: '#10b981', fontSize: '0.75rem', marginTop: '0.5rem', fontFamily: 'monospace' }}>ML-NODE-01</div>
+                                </div>
+                                {/* Data streams */}
+                                <div style={{ flex: 1 }}>
+                                    <table className={styles.dataTable}>
+                                        <thead>
+                                            <tr>
+                                                <th>Vector ID</th>
+                                                <th>Anomaly Confidence</th>
+                                                <th>Detection Event</th>
+                                                <th>Automated Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style={{ fontFamily: 'monospace', color: '#888' }}>VEC-A92B</td>
+                                                <td><span style={{ color: '#f59e0b' }}>89.4%</span></td>
+                                                <td>Route deviation detected, Driver #402. Highway 17 North.</td>
+                                                <td><span style={{ color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>Pinged Device</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ fontFamily: 'monospace', color: '#888' }}>VEC-X114</td>
+                                                <td><span style={{ color: '#ef4444' }}>99.1%</span></td>
+                                                <td>Fraudulent bulk order attempt. Sourced from external node.</td>
+                                                <td><span style={{ color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>IP Blocked</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{ fontFamily: 'monospace', color: '#888' }}>VEC-K008</td>
+                                                <td><span style={{ color: '#3b82f6' }}>64.2%</span></td>
+                                                <td>Unusual demand surge: Goulais Ave. (Potential unlisted event)</td>
+                                                <td><span style={{ color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>Redirected 2 EVs</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
                 </div>
             </main>
         </div>
