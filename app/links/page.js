@@ -12,6 +12,8 @@ const sections = [
             { href: '/checkout', label: 'Checkout', desc: 'Cart & payment flow' },
             { href: '/orders', label: 'Order History', desc: 'Past orders & receipts' },
             { href: '/account', label: 'My Account', desc: 'Profile, addresses, loyalty' },
+            { href: '/rewards', label: 'Loyalty & Rewards', desc: 'Bronze → Silver → Gold → Diamond tier system' },
+            { href: '/delivery-zone', label: 'Delivery Zone Map', desc: 'Coverage areas, fees & delivery times' },
         ]
     },
     {

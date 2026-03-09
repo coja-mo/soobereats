@@ -395,6 +395,108 @@ export default function Home() {
       )}
 
       {/* ═══════════════════════════════════════════════
+          TESTIMONIALS
+         ═══════════════════════════════════════════════ */}
+      <section style={{ padding: isMobile ? '48px 16px' : '72px 40px', transition: 'all 0.3s ease' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: isMobile ? 28 : 40 }}>
+            <h2 style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: isMobile ? 26 : 36, fontWeight: 700,
+              color: theme.text, letterSpacing: '-0.03em', marginBottom: 8,
+            }}>What the Soo Is Saying</h2>
+            <p style={{ fontSize: 15, color: theme.textMuted }}>Real reviews from real locals.</p>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: isMobile ? 12 : 20,
+          }}>
+            {[
+              { name: 'Melissa T.', location: 'East End', text: 'Finally, a delivery service that actually knows the Soo. My food arrives hot, the drivers are friendly, and I love that it\'s all electric. Way better than the big corporate apps.', rating: 5, tier: 'Gold' },
+              { name: 'Jason R.', location: 'Downtown', text: 'I order from Aurora\'s almost every week. The fact that SOOber Eats keeps my money local and delivers with zero emissions? That\'s how it should be done.', rating: 5, tier: 'Silver' },
+              { name: 'Sarah & Mike K.', location: 'West End', text: 'We discovered so many amazing local artisans through Soo MRKT that we didn\'t even know existed. The delivery zone covers our whole neighborhood!', rating: 5, tier: 'Bronze' },
+            ].map((review, i) => (
+              <div key={i} style={{
+                background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                borderRadius: 22, padding: isMobile ? 20 : 28, boxShadow: theme.shadow,
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+              }}>
+                <div>
+                  <div style={{ display: 'flex', gap: 2, marginBottom: 14 }}>
+                    {Array(review.rating).fill(0).map((_, j) => (
+                      <svg key={j} width="16" height="16" fill="#eab308" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: 14, color: theme.textSecondary, lineHeight: 1.7, margin: '0 0 20px', fontStyle: 'italic' }}>
+                    &ldquo;{review.text}&rdquo;
+                  </p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: theme.text }}>{review.name}</div>
+                    <div style={{ fontSize: 12, color: theme.textFaint }}>{review.location}, SSM</div>
+                  </div>
+                  <span style={{
+                    fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 8,
+                    background: theme.accentBg, color: theme.accent, textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                  }}>{review.tier}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          NEWSLETTER
+         ═══════════════════════════════════════════════ */}
+      <section style={{
+        padding: isMobile ? '40px 16px' : '56px 40px',
+        background: theme.mode === 'dark' ? '#0c0a09' : '#1c1917',
+        transition: 'all 0.3s ease',
+      }}>
+        <div style={{
+          maxWidth: 600, margin: '0 auto', textAlign: 'center',
+        }}>
+          <div style={{ fontSize: 36, marginBottom: 16 }}>📬</div>
+          <h2 style={{
+            fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 24 : 32, fontWeight: 700,
+            color: '#fafafa', letterSpacing: '-0.03em', marginBottom: 8,
+          }}>Get the Soo Scoop</h2>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', marginBottom: 28, lineHeight: 1.5 }}>
+            New restaurants, exclusive deals, and local food stories — delivered to your inbox. No spam, ever.
+          </p>
+          <div style={{
+            display: 'flex', gap: 10, maxWidth: 440, margin: '0 auto',
+            flexDirection: isMobile ? 'column' : 'row',
+          }}>
+            <input
+              type="email"
+              placeholder="your@email.com"
+              style={{
+                flex: 1, padding: '14px 20px', borderRadius: 14,
+                border: '1.5px solid rgba(255,255,255,0.15)',
+                background: 'rgba(255,255,255,0.06)', color: '#fafafa',
+                fontSize: 15, fontWeight: 500, outline: 'none',
+                fontFamily: "'Inter', sans-serif",
+              }}
+            />
+            <button style={{
+              padding: '14px 28px', borderRadius: 14, border: 'none',
+              background: '#eab308', color: '#09090b', fontSize: 15, fontWeight: 700,
+              fontFamily: "'DM Sans', sans-serif", cursor: 'pointer',
+              transition: 'all 0.2s', whiteSpace: 'nowrap',
+            }}>Subscribe</button>
+          </div>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginTop: 12 }}>Join 1,200+ Soo locals. Unsubscribe anytime.</p>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
           FOOTER
          ═══════════════════════════════════════════════ */}
       <footer style={{
@@ -438,6 +540,8 @@ export default function Home() {
             <Link href="/corporate" style={{ color: theme.textFaint, textDecoration: 'none' }}>For Restaurants</Link>
             <Link href="/for-drivers" style={{ color: theme.textFaint, textDecoration: 'none' }}>Drive Electric</Link>
             <Link href="/contact" style={{ color: theme.textFaint, textDecoration: 'none' }}>Contact</Link>
+            <Link href="/rewards" style={{ color: theme.textFaint, textDecoration: 'none' }}>Rewards</Link>
+            <Link href="/delivery-zone" style={{ color: theme.textFaint, textDecoration: 'none' }}>Delivery Zone</Link>
             <Link href="/terms" style={{ color: theme.textFaint, textDecoration: 'none' }}>Terms</Link>
             <Link href="/privacy" style={{ color: theme.textFaint, textDecoration: 'none' }}>Privacy</Link>
             <Link href="/links" style={{ color: theme.textFaint, textDecoration: 'none' }}>All Links</Link>

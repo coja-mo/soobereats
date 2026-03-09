@@ -287,16 +287,63 @@ export const Navigation = () => {
                     background: theme.bg, padding: '24px 16px',
                     animation: 'fadeIn 0.2s ease',
                 }}>
+                    {/* Mobile Search */}
+                    <div style={{ position: 'relative', marginBottom: 16 }}>
+                        <svg style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', width: 18, height: 18, color: theme.textFaint, pointerEvents: 'none' }}
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input
+                            type="text"
+                            placeholder="Search restaurants, dishes..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            style={{
+                                width: '100%', background: theme.bgInput,
+                                border: `1.5px solid ${theme.borderSubtle}`, borderRadius: 14,
+                                padding: '14px 18px 14px 44px', fontSize: 15, fontWeight: 500,
+                                color: theme.text, outline: 'none', fontFamily: "'Inter', sans-serif",
+                                boxSizing: 'border-box',
+                            }}
+                        />
+                        {searchQuery.trim() && searchResults.length > 0 && (
+                            <div style={{
+                                marginTop: 8, background: theme.bgCard,
+                                border: `1px solid ${theme.borderSubtle}`,
+                                borderRadius: 16, overflow: 'hidden',
+                            }}>
+                                {searchResults.map((r, i) => (
+                                    <Link key={`m-${r.href}-${i}`} href={r.href} onClick={() => { setMenuOpen(false); setSearchQuery(''); }} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <div style={{
+                                            display: 'flex', alignItems: 'center', gap: 12,
+                                            padding: '12px 16px',
+                                            borderTop: i === 0 ? 'none' : `1px solid ${theme.borderSubtle}`,
+                                        }}>
+                                            <span style={{ fontSize: 20 }}>{r.emoji}</span>
+                                            <div style={{ flex: 1 }}>
+                                                <div style={{ fontSize: 14, fontWeight: 700, color: theme.text }}>{r.name}</div>
+                                                <div style={{ fontSize: 12, color: theme.textFaint }}>{r.sub}</div>
+                                            </div>
+                                            <span style={{ fontSize: 10, fontWeight: 700, color: theme.textFaint, background: theme.bgInput, padding: '3px 8px', borderRadius: 6, textTransform: 'uppercase' }}>{r.type}</span>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                         {[
                             { href: '/', label: 'Home', emoji: '🏠' },
                             { href: '/orders', label: 'My Orders', emoji: '📦' },
                             { href: '/account', label: 'Account', emoji: '👤' },
+                            { href: '/rewards', label: 'Rewards', emoji: '🏆' },
                             { href: '/about', label: 'About SOOber', emoji: '🌿' },
                             { href: '/how-it-works', label: 'How It Works', emoji: '📖' },
                             { href: '/for-drivers', label: 'Drive Electric', emoji: '⚡' },
-                            { href: '/corporate', label: 'For Restaurants', emoji: '🏢' },
-                            { href: '/vendor', label: 'Vendor Dashboard', emoji: '📊' },
+                            { href: '/corporate', label: 'For Business', emoji: '🏢' },
+                            { href: '/contact', label: 'Contact', emoji: '📬' },
+                            { href: '/delivery-zone', label: 'Delivery Zone', emoji: '📍' },
                             { href: '/links', label: 'All Links', emoji: '🔗' },
                         ].map(item => (
                             <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} style={{
