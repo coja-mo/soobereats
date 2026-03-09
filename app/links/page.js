@@ -42,6 +42,8 @@ const sections = [
             { href: '/delivery-zone', label: 'Delivery Zone Map', desc: 'Coverage areas, fees & delivery times' },
             { href: '/community', label: 'Community Marketplace', desc: 'Free local marketplace — Kijiji meets bulletin board' },
             { href: '/refer', label: 'Refer a Friend', desc: 'Give $10, Get $10 program' },
+            { href: '/orders/live', label: 'Live Order Tracking', desc: 'Real-time map tracking with driver ETA' },
+            { href: '/download', label: 'Download the App', desc: 'iOS & Android — coming soon' },
         ]
     },
     {
