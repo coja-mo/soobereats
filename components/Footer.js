@@ -60,9 +60,11 @@ export function Footer() {
                             {[
                                 { href: '/', label: 'Restaurants' },
                                 { href: '/rides', label: '⚡ Soobér Rides', accent: true },
+                                { href: '/market', label: 'Soo MRKT' },
                                 { href: '/delivery-zone', label: 'Delivery Zones' },
                                 { href: '/rewards', label: 'Rewards' },
                                 { href: '/how-it-works', label: 'How It Works' },
+                                { href: '/academy', label: 'Soobér Academy' },
                             ].map(l => (
                                 <Link key={l.href} href={l.href} style={{ color: l.accent ? '#0066FF' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: l.accent ? 700 : 500, transition: 'color 0.2s' }}>{l.label}</Link>
                             ))}
@@ -78,6 +80,8 @@ export function Footer() {
                                 { href: '/for-drivers', label: 'Drive Electric' },
                                 { href: '/support', label: 'Support' },
                                 { href: '/contact', label: 'Contact' },
+                                { href: '/dispatch', label: 'Dispatch Center' },
+                                { href: '/driver-portal', label: 'Driver Portal' },
                                 { href: '/links', label: 'All Links' },
                             ].map(l => (
                                 <Link key={l.href} href={l.href} style={{ color: theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500 }}>{l.label}</Link>
@@ -117,19 +121,42 @@ export function Footer() {
                     }}>
                         © 2026 Soobér · Sault Ste. Marie, ON · Antigravity Solutions
                     </p>
-                    <button
-                        onClick={toggleTheme}
-                        style={{
-                            display: 'flex', alignItems: 'center', gap: 8,
-                            background: theme.bgInput, border: `1px solid ${theme.borderSubtle}`,
-                            borderRadius: 100, padding: '8px 16px',
-                            cursor: 'pointer', fontSize: 13, fontWeight: 500,
-                            color: theme.textMuted, transition: 'all 0.3s ease',
-                        }}
-                    >
-                        {isDark ? '☀️' : '🌙'}
-                        <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        {/* Social Media */}
+                        <div style={{ display: 'flex', gap: 8 }}>
+                            {[
+                                { label: 'IG', href: '#', emoji: '📸' },
+                                { label: 'FB', href: '#', emoji: '👥' },
+                                { label: 'TT', href: '#', emoji: '🎵' },
+                                { label: 'X', href: '#', emoji: '𝕏' },
+                            ].map(s => (
+                                <a key={s.label} href={s.href} title={s.label} style={{
+                                    width: 32, height: 32, borderRadius: '50%',
+                                    background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: 14, textDecoration: 'none',
+                                    transition: 'all 0.2s ease',
+                                }}
+                                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#0066FF'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.transform = 'translateY(0)'; }}
+                                >{s.emoji}</a>
+                            ))}
+                        </div>
+                        <button
+                            onClick={toggleTheme}
+                            style={{
+                                display: 'flex', alignItems: 'center', gap: 8,
+                                background: theme.bgInput, border: `1px solid ${theme.borderSubtle}`,
+                                borderRadius: 100, padding: '8px 16px',
+                                cursor: 'pointer', fontSize: 13, fontWeight: 500,
+                                color: theme.textMuted, transition: 'all 0.3s ease',
+                            }}
+                        >
+                            {isDark ? '☀️' : '🌙'}
+                            <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </footer>

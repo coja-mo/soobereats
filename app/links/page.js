@@ -7,6 +7,15 @@ import { Footer } from '../../components/Footer';
 
 const sections = [
     {
+        title: '🌐 Social Media',
+        links: [
+            { href: '#', label: '📸 Instagram', desc: '@soobereats — Follow us for updates and promos' },
+            { href: '#', label: '👥 Facebook', desc: 'Soobér Eats — Community page and events' },
+            { href: '#', label: '🎵 TikTok', desc: '@soobereats — Behind-the-scenes and fleet showcases' },
+            { href: '#', label: '𝕏 X (Twitter)', desc: '@soobereats — Live updates and support' },
+        ]
+    },
+    {
         title: '⭐️ Quick Access / Priority',
         links: [
             { href: '/', label: 'Homepage', desc: 'Main customer storefront' },
@@ -22,6 +31,9 @@ const sections = [
         title: '🍽️ Customer & Mobility',
         links: [
             { href: '/rides', label: 'Soobér Rides', desc: 'Electric mobility & event fleet' },
+            { href: '/rides/airport', label: 'Airport Transfers', desc: 'Fixed-rate rides to YAM' },
+            { href: '/rides/events', label: 'Events & Fleets', desc: 'Weddings, proms, corporate events' },
+            { href: '/market', label: 'Soo MRKT', desc: 'Local marketplace & artisans' },
             { href: '/checkout', label: 'Checkout', desc: 'Cart & payment flow' },
             { href: '/orders', label: 'Order History', desc: 'Past orders & receipts' },
             { href: '/account', label: 'My Account', desc: 'Profile, addresses, loyalty' },
@@ -49,6 +61,11 @@ const sections = [
         links: [
             { href: '/corporate', label: 'Corporate Affairs Portal', desc: 'B2B partner onboarding & commission calculator' },
             { href: '/vendor/kds', label: 'Kitchen Display System', desc: 'Live order kanban for kitchens' },
+            { href: '/vendor/pos', label: 'Point of Sale', desc: 'Terminal and payment processing' },
+            { href: '/vendor/inventory', label: 'Inventory Manager', desc: 'Stock tracking and alerts' },
+            { href: '/driver-portal', label: 'Driver Portal', desc: 'Driver management and assignments' },
+            { href: '/academy', label: 'Soobér Academy', desc: 'LMS training platform' },
+            { href: '/partners', label: 'Partners Dashboard', desc: 'Local partner management (PIN required)' },
             { href: '/orders/live/ORD-2901', label: 'Live Order Tracker (Demo)', desc: 'Real-time order status page' },
         ]
     },

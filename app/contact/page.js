@@ -131,9 +131,10 @@ export default function ContactPage() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                         {[
                             { icon: '📍', title: 'Location', content: 'Sault Ste. Marie, Ontario\nAlgoma District, Canada' },
+                            { icon: '📞', title: 'Phone', content: '(705) 555-SOOB (7662)\nMon–Sat, 9 AM – 9 PM EST' },
+                            { icon: '📧', title: 'Email', content: 'hello@soobereats.ca\nbiz@soobereats.ca (Partnerships)\npress@soobereats.ca (Media)' },
                             { icon: '🕐', title: 'Response Time', content: 'We typically respond within 2–4 hours during business hours (Mon–Sat, 9AM–9PM EST).' },
-                            { icon: '📧', title: 'Email', content: 'hello@soobereats.ca' },
-                            { icon: '⚡', title: 'Electric Fleet', content: 'All deliveries made by our 100% electric vehicle fleet. Zero emissions, every order.' },
+                            { icon: '⚡', title: '100% Electric Fleet', content: 'All deliveries and rides made by our 100% electric vehicle fleet. Zero emissions, every order.' },
                         ].map(info => (
                             <div key={info.title} style={{
                                 background: theme.mode === 'dark' ? 'rgba(24,24,27,0.6)' : 'rgba(255,255,255,0.7)',
