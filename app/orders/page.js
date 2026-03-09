@@ -1,192 +1,166 @@
 "use client";
 
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useTheme } from '../../lib/ThemeContext';
+import { useLiveOrders } from '../../lib/LiveOrderContext';
 import { getActiveOrders, getPastOrders } from '../../lib/data/orders';
-import { Card } from '../../components/ui/Card';
-import { Badge } from '../../components/ui/Badge';
-import { Button } from '../../components/ui/Button';
 
 export default function OrdersPage() {
-    const activeOrders = getActiveOrders();
-    const pastOrders = getPastOrders();
+    const { theme } = useTheme();
+    const { activeOrders: liveOrders } = useLiveOrders();
+    const [isMobile, setIsMobile] = useState(false);
+    const [tab, setTab] = useState('active');
 
-    const getStatusColor = (status) => {
-        switch (status) {
-            case 'preparing': return 'warning';
-            case 'ready': return 'primary';
-            case 'delivering': return 'info';
-            case 'delivered': return 'success';
-            case 'cancelled': return 'danger';
-            default: return 'default';
-        }
-    };
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
 
-    const formatStatus = (status) => {
-        return status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    const dataActive = getActiveOrders();
+    const dataPast = getPastOrders();
+    const pad = isMobile ? '24px 16px 100px' : '40px 40px 100px';
+
+    const statusColors = {
+        confirmed: '#3b82f6', preparing: '#f59e0b', ready: '#8b5cf6',
+        delivering: '#10b981', delivered: '#22c55e', cancelled: '#ef4444',
     };
 
     return (
-        <div className="container py-10 max-w-4xl pb-24">
-            <h1 className="text-4xl font-display font-bold mb-8">Your Orders</h1>
+        <div style={{ maxWidth: 960, margin: '0 auto', padding: pad, background: theme.bg }}>
+            <h1 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 28 : 36, fontWeight: 700, color: theme.text, letterSpacing: '-0.03em', marginBottom: 8 }}>Your Orders</h1>
+            <p style={{ fontSize: 15, color: theme.textMuted, marginBottom: isMobile ? 24 : 32 }}>Track active deliveries and view past orders.</p>
 
-            {/* Active Orders Track */}
-            {activeOrders.length > 0 && (
-                <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                        <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-primary)] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-primary-dark)]"></span>
-                        </span>
-                        Active Orders
-                    </h2>
+            {/* Tabs */}
+            <div style={{
+                display: 'flex', gap: 4, background: theme.bgAlt, borderRadius: 16, padding: 4,
+                marginBottom: isMobile ? 20 : 28, border: `1px solid ${theme.borderLight}`,
+            }}>
+                {[{ id: 'active', label: `Active (${liveOrders.length + dataActive.length})` }, { id: 'past', label: `Past (${dataPast.length})` }].map(t => (
+                    <button key={t.id} onClick={() => setTab(t.id)} style={{
+                        flex: 1, padding: '12px 16px', borderRadius: 12, border: 'none', cursor: 'pointer',
+                        fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
+                        background: tab === t.id ? theme.bgCard : 'transparent',
+                        color: tab === t.id ? theme.text : theme.textFaint,
+                        boxShadow: tab === t.id ? theme.shadow : 'none', transition: 'all 0.2s',
+                    }}>{t.label}</button>
+                ))}
+            </div>
 
-                    <div className="space-y-6">
-                        {activeOrders.map(order => (
-                            <Card key={order.id} hoverEffect className="overflow-hidden border-2 border-[var(--color-primary-light)]">
-
-                                {/* Status Header Block */}
-                                <div className="bg-[var(--color-primary-light)]/30 p-4 border-b border-[var(--color-border-subtle)] flex flex-wrap justify-between items-center gap-4">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-2xl border border-[var(--color-border-subtle)]">
-                                            {order.restaurantLogo}
-                                        </div>
-                                        <div>
-                                            <h3 className="font-bold text-lg leading-tight">{order.restaurantName}</h3>
-                                            <p className="text-sm text-[var(--color-text-secondary)]">Order {order.id}</p>
-                                        </div>
+            {/* Active Tab */}
+            {tab === 'active' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {/* Live orders from context */}
+                    {liveOrders.map(order => (
+                        <Link key={order.id} href={`/orders/live/${order.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <div style={{
+                                background: theme.bgCard, border: `1.5px solid ${statusColors[order.status] || theme.border}`,
+                                borderRadius: 20, padding: isMobile ? 16 : 24, boxShadow: theme.shadow,
+                                display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20,
+                                transition: 'all 0.2s', cursor: 'pointer',
+                            }}>
+                                <div style={{
+                                    width: isMobile ? 48 : 60, height: isMobile ? 48 : 60, borderRadius: isMobile ? 14 : 18,
+                                    background: theme.bgInput, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: isMobile ? 24 : 30, flexShrink: 0,
+                                }}>{order.restaurantLogo || '🍽️'}</div>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                                        <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, fontWeight: 700, color: theme.text, margin: 0 }}>{order.restaurantName}</h3>
+                                        <span style={{
+                                            fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em',
+                                            padding: '3px 8px', borderRadius: 6,
+                                            background: `${statusColors[order.status]}20`, color: statusColors[order.status],
+                                        }}>{order.status}</span>
                                     </div>
-                                    <div className="flex flex-col items-end">
-                                        <Badge variant={getStatusColor(order.status)} className="mb-1 text-sm px-3 py-1">
-                                            {formatStatus(order.status)}
-                                        </Badge>
-                                        {order.estimatedDelivery && (
-                                            <span className="text-sm font-medium">Est. {order.estimatedDelivery}</span>
-                                        )}
-                                    </div>
+                                    <p style={{ fontSize: 13, color: theme.textFaint, margin: 0 }}>{order.items?.length || 0} items · Tap to track</p>
                                 </div>
-
-                                <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                                    {/* Items List */}
-                                    <div>
-                                        <h4 className="font-bold text-[var(--color-text-secondary)] uppercase text-xs tracking-wider mb-4">Order Details</h4>
-                                        <ul className="space-y-3 mb-6">
-                                            {order.items.map((item, idx) => (
-                                                <li key={idx} className="flex gap-3 text-sm">
-                                                    <span className="w-6 h-6 rounded bg-[var(--color-bg-subtle)] flex items-center justify-center font-medium shrink-0 text-[var(--color-text-secondary)]">
-                                                        {item.quantity}
-                                                    </span>
-                                                    <div className="flex-1">
-                                                        <span className="font-medium text-[var(--color-text)] block">{item.name}</span>
-                                                        {item.options && (
-                                                            <span className="text-[var(--color-text-muted)] text-xs block mt-0.5">
-                                                                {item.options.join(', ')}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <span className="font-medium text-[var(--color-text-secondary)]">${(item.price * item.quantity).toFixed(2)}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <div className="border-t border-[var(--color-border-subtle)] pt-3 flex justify-between font-bold">
-                                            <span>Total</span>
-                                            <span>${order.total.toFixed(2)}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Delivery Tracking Visualizer */}
-                                    <div className="bg-[var(--color-bg-subtle)] rounded-xl p-4 flex flex-col justify-between relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary-glow)] rounded-bl-full opacity-50"></div>
-
-                                        <div className="relative z-10">
-                                            <h4 className="font-bold text-[var(--color-text-secondary)] uppercase text-xs tracking-wider mb-4">Tracker Map</h4>
-
-                                            {/* Fake Map UI Component */}
-                                            <div className="w-full h-32 bg-[#e8eae9] rounded-lg border border-[var(--color-border)] mb-4 relative overflow-hidden shadow-inner flex items-center justify-center">
-                                                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-repeat"></div>
-                                                {order.status === 'delivering' ? (
-                                                    <div className="animate-pulse flex flex-col items-center">
-                                                        <span className="text-3xl drop-shadow-md">🚗</span>
-                                                        <div className="mt-2 bg-black text-white px-2 py-0.5 rounded text-xs font-bold">
-                                                            Driver approaching
-                                                        </div>
-                                                    </div>
-                                                ) : order.status === 'preparing' ? (
-                                                    <div className="animate-pulse flex flex-col items-center">
-                                                        <span className="text-3xl drop-shadow-md">👨‍🍳</span>
-                                                        <div className="mt-2 bg-black text-white px-2 py-0.5 rounded text-xs font-bold">
-                                                            Cooking your order
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="text-[var(--color-text-muted)] text-sm font-medium">Map Unavailable</div>
-                                                )}
-                                            </div>
-
-                                            {order.driverName && (
-                                                <div className="flex items-center gap-3 bg-[var(--color-bg-elevated)] p-3 rounded-lg border border-[var(--color-border-subtle)] shadow-sm">
-                                                    <div className="w-10 h-10 rounded-full bg-[var(--color-bg-muted)] overflow-hidden shrink-0">
-                                                        <img src={`https://ui-avatars.com/api/?name=${order.driverName.replace(' ', '+')}&background=random`} alt={order.driverName} />
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <div className="font-bold text-sm leading-none mb-1">{order.driverName}</div>
-                                                        {order.vehicle && <div className="text-xs text-[var(--color-text-secondary)]">{order.vehicle}</div>}
-                                                    </div>
-                                                    <div className="text-sm font-bold flex items-center gap-1 bg-[var(--color-bg-subtle)] px-2 py-1 rounded-full">
-                                                        ⭐ {order.driverRating}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-
+                                <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, fontWeight: 700, color: theme.text }}>${order.total?.toFixed(2) || '0.00'}</div>
+                                    <span style={{ fontSize: 11, color: '#10b981', fontWeight: 600 }}>⚡ EV Delivery</span>
                                 </div>
-                            </Card>
-                        ))}
-                    </div>
-                </section>
+                            </div>
+                        </Link>
+                    ))}
+
+                    {/* Static active orders */}
+                    {dataActive.map(order => (
+                        <div key={order.id} style={{
+                            background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: isMobile ? 16 : 24, boxShadow: theme.shadow,
+                            display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20,
+                        }}>
+                            <div style={{
+                                width: isMobile ? 48 : 60, height: isMobile ? 48 : 60, borderRadius: isMobile ? 14 : 18,
+                                background: theme.bgInput, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                fontSize: isMobile ? 24 : 30, flexShrink: 0,
+                            }}>{order.restaurantLogo}</div>
+                            <div style={{ flex: 1 }}>
+                                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, fontWeight: 700, color: theme.text, margin: 0, marginBottom: 3 }}>{order.restaurantName}</h3>
+                                <p style={{ fontSize: 13, color: theme.textFaint, margin: 0 }}>{order.items?.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
+                            </div>
+                            <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, fontWeight: 700, color: theme.text }}>${order.total.toFixed(2)}</div>
+                                <span style={{
+                                    fontSize: 10, fontWeight: 700, textTransform: 'uppercase',
+                                    padding: '3px 8px', borderRadius: 6,
+                                    background: `${statusColors[order.status]}20`, color: statusColors[order.status],
+                                }}>{order.status}</span>
+                            </div>
+                        </div>
+                    ))}
+
+                    {liveOrders.length === 0 && dataActive.length === 0 && (
+                        <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                            <div style={{ fontSize: 56, marginBottom: 16 }}>📦</div>
+                            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: theme.text, marginBottom: 8 }}>No active orders</h3>
+                            <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>When you place an order, it&apos;ll show up here with live tracking.</p>
+                            <Link href="/" style={{ display: 'inline-block', background: theme.dark, color: theme.darkText, padding: '14px 28px', borderRadius: 14, fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>Browse Restaurants</Link>
+                        </div>
+                    )}
+                </div>
             )}
 
-            {/* Past Orders Track */}
-            <section>
-                <h2 className="text-2xl font-bold mb-6">Past Orders</h2>
-
-                {pastOrders.length === 0 ? (
-                    <div className="text-center py-12 bg-[var(--color-bg-subtle)] rounded-[var(--radius-xl)]">
-                        <p className="text-[var(--color-text-muted)]">No past orders found.</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {pastOrders.map(order => (
-                            <Card key={order.id} className="p-4 flex gap-4 transition-colors hover:bg-[var(--color-bg-subtle)]">
-                                <div className="w-16 h-16 rounded-xl bg-[var(--color-bg-subtle)] flex items-center justify-center text-3xl shrink-0">
-                                    {order.restaurantLogo}
-                                </div>
-
-                                <div className="flex-1 flex flex-col justify-between">
-                                    <div>
-                                        <div className="flex justify-between items-start mb-1">
-                                            <h4 className="font-bold leading-tight">{order.restaurantName}</h4>
-                                            <Badge variant="success" className="text-[10px] scale-90 origin-top-right">Delivered</Badge>
-                                        </div>
-
-                                        <p className="text-sm text-[var(--color-text-secondary)] truncate">
-                                            {order.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}
-                                        </p>
-                                    </div>
-
-                                    <div className="flex justify-between items-end mt-3">
-                                        <p className="text-xs text-[var(--color-text-muted)] font-medium">
-                                            {new Date(order.orderedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                                        </p>
-                                        <p className="font-bold">${order.total.toFixed(2)}</p>
-                                    </div>
-                                </div>
-                            </Card>
-                        ))}
-                    </div>
-                )}
-            </section>
-
+            {/* Past Tab */}
+            {tab === 'past' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {dataPast.map(order => (
+                        <div key={order.id} style={{
+                            background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: isMobile ? 16 : 20, boxShadow: theme.shadow,
+                            display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20,
+                        }}>
+                            <div style={{
+                                width: 48, height: 48, borderRadius: 14,
+                                background: theme.bgInput, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                fontSize: 24, flexShrink: 0,
+                            }}>{order.restaurantLogo}</div>
+                            <div style={{ flex: 1 }}>
+                                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 700, color: theme.text, margin: 0, marginBottom: 3 }}>{order.restaurantName}</h3>
+                                <p style={{ fontSize: 13, color: theme.textFaint, margin: 0 }}>
+                                    {order.items?.map(i => `${i.quantity}x ${i.name}`).join(', ')}
+                                </p>
+                                <p style={{ fontSize: 12, color: theme.textFaint, margin: '4px 0 0' }}>
+                                    {new Date(order.orderedAt).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                </p>
+                            </div>
+                            <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 700, color: theme.text }}>${order.total.toFixed(2)}</div>
+                                <span style={{ fontSize: 11, fontWeight: 600, color: '#22c55e' }}>Delivered ✓</span>
+                            </div>
+                        </div>
+                    ))}
+                    {dataPast.length === 0 && (
+                        <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                            <div style={{ fontSize: 56, marginBottom: 16 }}>🕐</div>
+                            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: theme.text }}>No past orders yet</h3>
+                            <p style={{ fontSize: 14, color: theme.textMuted }}>Your order history will appear here after your first delivery.</p>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

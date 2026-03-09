@@ -8,6 +8,7 @@ import { SooMrktSection } from '../components/SooMrktSection';
 import { ArtisansSection } from '../components/ArtisansSection';
 import { Button } from '../components/ui/Button';
 import { useTheme } from '../lib/ThemeContext';
+import Link from 'next/link';
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -68,6 +69,8 @@ export default function Home() {
             }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', animation: 'pulse 2s infinite' }}></span>
               Now delivering in Sault Ste. Marie
+              <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(255,255,255,0.3)', display: 'inline-block', margin: '0 4px' }}></span>
+              <span style={{ color: '#10b981', fontWeight: 800 }}>⚡ 100% Electric Fleet</span>
             </div>
 
             {/* Main headline */}
@@ -96,12 +99,16 @@ export default function Home() {
             </p>
 
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Button size={isMobile ? 'md' : 'lg'} style={{ padding: isMobile ? '14px 28px' : '16px 36px', borderRadius: 16 }}>
-                Order Now
-              </Button>
-              <Button variant="outline" size={isMobile ? 'md' : 'lg'} style={{ padding: isMobile ? '14px 28px' : '16px 36px', borderRadius: 16 }}>
-                Explore Market
-              </Button>
+              <a href="#restaurants" style={{ textDecoration: 'none' }}>
+                <Button size={isMobile ? 'md' : 'lg'} style={{ padding: isMobile ? '14px 28px' : '16px 36px', borderRadius: 16 }}>
+                  Order Now
+                </Button>
+              </a>
+              <a href="#soo-mrkt" style={{ textDecoration: 'none' }}>
+                <Button variant="outline" size={isMobile ? 'md' : 'lg'} style={{ padding: isMobile ? '14px 28px' : '16px 36px', borderRadius: 16 }}>
+                  Explore Market
+                </Button>
+              </a>
             </div>
           </div>
         </section>
@@ -127,7 +134,7 @@ export default function Home() {
             {[
               { value: '18', label: 'Local Restaurants', icon: '🍽️' },
               { value: '13', label: 'Market Vendors', icon: '🧺' },
-              { value: '0%', label: 'Corporate Ownership', icon: '✊' },
+              { value: '⚡', label: 'Electric Fleet', icon: '🔋' },
               { value: '100%', label: 'Soo Owned', icon: '🏠' },
             ].map((stat, i) => (
               <div key={i} style={{
@@ -209,7 +216,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════
           SOO MRKT — "Store Within a Store"
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && <SooMrktSection />}
+      {!isFiltering && <div id="soo-mrkt"><SooMrktSection /></div>}
 
       {/* ═══════════════════════════════════════════════
           LOCAL ARTISANS & CRAFTERS
@@ -219,7 +226,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════
           ALL RESTAURANTS
          ═══════════════════════════════════════════════ */}
-      <section style={{ padding: isMobile ? '40px 0' : '64px 0', transition: 'background 0.3s ease' }}>
+      <section id="restaurants" style={{ padding: isMobile ? '40px 0' : '64px 0', transition: 'background 0.3s ease' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: isMobile ? 20 : 32 }}>
             <h2 style={{
@@ -254,6 +261,60 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════
+          ELECTRIC FLEET SHOWCASE
+         ═══════════════════════════════════════════════ */}
+      {!isFiltering && (
+        <section style={{
+          padding: isMobile ? '56px 0' : '80px 0',
+          background: theme.mode === 'dark'
+            ? 'linear-gradient(180deg, #09090b 0%, #0a1a0f 50%, #09090b 100%)'
+            : 'linear-gradient(180deg, #fdfdfd 0%, #ecfdf5 50%, #fdfdfd 100%)',
+          borderTop: `1px solid ${theme.borderSubtle}`,
+          borderBottom: `1px solid ${theme.borderSubtle}`,
+        }}>
+          <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad, textAlign: 'center' }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '8px 20px', borderRadius: 100,
+              background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)',
+              fontSize: 12, fontWeight: 700, color: '#10b981', marginBottom: 24,
+              letterSpacing: '0.05em', textTransform: 'uppercase',
+            }}>⚡ Zero Emissions Delivery</div>
+            <h2 style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: isMobile ? 28 : 40, fontWeight: 700,
+              letterSpacing: '-0.03em', color: theme.text,
+              lineHeight: 1.1, marginBottom: 16,
+            }}>Every delivery. 100% electric.</h2>
+            <p style={{
+              fontSize: isMobile ? 15 : 17, color: theme.textMuted,
+              lineHeight: 1.7, maxWidth: 560, margin: '0 auto 40px',
+            }}>Our entire fleet runs on electricity — EVs, e-bikes, and electric scooters. Ontario&apos;s grid is 94% emissions-free. Your delivery is genuinely zero-carbon.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20, maxWidth: 900, margin: '0 auto' }}>
+              {[
+                { emoji: '🔋', stat: '0g CO₂', label: 'Per Delivery' },
+                { emoji: '🤫', stat: 'Silent', label: 'Night Delivery' },
+                { emoji: '⚡', stat: '100%', label: 'Electric Fleet' },
+              ].map(item => (
+                <div key={item.label} style={{
+                  background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                  borderRadius: 20, padding: isMobile ? '20px 16px' : '28px 24px',
+                  boxShadow: theme.shadow,
+                }}>
+                  <div style={{ fontSize: 28, marginBottom: 8 }}>{item.emoji}</div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>{item.stat}</div>
+                  <div style={{ fontSize: 13, color: theme.textMuted, fontWeight: 500 }}>{item.label}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 32 }}>
+              <Link href="/about" style={{ color: '#10b981', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Learn more about our electric fleet →</Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ═══════════════════════════════════════════════
           WHY LOCAL? — Manifesto Section
@@ -371,10 +432,12 @@ export default function Home() {
             display: 'flex', gap: isMobile ? 20 : 32,
             fontSize: 13, fontWeight: 500, color: theme.textFaint,
           }}>
-            <span>Restaurants</span>
-            <span>Soo MRKT</span>
-            <span>About</span>
-            <span>Contact</span>
+            <Link href="/" style={{ color: theme.textFaint, textDecoration: 'none' }}>Restaurants</Link>
+            <Link href="/about" style={{ color: theme.textFaint, textDecoration: 'none' }}>About</Link>
+            <Link href="/how-it-works" style={{ color: theme.textFaint, textDecoration: 'none' }}>How It Works</Link>
+            <Link href="/corporate" style={{ color: theme.textFaint, textDecoration: 'none' }}>For Restaurants</Link>
+            <Link href="/for-drivers" style={{ color: theme.textFaint, textDecoration: 'none' }}>Drive Electric</Link>
+            <Link href="/links" style={{ color: theme.textFaint, textDecoration: 'none' }}>All Links</Link>
           </div>
           <p style={{
             fontSize: 12, color: theme.textFaint,

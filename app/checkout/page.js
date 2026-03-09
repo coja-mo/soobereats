@@ -16,6 +16,8 @@ export default function CheckoutPage() {
     const [customTip, setCustomTip] = useState('');
     const [orderPlaced, setOrderPlaced] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [promoCode, setPromoCode] = useState('');
+    const [promoApplied, setPromoApplied] = useState(false);
     const [form, setForm] = useState({ name: '', email: '', phone: '', address: '', apt: '', instructions: '', cardNumber: '', expiry: '', cvc: '' });
 
     useEffect(() => {
@@ -201,6 +203,44 @@ export default function CheckoutPage() {
                             onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.01)'; }}
                             onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
                         >Place Order · ${grandTotal.toFixed(2)}</button>
+
+                        {/* Promo Code */}
+                        <div style={{ marginTop: 14, display: 'flex', gap: 8 }}>
+                            <input
+                                placeholder="Promo code"
+                                value={promoCode}
+                                onChange={e => setPromoCode(e.target.value)}
+                                style={{
+                                    flex: 1, padding: '12px 16px', borderRadius: 12,
+                                    border: `1.5px solid ${promoApplied ? '#22c55e' : theme.border}`,
+                                    fontSize: 14, fontWeight: 500, color: theme.text,
+                                    outline: 'none', background: theme.bgInput, fontFamily: "'Inter', sans-serif",
+                                }}
+                            />
+                            <button
+                                onClick={() => { if (promoCode.trim()) setPromoApplied(true); }}
+                                style={{
+                                    padding: '12px 20px', borderRadius: 12, border: 'none',
+                                    background: promoApplied ? '#22c55e' : theme.bgInput,
+                                    color: promoApplied ? '#fff' : theme.textSecondary,
+                                    fontSize: 13, fontWeight: 700, cursor: 'pointer',
+                                    fontFamily: "'DM Sans', sans-serif",
+                                }}
+                            >{promoApplied ? 'Applied ✓' : 'Apply'}</button>
+                        </div>
+
+                        {/* EV Delivery Badge */}
+                        <div style={{
+                            marginTop: 16, padding: '12px 16px', borderRadius: 14,
+                            background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)',
+                            display: 'flex', alignItems: 'center', gap: 10,
+                        }}>
+                            <span style={{ fontSize: 20 }}>⚡</span>
+                            <div>
+                                <div style={{ fontSize: 13, fontWeight: 700, color: '#10b981' }}>100% Electric Delivery</div>
+                                <div style={{ fontSize: 12, color: theme.textMuted }}>Your order will be delivered emission-free by our EV fleet</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

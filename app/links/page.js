@@ -51,6 +51,14 @@ const sections = [
         links: [
             { href: '/orders/live/demo', label: 'Live Order Tracker (Demo)', desc: 'Real-time order status page' },
         ]
+    },
+    {
+        title: '📄 Information',
+        links: [
+            { href: '/about', label: 'About SOOber Eats', desc: 'Our story, mission, and 100% electric fleet' },
+            { href: '/how-it-works', label: 'How It Works', desc: '3-step ordering guide and FAQ' },
+            { href: '/for-drivers', label: 'Drive Electric', desc: 'Join the EV fleet — earnings calculator & application' },
+        ]
     }
 ];
 

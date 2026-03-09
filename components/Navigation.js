@@ -109,13 +109,37 @@ export const Navigation = () => {
                             {isDark ? '☀️' : '🌙'}
                         </button>
 
+                        {/* Mobile hamburger */}
+                        {isMobile && (
+                            <button
+                                onClick={() => setMenuOpen(!menuOpen)}
+                                style={{
+                                    width: 34, height: 34, borderRadius: 12,
+                                    background: menuOpen ? theme.border : theme.bgInput,
+                                    border: 'none', cursor: 'pointer',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: 16, transition: 'all 0.2s',
+                                }}
+                            >
+                                {menuOpen ? '✕' : '☰'}
+                            </button>
+                        )}
+
                         {!isMobile && (
-                            <Link href="/orders" style={{
-                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                textDecoration: 'none', letterSpacing: '-0.01em',
-                            }}>
-                                Orders
-                            </Link>
+                            <>
+                                <Link href="/orders" style={{
+                                    color: theme.textSecondary, fontSize: 14, fontWeight: 600,
+                                    textDecoration: 'none', letterSpacing: '-0.01em',
+                                }}>
+                                    Orders
+                                </Link>
+                                <Link href="/corporate" style={{
+                                    color: theme.textSecondary, fontSize: 14, fontWeight: 600,
+                                    textDecoration: 'none', letterSpacing: '-0.01em',
+                                }}>
+                                    For Business
+                                </Link>
+                            </>
                         )}
 
                         {/* Cart Button */}
@@ -167,11 +191,50 @@ export const Navigation = () => {
                 </div>
             </nav>
 
+            {/* Mobile Menu */}
+            {menuOpen && isMobile && (
+                <div style={{
+                    position: 'fixed', top: 64, left: 0, right: 0, bottom: 0, zIndex: 99,
+                    background: theme.bg, padding: '24px 16px',
+                    animation: 'fadeIn 0.2s ease',
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                        {[
+                            { href: '/', label: 'Home', emoji: '🏠' },
+                            { href: '/orders', label: 'My Orders', emoji: '📦' },
+                            { href: '/account', label: 'Account', emoji: '👤' },
+                            { href: '/about', label: 'About SOOber', emoji: '🌿' },
+                            { href: '/how-it-works', label: 'How It Works', emoji: '📖' },
+                            { href: '/for-drivers', label: 'Drive Electric', emoji: '⚡' },
+                            { href: '/corporate', label: 'For Restaurants', emoji: '🏢' },
+                            { href: '/vendor', label: 'Vendor Dashboard', emoji: '📊' },
+                            { href: '/links', label: 'All Links', emoji: '🔗' },
+                        ].map(item => (
+                            <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} style={{
+                                display: 'flex', alignItems: 'center', gap: 14,
+                                padding: '16px 20px', borderRadius: 16,
+                                background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                                textDecoration: 'none', color: theme.text,
+                                fontSize: 16, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
+                            }}>
+                                <span style={{ fontSize: 20 }}>{item.emoji}</span>
+                                {item.label}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+
             <style>{`
                 @keyframes badgePop {
                     0% { transform: scale(0); }
                     50% { transform: scale(1.3); }
                     100% { transform: scale(1); }
+                }
+                @keyframes fadeIn {
+                    0% { opacity: 0; transform: translateY(-10px); }
+                    100% { opacity: 1; transform: translateY(0); }
                 }
             `}</style>
         </>
