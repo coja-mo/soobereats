@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { eventFleet, eventTypes, eventPackages } from '../../../lib/data/rides';
 import { useTheme } from '../../../lib/ThemeContext';
 import Link from 'next/link';
+import { Footer } from '../../../components/Footer';
 
 export default function EventsPage() {
     const { theme } = useTheme();
@@ -429,6 +430,7 @@ export default function EventsPage() {
                     All vehicles are 100% electric · Professional chauffeurs · Fully insured
                 </p>
             </section>
+            <Footer />
         </div>
     );
 }

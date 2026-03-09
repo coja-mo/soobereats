@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { airportZones, airportVehicles } from '../../../lib/data/rides';
 import { useTheme } from '../../../lib/ThemeContext';
 import Link from 'next/link';
+import { Footer } from '../../../components/Footer';
 
 export default function AirportPage() {
     const { theme } = useTheme();
@@ -330,6 +331,7 @@ export default function AirportPage() {
                     ))}
                 </div>
             </section>
+            <Footer />
         </div>
     );
 }
