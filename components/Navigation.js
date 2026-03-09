@@ -131,6 +131,7 @@ export const Navigation = () => {
                             }}>
                                 🛒 Shop
                             </Link>
+                            <div style={{ width: 1, height: 18, background: theme.borderSubtle, margin: '0 4px', flexShrink: 0 }} />
                             <Link href="/community" style={{
                                 color: '#d97706', fontSize: 14, fontWeight: 700,
                                 textDecoration: 'none', letterSpacing: '-0.01em',

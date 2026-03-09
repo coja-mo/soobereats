@@ -84,6 +84,7 @@ const sections = [
             { href: '/contact', label: 'Contact Us', desc: 'Get in touch with our local team' },
             { href: '/terms', label: 'Terms of Service', desc: 'Platform terms and policies' },
             { href: '/privacy', label: 'Privacy Policy', desc: 'How we handle your data' },
+            { href: '/press', label: 'Press & Newsroom', desc: 'Press releases, media kit, brand assets' },
         ]
     }
 ];

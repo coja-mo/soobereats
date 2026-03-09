@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
 import { Footer } from '../../components/Footer';
@@ -30,6 +30,10 @@ const landmarks = [
 export default function DeliveryZonePage() {
     const { theme } = useTheme();
     const [isMobile, setIsMobile] = useState(false);
+    const mapContainerRef = useRef(null);
+    const mapRef = useRef(null);
+
+    const isDark = theme.bg === '#09090b' || theme.bg === '#000';
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -37,6 +41,83 @@ export default function DeliveryZonePage() {
         window.addEventListener('resize', check);
         return () => window.removeEventListener('resize', check);
     }, []);
+
+    // Initialize Leaflet map with zone circles
+    useEffect(() => {
+        if (typeof window === 'undefined' || !mapContainerRef.current) return;
+
+        const loadLeaflet = async () => {
+            if (!window.L) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                document.head.appendChild(link);
+
+                await new Promise((resolve) => {
+                    const script = document.createElement('script');
+                    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                    script.onload = resolve;
+                    document.head.appendChild(script);
+                });
+            }
+
+            if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; }
+
+            const L = window.L;
+            const SSM_CENTER = [46.5136, -84.3358];
+
+            const map = L.map(mapContainerRef.current, {
+                center: SSM_CENTER, zoom: 11,
+                zoomControl: false, attributionControl: false,
+            });
+
+            L.tileLayer(
+                isDark
+                    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+                    : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+                { maxZoom: 18, subdomains: 'abcd' }
+            ).addTo(map);
+
+            L.control.zoom({ position: 'topright' }).addTo(map);
+
+            // Zone circles (approximate radii from downtown center)
+            const zoneCircles = [
+                { radius: 25000, color: '#ec4899', name: 'Goulais River', fee: '$11.99', time: '45-65 min' },
+                { radius: 20000, color: '#06b6d4', name: 'Echo Bay', fee: '$9.99', time: '40-55 min' },
+                { radius: 12000, color: '#8b5cf6', name: 'Garden River FN', fee: '$7.99', time: '35-50 min' },
+                { radius: 8000, color: '#ef4444', name: 'Extended Zone', fee: '$5.99', time: '30-50 min' },
+                { radius: 6000, color: '#f97316', name: 'North End', fee: '$3.99', time: '25-40 min' },
+                { radius: 4500, color: '#eab308', name: 'East/West End', fee: '$2.99', time: '20-35 min' },
+                { radius: 3000, color: '#22c55e', name: 'Downtown Core', fee: 'Free', time: '15-25 min' },
+            ];
+
+            zoneCircles.forEach(z => {
+                L.circle(SSM_CENTER, {
+                    radius: z.radius, color: z.color, fillColor: z.color,
+                    fillOpacity: 0.06, weight: 2, opacity: 0.5, dashArray: '6 4',
+                }).addTo(map).bindPopup(
+                    `<div style="font-family: 'DM Sans', sans-serif; padding: 4px 0;">
+                        <strong style="font-size: 14px; color: ${z.color};">${z.name}</strong><br/>
+                        <span style="font-size: 12px; color: #666;">Fee: ${z.fee} · ETA: ${z.time}</span>
+                    </div>`
+                );
+            });
+
+            // Downtown marker
+            const icon = L.divIcon({
+                className: 'soober-core',
+                html: `<div style="width:20px;height:20px;border-radius:50%;background:#22c55e;border:3px solid #fff;box-shadow:0 0 12px rgba(34,197,94,0.5);"></div>`,
+                iconSize: [20, 20], iconAnchor: [10, 10],
+            });
+            L.marker(SSM_CENTER, { icon }).addTo(map)
+                .bindPopup('<strong style="font-family:\'DM Sans\',sans-serif">Soobér HQ — Downtown SSM</strong>');
+
+            mapRef.current = map;
+        };
+
+        loadLeaflet();
+        return () => { if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; } };
+    }, [isDark]);
 
     const pad = isMobile ? '0 16px' : '0 40px';
 
@@ -67,6 +148,36 @@ export default function DeliveryZonePage() {
                     <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.6)', maxWidth: 500, margin: '0 auto', lineHeight: 1.6 }}>
                         Five delivery zones covering Sault Ste. Marie plus extended premium delivery to Garden River First Nation, Goulais River, and Echo Bay. All on our 100% electric fleet.
                     </p>
+                </div>
+            </section>
+
+            {/* Interactive Zone Map */}
+            <section style={{ maxWidth: 1100, margin: '0 auto', padding: pad, paddingTop: isMobile ? 24 : 40 }}>
+                <div style={{
+                    borderRadius: 24, overflow: 'hidden',
+                    border: `1px solid ${theme.borderSubtle}`,
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+                    position: 'relative',
+                }}>
+                    <div ref={mapContainerRef} style={{ width: '100%', height: isMobile ? 280 : 420 }} />
+                    {/* Map legend */}
+                    <div style={{
+                        position: 'absolute', bottom: 12, left: 12,
+                        background: isDark ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.92)',
+                        backdropFilter: 'blur(12px)',
+                        borderRadius: 14, padding: '10px 14px', zIndex: 1000,
+                        border: `1px solid ${theme.borderSubtle}`,
+                    }}>
+                        <span style={{ fontSize: 10, fontWeight: 700, color: theme.textFaint, textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: 6 }}>Zones</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                            {zones.slice(0, 5).map(z => (
+                                <div key={z.name} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: z.color, flexShrink: 0 }} />
+                                    <span style={{ fontSize: 10, color: theme.textMuted, fontWeight: 600 }}>{z.name}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
 
