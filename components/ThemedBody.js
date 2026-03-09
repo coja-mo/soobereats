@@ -1,6 +1,7 @@
 "use client";
 
 import { useTheme } from '../lib/ThemeContext';
+import { ElectricConstellationBg } from './ElectricConstellationBg';
 
 export function ThemedBody({ children }) {
     const { theme } = useTheme();
@@ -17,7 +18,10 @@ export function ThemedBody({ children }) {
             textRendering: 'optimizeLegibility',
             transition: 'background 0.3s ease, color 0.3s ease',
         }}>
-            {children}
+            <ElectricConstellationBg />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+                {children}
+            </div>
         </div>
     );
 }
