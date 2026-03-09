@@ -679,6 +679,265 @@ export default function Home() {
 
 
       {/* ═══════════════════════════════════════════════
+          TESTIMONIALS — Social proof
+         ═══════════════════════════════════════════════ */}
+      <section style={{
+        padding: isMobile ? '48px 16px' : '72px 40px',
+        maxWidth: 1440, margin: '0 auto',
+      }}>
+        <h2 style={{
+          fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+          fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
+          color: theme.text, margin: '0 0 8px', textAlign: 'center',
+        }}>
+          What the Soo is saying
+        </h2>
+        <p style={{
+          fontSize: 14, color: theme.textMuted, textAlign: 'center',
+          margin: '0 auto 32px', maxWidth: 400,
+        }}>
+          Real reviews from our community
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+          gap: 16,
+        }}>
+          {[
+            { name: 'Sarah M.', role: 'Algoma U Student', quote: 'Finally a delivery service that actually supports local restaurants. The food arrives hot and the drivers are always so friendly. Way better than the big apps!', stars: 5, emoji: '👩‍🎓' },
+            { name: 'Dave K.', role: 'Hockey Dad', quote: 'Booked a ride to the Greyhounds game — zero surge, showed up early, and the kids loved the electric SUV. We use Soobér for every game now.', stars: 5, emoji: '🏒' },
+            { name: 'Margaret T.', role: 'CarePass Member', quote: 'My mother has 3 medical appointments a week. CarePass handles all of them automatically. The drivers help her door-to-door. I can finally stop worrying.', stars: 5, emoji: '❤️' },
+            { name: 'Jason R.', role: 'Local Chef', quote: 'As a restaurant owner on Soobér, the POS integration is chef\'s kiss. Orders flow straight to my kitchen. It\'s the first platform that actually gets small business.', stars: 5, emoji: '👨‍🍳' },
+          ].map((t, i) => (
+            <div key={i} style={{
+              background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+              borderRadius: 20, padding: isMobile ? '20px' : '28px',
+              transition: 'all 0.25s ease',
+            }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span style={{
+                    fontSize: 24, width: 44, height: 44, display: 'flex',
+                    alignItems: 'center', justifyContent: 'center',
+                    background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
+                    borderRadius: 12,
+                  }}>{t.emoji}</span>
+                  <div>
+                    <span style={{ fontWeight: 700, fontSize: 14, color: theme.text, display: 'block', fontFamily: "'DM Sans', sans-serif" }}>{t.name}</span>
+                    <span style={{ fontSize: 12, color: theme.textFaint }}>{t.role}</span>
+                  </div>
+                </div>
+                <span style={{ color: '#eab308', fontSize: 14, letterSpacing: 1 }}>{'★'.repeat(t.stars)}</span>
+              </div>
+              <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>"{t.quote}"</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          FEATURED PARTNERSHIPS — Greyhounds + IDA
+         ═══════════════════════════════════════════════ */}
+      <section style={{
+        padding: isMobile ? '48px 16px' : '72px 40px',
+        maxWidth: 1440, margin: '0 auto',
+      }}>
+        <h2 style={{
+          fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+          fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
+          color: theme.text, margin: '0 0 8px', textAlign: 'center',
+        }}>
+          Featured Partnerships
+        </h2>
+        <p style={{
+          fontSize: 14, color: theme.textMuted, textAlign: 'center',
+          margin: '0 auto 32px', maxWidth: 400,
+        }}>
+          Built-in partnerships that make Soobér uniquely local
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+          gap: 20,
+        }}>
+          {/* Greyhounds */}
+          <div style={{
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(185,28,28,0.12), rgba(185,28,28,0.03))'
+              : 'linear-gradient(135deg, rgba(185,28,28,0.08), rgba(185,28,28,0.02))',
+            border: '1px solid rgba(185,28,28,0.2)',
+            borderRadius: 24, padding: isMobile ? 24 : 32, overflow: 'hidden',
+            position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute', top: -40, right: -40,
+              width: 200, height: 200, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(185,28,28,0.15) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }} />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                background: 'rgba(185,28,28,0.15)', border: '1px solid rgba(185,28,28,0.3)',
+                borderRadius: 100, padding: '5px 14px', marginBottom: 16,
+              }}>
+                <span style={{ fontSize: 12 }}>🏒</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Official Ride Partner</span>
+              </div>
+              <h3 style={{
+                fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                fontSize: isMobile ? 22 : 26, color: theme.text,
+                margin: '0 0 10px', letterSpacing: '-0.03em',
+              }}>
+                Soo Greyhounds <span style={{ color: '#dc2626' }}>OHL</span>
+              </h3>
+              <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
+                Dedicated drivers on game nights, arena pickup zones, zero surge pricing, and 2x Soobér Rewards. Use code <strong style={{ color: '#dc2626' }}>GOHOUNDS</strong> for your first ride free.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
+                {['Game-Night Fleet', '2x Rewards', 'Arena Pickup', 'No Surge'].map((f, i) => (
+                  <span key={i} style={{
+                    fontSize: 11, fontWeight: 600, color: '#dc2626',
+                    background: 'rgba(185,28,28,0.08)', border: '1px solid rgba(185,28,28,0.2)',
+                    borderRadius: 8, padding: '3px 10px',
+                  }}>{f}</span>
+                ))}
+              </div>
+              <Link href="/rides" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '10px 20px', borderRadius: 12,
+                background: '#dc2626', color: '#fff', fontWeight: 700,
+                fontSize: 13, textDecoration: 'none',
+                fontFamily: "'DM Sans', sans-serif",
+              }}>
+                Book a game-night ride →
+              </Link>
+            </div>
+          </div>
+
+          {/* IDA Pharmacy */}
+          <div style={{
+            background: isDark
+              ? 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02))'
+              : 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))',
+            border: '1px solid rgba(16,185,129,0.2)',
+            borderRadius: 24, padding: isMobile ? 24 : 32, overflow: 'hidden',
+            position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute', top: -40, right: -40,
+              width: 200, height: 200, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }} />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)',
+                borderRadius: 100, padding: '5px 14px', marginBottom: 16,
+              }}>
+                <span style={{ fontSize: 12 }}>💊</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Marketplace Partner</span>
+              </div>
+              <h3 style={{
+                fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                fontSize: isMobile ? 22 : 26, color: theme.text,
+                margin: '0 0 10px', letterSpacing: '-0.03em',
+              }}>
+                IDA Pharmacy <span style={{ color: '#10b981' }}>on Soo MRKT</span>
+              </h3>
+              <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
+                Your neighbourhood pharmacy, now on-demand. OTC medications, wellness products, personal care, and daily essentials delivered to your door.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
+                {['Same-Day Delivery', 'OTC Medications', 'Wellness Products', 'Senior Essentials'].map((f, i) => (
+                  <span key={i} style={{
+                    fontSize: 11, fontWeight: 600, color: '#10b981',
+                    background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
+                    borderRadius: 8, padding: '3px 10px',
+                  }}>{f}</span>
+                ))}
+              </div>
+              <Link href="/market/ida" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '10px 20px', borderRadius: 12,
+                background: '#10b981', color: '#fff', fontWeight: 700,
+                fontSize: 13, textDecoration: 'none',
+                fontFamily: "'DM Sans', sans-serif",
+              }}>
+                Shop IDA on Soo MRKT →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          WHY SOOBER — Trust section
+         ═══════════════════════════════════════════════ */}
+      <section style={{
+        padding: isMobile ? '48px 16px' : '72px 40px',
+        background: theme.bgAlt,
+        transition: 'background 0.3s ease',
+      }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto' }}>
+          <h2 style={{
+            fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+            fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
+            color: theme.text, margin: '0 0 8px', textAlign: 'center',
+          }}>
+            Why <span style={{ color: '#0066FF' }}>Soobér</span>?
+          </h2>
+          <p style={{
+            fontSize: 14, color: theme.textMuted, textAlign: 'center',
+            margin: '0 auto 36px', maxWidth: 440,
+          }}>
+            We're not just another delivery app. We're building something different.
+          </p>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: 16,
+          }}>
+            {[
+              { emoji: '🏠', title: '100% Locally Owned', desc: 'Every dollar stays in the Soo. No Silicon Valley VCs. No corporate extractors. Just neighbours helping neighbours.' },
+              { emoji: '⚡', title: 'All-Electric Fleet', desc: '13 electric and hybrid vehicles. Zero tailpipe emissions. Cleaner air for our community and a smaller carbon footprint.' },
+              { emoji: '💲', title: 'No Surge Pricing', desc: 'Same fair rate whether it\'s a Tuesday afternoon or after a Greyhounds overtime game. Transparent pricing, always.' },
+              { emoji: '🏪', title: 'Local Business First', desc: 'We don\'t charge restaurants 30% commission like the big apps. Lower fees mean better food and happier local businesses.' },
+              { emoji: '🛡️', title: 'Safer by Design', desc: 'Verified drivers, real-time GPS tracking, in-app emergency button, and 24/7 live support from actual local people.' },
+              { emoji: '🌟', title: 'Rewards That Matter', desc: 'Soobér Rewards, student discounts, CarePass for medical rides, and GOHOUNDS promos. Benefits built for this community.' },
+            ].map((item, i) => (
+              <div key={i} style={{
+                background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                borderRadius: 20, padding: isMobile ? '20px' : '24px',
+                transition: 'all 0.25s ease',
+              }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <span style={{ fontSize: 28, display: 'block', marginBottom: 12 }}>{item.emoji}</span>
+                <h4 style={{
+                  fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                  fontSize: 15, color: theme.text, margin: '0 0 6px',
+                }}>
+                  {item.title}
+                </h4>
+                <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.6, margin: 0 }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
           SOOBER RIDES PROMO
          ═══════════════════════════════════════════════ */}
       <section style={{
