@@ -65,10 +65,10 @@ export default function Home() {
               boxShadow: theme.shadow,
               transition: 'all 0.3s ease',
             }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', animation: 'pulse 2s infinite' }}></span>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0066FF', animation: 'pulse 2s infinite' }}></span>
               Now delivering across the Algoma District
               <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(255,255,255,0.3)', display: 'inline-block', margin: '0 4px' }}></span>
-              <span style={{ color: '#10b981', fontWeight: 800 }}>⚡ 100% Electric Fleet</span>
+              <span style={{ color: '#0066FF', fontWeight: 800 }}>⚡ 100% Electric Fleet</span>
             </div>
 
             {/* Main headline */}
@@ -246,16 +246,6 @@ export default function Home() {
       )}
 
       {/* ═══════════════════════════════════════════════
-          SOO MRKT — "Store Within a Store"
-         ═══════════════════════════════════════════════ */}
-      <div id="soo-mrkt"><SooMrktSection /></div>
-
-      {/* ═══════════════════════════════════════════════
-          LOCAL ARTISANS & CRAFTERS
-         ═══════════════════════════════════════════════ */}
-      <ArtisansSection />
-
-      {/* ═══════════════════════════════════════════════
           CATEGORIZED RESTAURANTS
          ═══════════════════════════════════════════════ */}
       {categories.map(category => {
@@ -284,13 +274,23 @@ export default function Home() {
       })}
 
       {/* ═══════════════════════════════════════════════
+          SOO MRKT — "Store Within a Store"
+         ═══════════════════════════════════════════════ */}
+      <div id="soo-mrkt"><SooMrktSection /></div>
+
+      {/* ═══════════════════════════════════════════════
+          LOCAL ARTISANS & CRAFTERS
+         ═══════════════════════════════════════════════ */}
+      <ArtisansSection />
+
+      {/* ═══════════════════════════════════════════════
           ELECTRIC FLEET SHOWCASE
          ═══════════════════════════════════════════════ */}
       <section style={{
         padding: isMobile ? '56px 0' : '80px 0',
         background: theme.mode === 'dark'
-          ? 'linear-gradient(180deg, #09090b 0%, #0a1a0f 50%, #09090b 100%)'
-          : 'linear-gradient(180deg, #fdfdfd 0%, #ecfdf5 50%, #fdfdfd 100%)',
+          ? 'linear-gradient(180deg, #09090b 0%, #0a0f1a 50%, #09090b 100%)'
+          : 'linear-gradient(180deg, #fdfdfd 0%, #eef4ff 50%, #fdfdfd 100%)',
         borderTop: `1px solid ${theme.borderSubtle}`,
         borderBottom: `1px solid ${theme.borderSubtle}`,
       }}>
@@ -298,8 +298,8 @@ export default function Home() {
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '8px 20px', borderRadius: 100,
-            background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)',
-            fontSize: 12, fontWeight: 700, color: '#10b981', marginBottom: 24,
+            background: 'rgba(0,102,255,0.1)', border: '1px solid rgba(0,102,255,0.25)',
+            fontSize: 12, fontWeight: 700, color: '#0066FF', marginBottom: 24,
             letterSpacing: '0.05em', textTransform: 'uppercase',
           }}>⚡ Zero Emissions Delivery</div>
           <h2 style={{
@@ -324,13 +324,13 @@ export default function Home() {
                 boxShadow: theme.shadow,
               }}>
                 <div style={{ fontSize: 28, marginBottom: 8 }}>{item.emoji}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>{item.stat}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 800, color: '#0066FF', marginBottom: 4 }}>{item.stat}</div>
                 <div style={{ fontSize: 13, color: theme.textMuted, fontWeight: 500 }}>{item.label}</div>
               </div>
             ))}
           </div>
           <div style={{ marginTop: 32 }}>
-            <Link href="/about" style={{ color: '#10b981', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Learn more about our electric fleet →</Link>
+            <Link href="/about" style={{ color: '#0066FF', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Learn more about our electric fleet →</Link>
           </div>
         </div>
       </section>
@@ -419,7 +419,7 @@ export default function Home() {
                 fee: '$9.99',
                 eta: '40–55 min',
                 desc: 'A vibrant rural community east of the Soo, now with full Soobér delivery access.',
-                highlight: '#10b981',
+                highlight: '#0066FF',
               },
             ].map((zone) => (
               <div key={zone.name} style={{
@@ -683,27 +683,27 @@ export default function Home() {
       }}>
         <div style={{
           background: isDark
-            ? 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))'
-            : 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03))',
-          border: '1px solid rgba(16,185,129,0.15)',
+            ? 'linear-gradient(135deg, rgba(0,102,255,0.06), rgba(0,102,255,0.02))'
+            : 'linear-gradient(135deg, rgba(0,102,255,0.08), rgba(0,102,255,0.03))',
+          border: '1px solid rgba(0,102,255,0.15)',
           borderRadius: 28, padding: isMobile ? 28 : 48, overflow: 'hidden',
           position: 'relative',
         }}>
           <div style={{
             position: 'absolute', top: -100, right: -100,
             width: 400, height: 400, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%)',
             pointerEvents: 'none', filter: 'blur(60px)',
           }} />
 
           <div style={{ position: 'relative', zIndex: 1 }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)',
+              background: 'rgba(0,102,255,0.1)', border: '1px solid rgba(0,102,255,0.2)',
               borderRadius: 100, padding: '6px 16px', marginBottom: 20,
             }}>
               <span style={{ fontSize: 14 }}>⚡</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#10b981' }}>New: Soobér Rides</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#0066FF' }}>New: Soobér Rides</span>
             </div>
 
             <h2 style={{
@@ -736,7 +736,7 @@ export default function Home() {
                   borderRadius: 16, padding: '18px 20px', textDecoration: 'none',
                   transition: 'all 0.25s ease',
                 }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#0066FF'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = theme.borderSubtle; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
                   <span style={{ fontSize: 28, display: 'block', marginBottom: 8 }}>{item.emoji}</span>
@@ -751,10 +751,10 @@ export default function Home() {
             <Link href="/rides" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '14px 28px', borderRadius: 14,
-              background: 'linear-gradient(135deg, #10b981, #059669)',
+              background: 'linear-gradient(135deg, #10b981, #0044CC)',
               color: '#fff', fontWeight: 700, fontSize: 15,
               fontFamily: "'DM Sans', sans-serif", textDecoration: 'none',
-              boxShadow: '0 4px 20px rgba(16,185,129,0.25)',
+              boxShadow: '0 4px 20px rgba(0,102,255,0.25)',
               transition: 'transform 0.2s ease',
             }}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
@@ -791,7 +791,7 @@ export default function Home() {
                 color: theme.text, letterSpacing: '-0.02em',
                 marginBottom: 12,
               }}>
-                Soober<span style={{ color: theme.textFaint }}> Eats</span>
+                Soobér
               </div>
               <p style={{
                 fontSize: 13, color: theme.textMuted,
@@ -812,12 +812,12 @@ export default function Home() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
                   { href: '/', label: 'Restaurants' },
-                  { href: '/rides', label: 'Soobér Rides', accent: true },
+                  { href: '/rides', label: '⚡ Soobér Rides', accent: true },
                   { href: '/delivery-zone', label: 'Delivery Zones' },
                   { href: '/rewards', label: 'Rewards' },
                   { href: '/how-it-works', label: 'How It Works' },
                 ].map(l => (
-                  <Link key={l.href} href={l.href} style={{ color: l.accent ? '#10b981' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>{l.label}</Link>
+                  <Link key={l.href} href={l.href} style={{ color: l.accent ? '#0066FF' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: l.accent ? 700 : 500, transition: 'color 0.2s' }}>{l.label}</Link>
                 ))}
               </div>
             </div>

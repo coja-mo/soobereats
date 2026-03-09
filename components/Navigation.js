@@ -192,7 +192,7 @@ export const Navigation = () => {
                                                 padding: '12px 18px 12px 44px', fontSize: 14, fontWeight: 500,
                                                 color: theme.text, outline: 'none',
                                                 fontFamily: "'Inter', sans-serif",
-                                                boxShadow: `0 0 0 4px ${theme.accentBg}, 0 8px 24px rgba(0,0,0,0.06)`,
+                                                boxShadow: `0 0 0 4px rgba(0,102,255,0.15), 0 8px 24px rgba(0,0,0,0.06)`,
                                             }}
                                             onBlur={() => setTimeout(() => { setSearchFocused(false); setSearchQuery(''); }, 200)}
                                         />
