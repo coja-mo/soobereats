@@ -42,7 +42,7 @@ export function PinGate({ children }) {
             // Check if PIN is complete
             const fullPin = newPin.join('');
             if (fullPin.length === PIN_LENGTH && newPin.every(d => d !== '')) {
-                if (fullPin === MASTER_PIN) {
+                if (VALID_PINS.includes(fullPin)) {
                     handleSuccess();
                 } else {
                     setError(true);
@@ -87,7 +87,7 @@ export function PinGate({ children }) {
         setPin(newPin);
 
         if (pasted.length === PIN_LENGTH) {
-            if (pasted === MASTER_PIN) {
+            if (VALID_PINS.includes(pasted)) {
                 handleSuccess();
             } else {
                 setError(true);

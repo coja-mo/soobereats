@@ -823,6 +823,352 @@ export default function RidesPage() {
                 </div>
             </section>
 
+            {/* ═══ MEDICAL RIDES — SOOBÉR CAREPASS ═══ */}
+            <section style={{
+                padding: isMobile ? '60px 16px' : '80px 40px',
+                maxWidth: 1440, margin: '0 auto', position: 'relative', overflow: 'hidden',
+            }}>
+                {/* Background glow */}
+                <div style={{
+                    position: 'absolute', top: -80, right: -120,
+                    width: 450, height: 450, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 65%)',
+                    pointerEvents: 'none', filter: 'blur(80px)',
+                }} />
+
+                {/* Divider */}
+                <div style={{
+                    width: '100%', height: 1, marginBottom: isMobile ? 48 : 64,
+                    background: `linear-gradient(90deg, transparent, ${theme.borderSubtle}, transparent)`,
+                }} />
+
+                {/* Badge */}
+                <div style={{ textAlign: 'center', marginBottom: 24 }}>
+                    <div style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 10,
+                        background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)',
+                        borderRadius: 100, padding: '8px 20px',
+                    }}>
+                        <span style={{ fontSize: 18 }}>🏥</span>
+                        <span style={{
+                            fontSize: 13, fontWeight: 700, color: '#10b981',
+                            letterSpacing: '0.05em', textTransform: 'uppercase',
+                        }}>
+                            Soobér CarePass
+                        </span>
+                        <span style={{ fontSize: 18 }}>💚</span>
+                    </div>
+                </div>
+
+                {/* Hero */}
+                <h2 style={{
+                    fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                    fontSize: isMobile ? 30 : 48, lineHeight: 1.05, letterSpacing: '-0.04em',
+                    color: theme.text, margin: '0 0 16px', textAlign: 'center',
+                }}>
+                    Medical rides. <span style={{
+                        background: 'linear-gradient(135deg, #10b981, #059669)',
+                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                    }}>Taken care of.</span>
+                </h2>
+
+                <p style={{
+                    fontSize: isMobile ? 16 : 18, lineHeight: 1.6, color: theme.textMuted,
+                    textAlign: 'center', maxWidth: 640, margin: '0 auto 20px',
+                }}>
+                    For seniors, patients, and families — reliable, scheduled rides to every medical
+                    appointment. Add your full appointment calendar and we'll handle the rest.
+                    <strong style={{ color: theme.text }}> Automatically.</strong>
+                </p>
+
+                <p style={{
+                    fontSize: 15, lineHeight: 1.6, color: theme.textMuted,
+                    textAlign: 'center', maxWidth: 520, margin: '0 auto 48px',
+                }}>
+                    No more missed appointments. No more worrying if Mom has a ride.
+                    Soobér CarePass gives your family <strong style={{ color: '#10b981' }}>peace of mind</strong>.
+                </p>
+
+                {/* How It Works */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                    gap: 16, marginBottom: isMobile ? 48 : 64,
+                }}>
+                    {[
+                        { step: '01', emoji: '📅', title: 'Add Appointments', desc: 'Enter your medical schedule — recurring or one-time. Dialysis every Tue & Thu? We\'ve got it.' },
+                        { step: '02', emoji: '🤖', title: 'Auto-Scheduled', desc: 'Soobér automatically assigns a driver for every appointment. No calls, no texts, no stress.' },
+                        { step: '03', emoji: '🚗', title: 'Door-to-Door', desc: 'Your driver arrives on time, helps you in, and waits or returns. Zero-emission, comfortable EVs.' },
+                        { step: '04', emoji: '👨‍👩‍👧', title: 'Family Dashboard', desc: 'Caregivers get real-time tracking, ride confirmations, and arrival alerts. Always in the loop.' },
+                    ].map((item, i) => (
+                        <div key={i} style={{
+                            background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                            border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: isMobile ? 24 : 28,
+                            position: 'relative', overflow: 'hidden',
+                            transition: 'transform 0.3s ease, border-color 0.3s ease',
+                        }}
+                            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.borderColor = '#10b98144'; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = theme.borderSubtle; }}
+                        >
+                            <div style={{
+                                position: 'absolute', top: 12, right: 16,
+                                fontSize: 48, fontWeight: 900, color: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                                fontFamily: "'DM Sans', sans-serif",
+                            }}>{item.step}</div>
+                            <span style={{ fontSize: 32, display: 'block', marginBottom: 16 }}>{item.emoji}</span>
+                            <h3 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                fontSize: 16, color: theme.text, margin: '0 0 8px', letterSpacing: '-0.02em',
+                            }}>
+                                {item.title}
+                            </h3>
+                            <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.6, margin: 0 }}>
+                                {item.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Features Grid */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                    gap: 20, marginBottom: isMobile ? 48 : 64,
+                }}>
+                    {[
+                        { emoji: '🧓', title: 'Senior-Friendly', desc: 'Drivers trained in mobility assistance. Extra patience, extra care. Help with walkers, wheelchairs, and getting safely to the door.', color: '#f59e0b' },
+                        { emoji: '🔄', title: 'Recurring Rides', desc: 'Dialysis 3x/week? Physio every Tuesday? Set it once and forget it. Your driver knows the schedule.', color: '#a855f7' },
+                        { emoji: '📱', title: 'Caregiver Alerts', desc: 'Adult children and caregivers get live tracking, pickup/dropoff notifications, and monthly ride summaries.', color: electric },
+                        { emoji: '🏥', title: 'Multi-Clinic Support', desc: 'Different doctors at different clinics? No problem. Each appointment gets its own optimized route.', color: '#10b981' },
+                        { emoji: '⏱️', title: 'Wait & Return', desc: 'Driver waits during short appointments and brings you straight home. No rebooking, no waiting.', color: '#ef4444' },
+                        { emoji: '💳', title: 'Simplified Billing', desc: 'One monthly statement. No per-ride payments. Family members can manage billing on behalf of loved ones.', color: '#f59e0b' },
+                    ].map((feature, i) => (
+                        <div key={i} style={{
+                            background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                            border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: isMobile ? 24 : 28,
+                            transition: 'transform 0.3s ease',
+                        }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            <span style={{ fontSize: 28, display: 'block', marginBottom: 14 }}>{feature.emoji}</span>
+                            <h4 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                fontSize: 15, color: theme.text, margin: '0 0 6px', letterSpacing: '-0.02em',
+                            }}>
+                                {feature.title}
+                            </h4>
+                            <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.5, margin: 0 }}>
+                                {feature.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* CarePass Plans */}
+                <div style={{
+                    background: isDark
+                        ? 'linear-gradient(135deg, rgba(16,185,129,0.04), rgba(16,185,129,0.01))'
+                        : 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02))',
+                    border: '1px solid rgba(16,185,129,0.15)',
+                    borderRadius: 28, padding: isMobile ? 28 : 48,
+                }}>
+                    <h3 style={{
+                        fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                        fontSize: isMobile ? 22 : 28, letterSpacing: '-0.03em',
+                        color: theme.text, margin: '0 0 8px', textAlign: 'center',
+                    }}>
+                        CarePass Membership Plans
+                    </h3>
+                    <p style={{
+                        fontSize: 14, color: theme.textMuted, textAlign: 'center',
+                        margin: '0 auto 32px', maxWidth: 440,
+                    }}>
+                        Simple, predictable pricing. Cancel anytime.
+                    </p>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                        gap: 20,
+                    }}>
+                        {/* Essential */}
+                        <div style={{
+                            background: isDark ? 'rgba(255,255,255,0.03)' : '#fff',
+                            border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: 28, textAlign: 'center',
+                            transition: 'transform 0.3s ease',
+                        }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            <div style={{ fontSize: 32, marginBottom: 12 }}>🩺</div>
+                            <h4 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                fontSize: 18, color: theme.text, margin: '0 0 4px',
+                            }}>Essential</h4>
+                            <p style={{ fontSize: 12, color: theme.textMuted, margin: '0 0 16px' }}>
+                                Up to 4 rides per month
+                            </p>
+                            <div style={{
+                                fontSize: 36, fontWeight: 800, color: '#10b981',
+                                fontFamily: "'DM Sans', sans-serif", margin: '0 0 4px',
+                            }}>
+                                $49<span style={{ fontSize: 16, fontWeight: 500, color: theme.textMuted }}>/mo</span>
+                            </div>
+                            <p style={{ fontSize: 11, color: theme.textFaint, margin: '0 0 20px' }}>
+                                ~$12.25/ride vs $15+ standard
+                            </p>
+                            <div style={{ fontSize: 13, color: theme.textMuted, textAlign: 'left', lineHeight: 2 }}>
+                                ✅ 4 scheduled rides/month<br />
+                                ✅ Door-to-door service<br />
+                                ✅ Appointment reminders<br />
+                                ✅ Caregiver alerts<br />
+                                ✅ Monthly summary
+                            </div>
+                        </div>
+
+                        {/* Plus — Recommended */}
+                        <div style={{
+                            background: isDark ? 'rgba(16,185,129,0.05)' : 'rgba(16,185,129,0.03)',
+                            border: '2px solid #10b981',
+                            borderRadius: 20, padding: 28, textAlign: 'center',
+                            position: 'relative',
+                            boxShadow: '0 8px 32px rgba(16,185,129,0.15)',
+                            transition: 'transform 0.3s ease',
+                        }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            <div style={{
+                                position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
+                                background: '#10b981', color: '#fff', padding: '4px 16px',
+                                borderRadius: 20, fontSize: 11, fontWeight: 800,
+                                textTransform: 'uppercase', letterSpacing: '0.05em',
+                            }}>
+                                Most Popular
+                            </div>
+                            <div style={{ fontSize: 32, marginBottom: 12 }}>💚</div>
+                            <h4 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                fontSize: 18, color: theme.text, margin: '0 0 4px',
+                            }}>Plus</h4>
+                            <p style={{ fontSize: 12, color: theme.textMuted, margin: '0 0 16px' }}>
+                                Up to 10 rides per month
+                            </p>
+                            <div style={{
+                                fontSize: 36, fontWeight: 800, color: '#10b981',
+                                fontFamily: "'DM Sans', sans-serif", margin: '0 0 4px',
+                            }}>
+                                $99<span style={{ fontSize: 16, fontWeight: 500, color: theme.textMuted }}>/mo</span>
+                            </div>
+                            <p style={{ fontSize: 11, color: theme.textFaint, margin: '0 0 20px' }}>
+                                ~$9.90/ride · Best for regular care
+                            </p>
+                            <div style={{ fontSize: 13, color: theme.textMuted, textAlign: 'left', lineHeight: 2 }}>
+                                ✅ 10 scheduled rides/month<br />
+                                ✅ Wait & Return service<br />
+                                ✅ Priority scheduling<br />
+                                ✅ Multi-clinic routing<br />
+                                ✅ Family dashboard access<br />
+                                ✅ Real-time GPS tracking
+                            </div>
+                        </div>
+
+                        {/* Family */}
+                        <div style={{
+                            background: isDark ? 'rgba(255,255,255,0.03)' : '#fff',
+                            border: `1px solid ${theme.borderSubtle}`,
+                            borderRadius: 20, padding: 28, textAlign: 'center',
+                            transition: 'transform 0.3s ease',
+                        }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            <div style={{ fontSize: 32, marginBottom: 12 }}>👨‍👩‍👧‍👦</div>
+                            <h4 style={{
+                                fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                fontSize: 18, color: theme.text, margin: '0 0 4px',
+                            }}>Family</h4>
+                            <p style={{ fontSize: 12, color: theme.textMuted, margin: '0 0 16px' }}>
+                                Unlimited rides for 2+ members
+                            </p>
+                            <div style={{
+                                fontSize: 36, fontWeight: 800, color: '#10b981',
+                                fontFamily: "'DM Sans', sans-serif", margin: '0 0 4px',
+                            }}>
+                                $179<span style={{ fontSize: 16, fontWeight: 500, color: theme.textMuted }}>/mo</span>
+                            </div>
+                            <p style={{ fontSize: 11, color: theme.textFaint, margin: '0 0 20px' }}>
+                                Unlimited rides · Up to 2 members
+                            </p>
+                            <div style={{ fontSize: 13, color: theme.textMuted, textAlign: 'left', lineHeight: 2 }}>
+                                ✅ Unlimited scheduled rides<br />
+                                ✅ 2 covered household members<br />
+                                ✅ Dedicated driver matching<br />
+                                ✅ Wheelchair accessibility<br />
+                                ✅ Monthly caregiver reports<br />
+                                ✅ Direct clinic coordination<br />
+                                ✅ 24/7 priority support
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Promo */}
+                    <div style={{
+                        marginTop: 28, textAlign: 'center',
+                        padding: '20px', borderRadius: 16,
+                        background: isDark ? 'rgba(16,185,129,0.06)' : 'rgba(16,185,129,0.04)',
+                        border: '1px dashed rgba(16,185,129,0.25)',
+                    }}>
+                        <p style={{ fontSize: 14, color: theme.textMuted, margin: '0 0 8px' }}>
+                            Try CarePass free for the first week
+                        </p>
+                        <div style={{
+                            fontSize: isMobile ? 22 : 28, fontWeight: 800,
+                            fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.03em',
+                            color: '#10b981',
+                        }}>
+                            Code: <span style={{
+                                background: 'rgba(16,185,129,0.12)', padding: '4px 16px',
+                                borderRadius: 10, border: '1px solid rgba(16,185,129,0.3)',
+                            }}>CAREPASS</span>
+                        </div>
+                        <p style={{ fontSize: 12, color: theme.textFaint, margin: '8px 0 0' }}>
+                            No commitment. Cancel anytime. Your loved ones deserve reliable rides.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Trust / Testimonial Bar */}
+                <div style={{
+                    marginTop: 48, display: 'flex', justifyContent: 'center',
+                    gap: isMobile ? 20 : 48, flexWrap: 'wrap',
+                }}>
+                    {[
+                        { value: '100%', label: 'On-Time Guarantee' },
+                        { value: '0', label: 'Missed Appointments' },
+                        { value: '$0', label: 'Cancellation Fees' },
+                        { value: '24/7', label: 'Family Support Line' },
+                    ].map((stat, i) => (
+                        <div key={i} style={{ textAlign: 'center' }}>
+                            <div style={{
+                                fontSize: isMobile ? 24 : 32, fontWeight: 800,
+                                fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.03em',
+                                color: '#10b981',
+                            }}>
+                                {stat.value}
+                            </div>
+                            <div style={{ fontSize: 12, color: theme.textMuted, marginTop: 4 }}>
+                                {stat.label}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
             <Footer />
         </div>
     );
