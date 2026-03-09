@@ -11,14 +11,14 @@ const steps = [
 ];
 
 const faqs = [
-    { q: 'Where does SOOber Eats deliver?', a: 'We deliver throughout Sault Ste. Marie, Ontario and surrounding areas within the Algoma District. Enter your address at checkout to confirm coverage.' },
+    { q: 'Where does Soobér deliver?', a: 'We deliver throughout Sault Ste. Marie, Ontario and surrounding areas within the Algoma District. Enter your address at checkout to confirm coverage.' },
     { q: 'What are the delivery fees?', a: 'Delivery starts at $3.99 and varies based on distance. We also charge a small service fee (5-8%) on the order subtotal. All prices are in CAD and include 13% Ontario HST.' },
     { q: 'How does the 100% electric fleet work?', a: 'Every delivery is made by an electric vehicle — EVs, e-bikes, or electric scooters. Ontario\'s grid is 94% emissions-free, so our deliveries are genuinely zero-carbon from charge to your door.' },
     { q: 'Can I tip my driver?', a: 'Absolutely. Tips go 100% to your driver. You can choose a suggested percentage (15%, 18%, 20%, 25%) or enter a custom amount at checkout.' },
     { q: 'What is the Soo MRKT?', a: 'The Soo MRKT is our digital farmers market — featuring 13+ local artisan vendors from the Saturday Market at 73 Brock St. Order meats, produce, baked goods, mushrooms, and more for delivery or market pickup.' },
     { q: 'How do I become a restaurant partner?', a: 'Visit our Corporate Affairs page and fill out the application form. We charge a flat 15% commission — about half of what the national apps take. We\'ll have your store live within 24 hours.' },
-    { q: 'How do I drive for SOOber Eats?', a: 'Visit our For Drivers page. You\'ll need a valid license, insurance, an electric vehicle (we can help with that), a smartphone, and a clean background check. Apply online and start earning.' },
-    { q: 'What makes SOOber Eats different?', a: '100% locally owned, 100% electric fleet, half the commission rates of national apps, and the Soo MRKT — a category no other delivery platform serves. Every dollar stays in the Sault.' },
+    { q: 'How do I drive for Soobér?', a: 'Visit our For Drivers page. You\'ll need a valid license, insurance, an electric vehicle (we can help with that), a smartphone, and a clean background check. Apply online and start earning.' },
+    { q: 'What makes Soobér different?', a: '100% locally owned, 100% electric fleet, half the commission rates of national apps, and the Soo MRKT — a category no other delivery platform serves. Every dollar stays in the Sault.' },
 ];
 
 export default function HowItWorksPage() {
@@ -94,7 +94,7 @@ export default function HowItWorksPage() {
             }}>
                 <div style={{ maxWidth: 700, margin: '0 auto', padding: pad }}>
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 28 : 36, fontWeight: 700, color: theme.text, letterSpacing: '-0.02em', marginBottom: 8, textAlign: 'center' }}>Frequently Asked Questions</h2>
-                    <p style={{ fontSize: 16, color: theme.textMuted, textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>Everything you need to know about ordering with SOOber Eats.</p>
+                    <p style={{ fontSize: 16, color: theme.textMuted, textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>Everything you need to know about ordering with Soobér.</p>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                         {faqs.map((faq, i) => (

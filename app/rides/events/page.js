@@ -61,7 +61,7 @@ export default function EventsPage() {
                     onMouseEnter={(e) => e.currentTarget.style.color = gold}
                     onMouseLeave={(e) => e.currentTarget.style.color = theme.textMuted}
                 >
-                    ← Back to SOOber Rides
+                    ← Back to Soobér Rides
                 </Link>
 
                 <div style={{
@@ -94,7 +94,7 @@ export default function EventsPage() {
                     maxWidth: 560, margin: '0 0 24px',
                 }}>
                     Electric Hummers. Tesla Falcon Wings. Matching luxury fleets.
-                    SOOber Events turns your special moments into legendary arrivals —
+                    Soobér Events turns your special moments into legendary arrivals —
                     all zero-emission, all jaw-dropping.
                 </p>
             </section>

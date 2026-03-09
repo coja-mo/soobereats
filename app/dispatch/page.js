@@ -29,10 +29,10 @@ const ORDER_RESTAURANTS = [
 const RIDE_ORIGINS = [
     { from: 'Algoma U', to: 'Downtown Core' },
     { from: 'Sault College', to: 'Station Mall' },
-    { from: 'SOOber Airport (YAM)', to: 'North End' },
+    { from: 'Soobér Airport (YAM)', to: 'North End' },
     { from: 'Station Mall', to: 'Algoma U' },
     { from: 'Great Northern Rd', to: 'East Side' },
-    { from: 'Pine St Hub', to: 'SOOber Airport (YAM)' },
+    { from: 'Pine St Hub', to: 'Soobér Airport (YAM)' },
     { from: 'Downtown Core', to: 'Sault College' },
     { from: 'Base Station', to: 'Downtown Core' },
 ];
@@ -284,7 +284,7 @@ export default function DispatchDashboard() {
         <div className={styles.dispatchContainer}>
             <header className={styles.header}>
                 <div className={styles.brand}>
-                    <div className={styles.logo}>SOOber PremierOne</div>
+                    <div className={styles.logo}>Soobér PremierOne</div>
                     <div className={styles.badge}>CAD — Live Ops</div>
                 </div>
                 <div className={styles.systemStatus}>

@@ -34,12 +34,12 @@ export default function TermsPage() {
             <div style={{ maxWidth: 800, margin: '0 auto', padding: `${isMobile ? 32 : 56}px ${isMobile ? 16 : 40}px` }}>
                 <div style={sectionStyle}>
                     <h2 style={h2Style}>1. Agreement to Terms</h2>
-                    <p style={pStyle}>By accessing or using SOOber Eats (&quot;the Platform&quot;), you agree to be bound by these Terms of Service. SOOber Eats is locally owned and operated in Sault Ste. Marie, Ontario, Canada. If you do not agree with any part of these terms, you may not use our Platform.</p>
+                    <p style={pStyle}>By accessing or using Soobér (&quot;the Platform&quot;), you agree to be bound by these Terms of Service. Soobér is locally owned and operated in Sault Ste. Marie, Ontario, Canada. If you do not agree with any part of these terms, you may not use our Platform.</p>
                 </div>
 
                 <div style={sectionStyle}>
                     <h2 style={h2Style}>2. Services Description</h2>
-                    <p style={pStyle}>SOOber Eats provides a platform connecting customers with local restaurants, artisan vendors, and market sellers in the Sault Ste. Marie and Algoma region. All deliveries are made using our 100% electric vehicle fleet. We facilitate ordering, payment processing, and delivery logistics.</p>
+                    <p style={pStyle}>Soobér provides a platform connecting customers with local restaurants, artisan vendors, and market sellers in the Sault Ste. Marie and Algoma region. All deliveries are made using our 100% electric vehicle fleet. We facilitate ordering, payment processing, and delivery logistics.</p>
                 </div>
 
                 <div style={sectionStyle}>
@@ -65,12 +65,12 @@ export default function TermsPage() {
 
                 <div style={sectionStyle}>
                     <h2 style={h2Style}>7. Vendor Responsibilities</h2>
-                    <p style={pStyle}>Restaurants and vendors on our platform are independent businesses responsible for food safety, quality, and accuracy of menu descriptions and pricing. SOOber Eats is not liable for the quality or safety of food prepared by third-party vendors.</p>
+                    <p style={pStyle}>Restaurants and vendors on our platform are independent businesses responsible for food safety, quality, and accuracy of menu descriptions and pricing. Soobér is not liable for the quality or safety of food prepared by third-party vendors.</p>
                 </div>
 
                 <div style={sectionStyle}>
                     <h2 style={h2Style}>8. Limitation of Liability</h2>
-                    <p style={pStyle}>SOOber Eats shall not be liable for indirect, incidental, or consequential damages arising from use of the Platform. Our total liability shall not exceed the amount paid for the specific order giving rise to the claim.</p>
+                    <p style={pStyle}>Soobér shall not be liable for indirect, incidental, or consequential damages arising from use of the Platform. Our total liability shall not exceed the amount paid for the specific order giving rise to the claim.</p>
                 </div>
 
                 <div style={sectionStyle}>

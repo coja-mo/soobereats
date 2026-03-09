@@ -109,7 +109,7 @@ export default function VendorPOS() {
                 }}>
                     <div style={{ fontSize: 48, marginBottom: 12 }}>✅</div>
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 26, fontWeight: 700, margin: 0, marginBottom: 4 }}>Order #{receiptOrder.orderNumber}</h2>
-                    <p style={{ fontSize: 14, color: '#78716c', marginBottom: 24 }}>{receiptOrder.time} · {receiptOrder.orderType === 'dine-in' ? 'Dine In' : receiptOrder.orderType === 'takeout' ? 'Takeout' : 'SOOber Delivery'} · {receiptOrder.paymentMode === 'cash' ? 'Cash' : receiptOrder.paymentMode === 'card' ? 'Card' : 'Digital'}</p>
+                    <p style={{ fontSize: 14, color: '#78716c', marginBottom: 24 }}>{receiptOrder.time} · {receiptOrder.orderType === 'dine-in' ? 'Dine In' : receiptOrder.orderType === 'takeout' ? 'Takeout' : 'Soobér Delivery'} · {receiptOrder.paymentMode === 'cash' ? 'Cash' : receiptOrder.paymentMode === 'card' ? 'Card' : 'Digital'}</p>
 
                     <div style={{ textAlign: 'left', borderTop: '2px dashed #d6d3d1', paddingTop: 16, marginBottom: 16 }}>
                         {receiptOrder.items.map(item => (
@@ -129,7 +129,7 @@ export default function VendorPOS() {
                         </div>
                         {receiptOrder.deliveryFee > 0 && (
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, padding: '4px 0', color: '#57534e' }}>
-                                <span>SOOber Delivery</span><span>${receiptOrder.deliveryFee.toFixed(2)}</span>
+                                <span>Soobér Delivery</span><span>${receiptOrder.deliveryFee.toFixed(2)}</span>
                             </div>
                         )}
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 18, fontWeight: 800, padding: '12px 0 0', borderTop: '2px solid #09090b', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -143,7 +143,7 @@ export default function VendorPOS() {
                         cursor: 'pointer', fontFamily: "'DM Sans', sans-serif",
                     }}>New Order →</button>
 
-                    <p style={{ fontSize: 11, color: '#a8a29e', marginTop: 16, marginBottom: 0 }}>SOOber Eats POS · Sakura Ramen House<br />Sault Ste. Marie, ON · soobereats.ca</p>
+                    <p style={{ fontSize: 11, color: '#a8a29e', marginTop: 16, marginBottom: 0 }}>Soobér POS · Sakura Ramen House<br />Sault Ste. Marie, ON · soobereats.ca</p>
                 </div>
             </div>
         );
@@ -270,7 +270,7 @@ export default function VendorPOS() {
                             }}>🍜</div>
                         </Link>
                         <div>
-                            <h1 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: '#fafafa', margin: 0, letterSpacing: '-0.01em' }}>SOOber POS</h1>
+                            <h1 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: '#fafafa', margin: 0, letterSpacing: '-0.01em' }}>Soobér POS</h1>
                             <span style={{ fontSize: 11, color: '#71717a', fontWeight: 600 }}>Sakura Ramen House</span>
                         </div>
                     </div>
@@ -341,7 +341,7 @@ export default function VendorPOS() {
                         {[
                             { id: 'dine-in', label: 'Dine In', emoji: '🍽️' },
                             { id: 'takeout', label: 'Takeout', emoji: '📦' },
-                            { id: 'soober-delivery', label: 'SOOber', emoji: '⚡' },
+                            { id: 'soober-delivery', label: 'Soobér', emoji: '⚡' },
                         ].map(type => (
                             <button key={type.id} onClick={() => setOrderType(type.id)} style={{
                                 flex: 1, padding: '10px 8px', borderRadius: 10, border: 'none',
@@ -407,7 +407,7 @@ export default function VendorPOS() {
                             </div>
                             {deliveryFee > 0 && (
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#a1a1aa', padding: '3px 0' }}>
-                                    <span>SOOber Delivery</span><span>${deliveryFee.toFixed(2)}</span>
+                                    <span>Soobér Delivery</span><span>${deliveryFee.toFixed(2)}</span>
                                 </div>
                             )}
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 20, fontWeight: 800, color: '#fafafa', padding: '10px 0 0', borderTop: '1px solid #27272a', marginTop: 6, fontFamily: "'DM Sans', sans-serif" }}>

@@ -12,11 +12,11 @@ const AI_RESPONSES = {
         "Your ride is being dispatched now. Expected pickup in 3 minutes at your saved address. Vehicle: Cadillac VISTIQ (Pearl White).",
     ],
     refund: [
-        "I understand the concern. Since this involves a potential issue with your order, I can offer:\n\n• **Full credit** to your SOOber Wallet (instant)\n• **Partial refund** to original payment method (1-2 business days)\n• **Connect to Agent Sarah** for a detailed review\n\nWhich would you prefer?",
-        "I see the missing item — Organic 2% Milk ($5.99) from Pino's. I've already issued a $5.99 credit to your SOOber Wallet. Is there anything else I can help with?",
+        "I understand the concern. Since this involves a potential issue with your order, I can offer:\n\n• **Full credit** to your Soobér Wallet (instant)\n• **Partial refund** to original payment method (1-2 business days)\n• **Connect to Agent Sarah** for a detailed review\n\nWhich would you prefer?",
+        "I see the missing item — Organic 2% Milk ($5.99) from Pino's. I've already issued a $5.99 credit to your Soobér Wallet. Is there anything else I can help with?",
     ],
     greeting: [
-        "Hi there! I'm the SOOber AI Copilot, powered by local M2 Ultra compute right here in the Soo. How can I help you today?",
+        "Hi there! I'm the Soobér AI Copilot, powered by local M2 Ultra compute right here in the Soo. How can I help you today?",
         "Welcome back! I can see you're a valued member. How can I assist you today?",
     ],
     agent: [
@@ -64,8 +64,8 @@ export default function CustomerSupport() {
     const messagesEndRef = useRef(null);
     const [messages, setMessages] = useState([
         {
-            id: 1, sender: "system", role: "ai", name: "SOOber Copilot",
-            text: "Hi! I'm the SOOber AI Copilot — powered by local compute right here in the Soo. I can see your recent activity and I'm ready to help. What's on your mind?"
+            id: 1, sender: "system", role: "ai", name: "Soobér Copilot",
+            text: "Hi! I'm the Soobér AI Copilot — powered by local compute right here in the Soo. I can see your recent activity and I'm ready to help. What's on your mind?"
         }
     ]);
     const [inputText, setInputText] = useState("");
@@ -100,7 +100,7 @@ export default function CustomerSupport() {
                     id: Date.now() + 1,
                     sender: "system",
                     role: "ai",
-                    name: "SOOber Copilot",
+                    name: "Soobér Copilot",
                     text: responseText,
                 };
                 setMessages(prev => [...prev, aiResponse]);
@@ -123,7 +123,7 @@ export default function CustomerSupport() {
             <div className={styles.chatBox}>
                 <header className={styles.chatHeader}>
                     <div className={styles.headerLeft}>
-                        <h1 className={styles.title}>SOOber Support Center</h1>
+                        <h1 className={styles.title}>Soobér Support Center</h1>
                         <span className={styles.subtitle}>
                             {chatMode === 'ai' ? '◆ AI Copilot Active • Local Compute' : '● Live Agent — Sarah C. (Sault Ste. Marie)'}
                         </span>
@@ -167,7 +167,7 @@ export default function CustomerSupport() {
                     {isTyping && (
                         <div className={`${styles.messageRow} ${styles.system} ${styles[chatMode === 'ai' ? 'ai' : 'human']}`}>
                             <div className={styles.bubble}>
-                                <span className={styles.senderName}>{chatMode === 'ai' ? 'SOOber Copilot' : 'Agent Sarah C.'}</span>
+                                <span className={styles.senderName}>{chatMode === 'ai' ? 'Soobér Copilot' : 'Agent Sarah C.'}</span>
                                 <div className={styles.typingIndicator}>
                                     <span></span><span></span><span></span>
                                 </div>

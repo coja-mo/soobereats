@@ -79,7 +79,7 @@ export default function ForDriversPage() {
                 <div style={{ maxWidth: 800, margin: '0 auto', padding: pad }}>
                     <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 28 : 36, fontWeight: 700, color: theme.text, letterSpacing: '-0.02em', marginBottom: 12 }}>Estimate Your Earnings</h2>
-                        <p style={{ fontSize: 16, color: theme.textMuted }}>Slide to see what you could earn driving for SOOber Eats.</p>
+                        <p style={{ fontSize: 16, color: theme.textMuted }}>Slide to see what you could earn driving for Soobér.</p>
                     </div>
 
                     <div style={{ background: theme.bgCard, padding: isMobile ? 24 : 40, borderRadius: 24, border: `1px solid ${theme.borderSubtle}`, boxShadow: theme.shadow }}>

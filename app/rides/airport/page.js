@@ -60,7 +60,7 @@ export default function AirportPage() {
                     onMouseEnter={(e) => e.currentTarget.style.color = emerald}
                     onMouseLeave={(e) => e.currentTarget.style.color = theme.textMuted}
                 >
-                    ← Back to SOOber Rides
+                    ← Back to Soobér Rides
                 </Link>
 
                 <div style={{
@@ -295,7 +295,7 @@ export default function AirportPage() {
                     fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
                     color: theme.text, margin: '0 0 32px', textAlign: 'center',
                 }}>
-                    Why SOOber Airport?
+                    Why Soobér Airport?
                 </h2>
 
                 <div style={{

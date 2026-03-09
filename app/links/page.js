@@ -20,7 +20,7 @@ const sections = [
     {
         title: '🍽️ Customer & Mobility',
         links: [
-            { href: '/rides', label: 'SOOber Rides', desc: 'Electric mobility & event fleet' },
+            { href: '/rides', label: 'Soobér Rides', desc: 'Electric mobility & event fleet' },
             { href: '/checkout', label: 'Checkout', desc: 'Cart & payment flow' },
             { href: '/orders', label: 'Order History', desc: 'Past orders & receipts' },
             { href: '/account', label: 'My Account', desc: 'Profile, addresses, loyalty' },
@@ -54,7 +54,7 @@ const sections = [
     {
         title: '📄 Information & Support',
         links: [
-            { href: '/about', label: 'About SOOber', desc: 'Our story, mission, and 100% electric fleet' },
+            { href: '/about', label: 'About Soobér', desc: 'Our story, mission, and 100% electric fleet' },
             { href: '/how-it-works', label: 'How It Works', desc: '3-step ordering guide and FAQ' },
             { href: '/faq', label: 'Frequently Asked Questions', desc: 'Helpful answers for users' },
             { href: '/for-drivers', label: 'Drive Electric', desc: 'Join the EV fleet — earnings calculator & application' },
@@ -91,7 +91,7 @@ export default function LinksPortal() {
                     <h1 style={{
                         fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 32 : 48,
                         fontWeight: 700, letterSpacing: '-0.03em', color: theme.text, marginBottom: 12,
-                    }}>SOOber Eats Portal</h1>
+                    }}>Soobér Portal</h1>
                     <p style={{ fontSize: 16, color: theme.textMuted, maxWidth: 500, margin: '0 auto' }}>
                         Jump to any page across the platform — customer, vendor, corporate, and live ops.
                     </p>

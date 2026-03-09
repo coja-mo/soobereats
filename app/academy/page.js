@@ -18,9 +18,9 @@ const ROLES = [
 const COURSES = [
     // ── Driver Training Path ──
     {
-        id: 'drv-100', title: 'SOOber Driver Onboarding', role: 'driver', level: 'Foundation', duration: '2h 30m', modules: 8, progress: 100, status: 'completed', cert: true,
+        id: 'drv-100', title: 'Soobér Driver Onboarding', role: 'driver', level: 'Foundation', duration: '2h 30m', modules: 8, progress: 100, status: 'completed', cert: true,
         desc: 'Platform basics, app navigation, delivery workflow, and your first shift.',
-        modules_list: ['Welcome to SOOber', 'App Setup & Login', 'Receiving Orders', 'Navigation & Routing', 'Pickup Protocol', 'Delivery Handoff', 'Rating System', 'Final Assessment']
+        modules_list: ['Welcome to Soobér', 'App Setup & Login', 'Receiving Orders', 'Navigation & Routing', 'Pickup Protocol', 'Delivery Handoff', 'Rating System', 'Final Assessment']
     },
     {
         id: 'drv-200', title: 'EV Fleet Operations', role: 'driver', level: 'Core', duration: '3h 15m', modules: 10, progress: 65, status: 'in_progress', cert: true,
@@ -38,7 +38,7 @@ const COURSES = [
         modules_list: ['Customer Psychology', 'Communication Mastery', 'Food Presentation', 'Problem Resolution', 'Accessibility Awareness', 'Cultural Sensitivity', 'Excellence Exam']
     },
     {
-        id: 'drv-310', title: 'SOOber Rides Certification', role: 'driver', level: 'Advanced', duration: '4h', modules: 12, progress: 0, status: 'locked', cert: true,
+        id: 'drv-310', title: 'Soobér Rides Certification', role: 'driver', level: 'Advanced', duration: '4h', modules: 12, progress: 0, status: 'locked', cert: true,
         desc: 'Full rideshare certification: passenger safety, airport protocol, event fleet operations.',
         modules_list: ['Rides Platform Overview', 'Passenger Safety 101', 'Vehicle Inspection', 'Airport Transfer Protocol', 'Event Fleet Standards', 'Premium Service Tiers', 'Accessibility Requirements', 'Night Shift Protocols', 'Incident Reporting', 'Insurance & Liability', 'Defensive Driving', 'Certification Exam']
     },
@@ -46,7 +46,7 @@ const COURSES = [
     // ── Dispatch Training Path ──
     {
         id: 'dsp-100', title: 'Dispatch Console Fundamentals', role: 'dispatch', level: 'Foundation', duration: '3h', modules: 9, progress: 100, status: 'completed', cert: true,
-        desc: 'Master the SOOber Dispatch Console: CAD interface, order queue, unit tracking.',
+        desc: 'Master the Soobér Dispatch Console: CAD interface, order queue, unit tracking.',
         modules_list: ['Console Interface', 'Order Queue Management', 'Unit Assignments', 'Map & Geofence', 'Status Codes', 'CLI Commands', 'Radio Protocol', 'Priority System', 'Assessment']
     },
     {
@@ -120,12 +120,12 @@ const COURSES = [
 ];
 
 const CERTIFICATIONS = [
-    { id: 'cert-driver-basic', name: 'Certified SOOber Driver', level: 'Foundation', icon: '🚗', color: '#10b981', courses: ['drv-100'], earned: true },
+    { id: 'cert-driver-basic', name: 'Certified Soobér Driver', level: 'Foundation', icon: '🚗', color: '#10b981', courses: ['drv-100'], earned: true },
     { id: 'cert-ev-ops', name: 'EV Fleet Specialist', level: 'Core', icon: '⚡', color: '#3b82f6', courses: ['drv-100', 'drv-200'], earned: false },
     { id: 'cert-dispatch', name: 'Dispatch Operator', level: 'Foundation', icon: '📡', color: '#f59e0b', courses: ['dsp-100'], earned: true },
     { id: 'cert-cs-agent', name: 'CS Agent Certified', level: 'Foundation', icon: '🎧', color: '#6366f1', courses: ['cs-100'], earned: true },
     { id: 'cert-food-safety', name: 'Food Safety Certified', level: 'Foundation', icon: '🛡️', color: '#ef4444', courses: ['saf-100'], earned: true },
-    { id: 'cert-rides', name: 'SOOber Rides Certified', level: 'Advanced', icon: '🏆', color: '#ec4899', courses: ['drv-100', 'drv-200', 'drv-310'], earned: false },
+    { id: 'cert-rides', name: 'Soobér Rides Certified', level: 'Advanced', icon: '🏆', color: '#ec4899', courses: ['drv-100', 'drv-200', 'drv-310'], earned: false },
     { id: 'cert-ops-mgr', name: 'Operations Manager', level: 'Advanced', icon: '👑', color: '#f59e0b', courses: ['ldr-200'], earned: false },
 ];
 
@@ -134,8 +134,8 @@ const SAMPLE_QUIZ = [
     { q: 'What is the maximum holding temperature for hot food during delivery?', opts: ['40°C', '60°C', '75°C', '90°C'], correct: 1 },
     { q: 'Which CLI command activates geofence zones in dispatch?', opts: ['/zones', '/geofence on', '/map zones', '/toggle zones'], correct: 0 },
     { q: 'What is the delivery fee for extended zones (Garden River, Echo Bay)?', opts: ['Free', '$4.99', '$7.99 premium', '$12.99'], correct: 2 },
-    { q: 'Which vehicle model is NOT in the current SOOber fleet?', opts: ['BYD Seal', 'IONIQ 5', 'Tesla Model 3', 'Honda Prologue'], correct: 2 },
-    { q: 'What is the data sovereignty principle at SOOber?', opts: ['Cloud-first always', '100% local compute', 'Hybrid multi-cloud', 'AWS preferred'], correct: 1 },
+    { q: 'Which vehicle model is NOT in the current Soobér fleet?', opts: ['BYD Seal', 'IONIQ 5', 'Tesla Model 3', 'Honda Prologue'], correct: 2 },
+    { q: 'What is the data sovereignty principle at Soobér?', opts: ['Cloud-first always', '100% local compute', 'Hybrid multi-cloud', 'AWS preferred'], correct: 1 },
 ];
 
 export default function AcademyPage() {
@@ -206,7 +206,7 @@ export default function AcademyPage() {
                         fontSize: 11, fontWeight: 700, color: '#10b981',
                         letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8,
                     }}>
-                        🎓 SOOber Academy
+                        🎓 Soobér Academy
                     </div>
                     <h1 style={{
                         fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 28 : 40,
@@ -216,7 +216,7 @@ export default function AcademyPage() {
                         Learning & Development
                     </h1>
                     <p style={{ fontSize: 15, color: theme.textMuted, margin: 0, maxWidth: 600, lineHeight: 1.5 }}>
-                        Enterprise training platform. Master your role, earn certifications, and build expertise across the SOOber ecosystem.
+                        Enterprise training platform. Master your role, earn certifications, and build expertise across the Soobér ecosystem.
                     </p>
                 </div>
 
@@ -547,7 +547,7 @@ export default function AcademyPage() {
                             Knowledge Check
                         </h2>
                         <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>
-                            Test your SOOber knowledge. {SAMPLE_QUIZ.length} questions covering platform operations.
+                            Test your Soobér knowledge. {SAMPLE_QUIZ.length} questions covering platform operations.
                         </p>
 
                         {!quizState.active && quizState.score === null && (
@@ -556,7 +556,7 @@ export default function AcademyPage() {
                                 border: `1px solid ${theme.border}`, textAlign: 'center',
                             }}>
                                 <div style={{ fontSize: 60, marginBottom: 16 }}>📝</div>
-                                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 22, fontWeight: 700, color: theme.text, marginBottom: 8 }}>SOOber Platform Quick Quiz</h3>
+                                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 22, fontWeight: 700, color: theme.text, marginBottom: 8 }}>Soobér Platform Quick Quiz</h3>
                                 <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 24 }}>{SAMPLE_QUIZ.length} multiple choice questions · No time limit</p>
                                 <button onClick={startQuiz} style={{
                                     padding: '16px 40px', borderRadius: 16,

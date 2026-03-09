@@ -8,7 +8,7 @@ import styles from './page.module.css';
 const roles = [
     { id: 'all', label: 'All Staff', count: 142 },
     { id: 'food', label: 'Food Delivery', count: 56 },
-    { id: 'rides', label: 'SOOber Rides', count: 42 },
+    { id: 'rides', label: 'Soobér Rides', count: 42 },
     { id: 'events', label: 'Event Operations', count: 12 },
     { id: 'dispatch', label: 'Dispatchers', count: 4 }
 ];
@@ -27,7 +27,7 @@ const parseTime = (timeStr) => {
 
 const staffList = [
     {
-        id: '1', name: 'Marcus T.', role: 'rides', roleName: 'SOOber Rides',
+        id: '1', name: 'Marcus T.', role: 'rides', roleName: 'Soobér Rides',
         competency: { label: 'EV Certified', type: 'certified' },
         shifts: [
             { day: 0, start: '08:00', end: '16:00', loc: 'Downtown', style: 'shiftRides' },

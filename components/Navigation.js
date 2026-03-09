@@ -110,12 +110,7 @@ export const Navigation = () => {
                             }}>
                                 For Business
                             </Link>
-                            <Link href="/support" style={{
-                                color: theme.textSecondary, fontSize: 14, fontWeight: 600,
-                                textDecoration: 'none', letterSpacing: '-0.01em',
-                            }}>
-                                Support
-                            </Link>
+
                         </div>
                     )}
 
@@ -246,6 +241,20 @@ export const Navigation = () => {
                             </div>
                         )}
 
+                        {/* Support — icon between search & cart */}
+                        {!isMobile && (
+                            <Link href="/support" style={{
+                                width: 38, height: 38, borderRadius: 12,
+                                background: theme.bgInput, border: 'none',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                textDecoration: 'none', transition: 'all 0.2s',
+                            }}>
+                                <svg style={{ width: 18, height: 18, color: theme.textFaint }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </Link>
+                        )}
+
                         {/* Cart Button */}
                         <button
                             onClick={() => setIsCartOpen(true)}
@@ -353,14 +362,14 @@ export const Navigation = () => {
                             { href: '/orders', label: 'My Orders', emoji: '📦' },
                             { href: '/account', label: 'Account', emoji: '👤' },
                             { href: '/rewards', label: 'Rewards', emoji: '🏆' },
-                            { href: '/rides', label: 'SOOber Rides', emoji: '🚗' },
+                            { href: '/rides', label: 'Soobér Rides', emoji: '🚗' },
                             { href: '/rides/airport', label: 'Airport Transfers', emoji: '✈️' },
                             { href: '/rides/events', label: 'Events & Fleets', emoji: '💎' },
                             { href: '/founder', label: 'Founder Dash', emoji: '👑' },
                             { href: '/dispatch', label: 'Dispatch', emoji: '📡' },
                             { href: '/support', label: 'Support', emoji: '💬' },
-                            { href: '/academy', label: 'SOOber Academy', emoji: '🎓' },
-                            { href: '/about', label: 'About SOOber', emoji: '🌿' },
+                            { href: '/academy', label: 'Soobér Academy', emoji: '🎓' },
+                            { href: '/about', label: 'About Soobér', emoji: '🌿' },
                             { href: '/how-it-works', label: 'How It Works', emoji: '📖' },
                             { href: '/for-drivers', label: 'Drive Electric', emoji: '⚡' },
                             { href: '/corporate', label: 'For Business', emoji: '🏢' },

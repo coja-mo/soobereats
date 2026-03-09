@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             <div style={{ maxWidth: 800, margin: '0 auto', padding: `${isMobile ? 32 : 56}px ${isMobile ? 16 : 40}px` }}>
                 <div style={sectionStyle}>
                     <h2 style={h2Style}>1. Information We Collect</h2>
-                    <p style={pStyle}>When you use SOOber Eats, we collect information to provide and improve our service:</p>
+                    <p style={pStyle}>When you use Soobér, we collect information to provide and improve our service:</p>
                     <ul style={ulStyle}>
                         <li style={liStyle}><strong>Account information:</strong> Name, email address, phone number, and delivery address(es).</li>
                         <li style={liStyle}><strong>Order data:</strong> Items ordered, order history, preferences, and payment information (processed securely via third-party providers).</li>
@@ -97,7 +97,7 @@ export default function PrivacyPage() {
 
                 <div style={sectionStyle}>
                     <h2 style={h2Style}>8. Children&apos;s Privacy</h2>
-                    <p style={pStyle}>SOOber Eats is not directed at children under 16. We do not knowingly collect information from individuals under 16 years of age.</p>
+                    <p style={pStyle}>Soobér is not directed at children under 16. We do not knowingly collect information from individuals under 16 years of age.</p>
                 </div>
 
                 <div style={{

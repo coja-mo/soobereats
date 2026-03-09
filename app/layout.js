@@ -22,7 +22,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata = {
-  title: 'Soober Eats | Premium Food Delivery',
+  title: 'Soobér | Premium Food Delivery',
   description: 'The Soo\'s premium food delivery platform. Your favorite local restaurants, delivered with obsessive attention to detail.',
   viewport: 'width=device-width, initial-scale=1',
 };

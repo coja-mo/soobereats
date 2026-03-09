@@ -12,7 +12,7 @@ export default function FounderDashboard() {
             {/* Header */}
             <header className={styles.header}>
                 <div className={styles.brand}>
-                    <div className={styles.logo}>SOOber Founder</div>
+                    <div className={styles.logo}>Soobér Founder</div>
                     <div className={styles.badge}>Superadmin</div>
                 </div>
 
@@ -102,7 +102,7 @@ export default function FounderDashboard() {
                             <div className={`${styles.panelContent} ${styles.linksGrid}`}>
                                 <Link href="/links" className={styles.quickLink}>
                                     <div className={styles.linkTitle}>🔗 All Ecosystem Links</div>
-                                    <div className={styles.linkDesc}>Access the full directory of SOOber platform portals and tools.</div>
+                                    <div className={styles.linkDesc}>Access the full directory of Soobér platform portals and tools.</div>
                                 </Link>
                                 <Link href="/dispatch" className={styles.quickLink}>
                                     <div className={styles.linkTitle}>📡 Dispatch Dashboard</div>

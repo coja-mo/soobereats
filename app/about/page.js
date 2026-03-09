@@ -59,7 +59,7 @@ export default function AboutPage() {
                         But when Skip The Dishes and Uber Eats came to town, they didn&apos;t come to celebrate our food culture. They came to extract from it. Thirty cents of every dollar you spent on delivery went straight to San Francisco. Not to the cook who made your meal. Not to the driver who brought it to your door. To shareholders who&apos;ve never tasted a Soo pierogi.
                     </p>
                     <p style={{ fontSize: isMobile ? 16 : 18, color: theme.text, lineHeight: 1.8, fontWeight: 600 }}>
-                        SOOber Eats is different because it has to be. We&apos;re 100% locally owned. Our commission rates are half of what the nationals charge. And every dollar we earn stays right here in the Sault.
+                        Soobér is different because it has to be. We&apos;re 100% locally owned. Our commission rates are half of what the nationals charge. And every dollar we earn stays right here in the Sault.
                     </p>
                 </div>
             </section>
@@ -86,7 +86,7 @@ export default function AboutPage() {
                             Zero Emissions.<br />Zero Compromise.
                         </h2>
                         <p style={{ fontSize: isMobile ? 15 : 17, color: theme.textMuted, maxWidth: 600, margin: '0 auto', lineHeight: 1.7 }}>
-                            Every single delivery on SOOber Eats is made by an electric vehicle. No gas. No tailpipe emissions. Just clean, quiet delivery from your favourite local spots to your front door.
+                            Every single delivery on Soobér is made by an electric vehicle. No gas. No tailpipe emissions. Just clean, quiet delivery from your favourite local spots to your front door.
                         </p>
                     </div>
 
@@ -117,7 +117,7 @@ export default function AboutPage() {
                         Our secret weapon. The Soo MRKT is something no national platform will ever offer — a digital farmers market featuring Sault Ste. Marie&apos;s best artisan vendors. Penokean Hills grass-fed beef. Findlay&apos;s extraordinary mushrooms. Jenn&apos;s hand-laminated croissants. Mountain Maple&apos;s 4th-generation syrup.
                     </p>
                     <p style={{ fontSize: isMobile ? 16 : 18, color: theme.textMuted, lineHeight: 1.8 }}>
-                        Every Saturday, these vendors set up at 73 Brock St. Now, with SOOber Eats, you can order their products any day of the week — delivered to your door by our electric fleet, or picked up fresh at the market.
+                        Every Saturday, these vendors set up at 73 Brock St. Now, with Soobér, you can order their products any day of the week — delivered to your door by our electric fleet, or picked up fresh at the market.
                     </p>
                 </div>
             </section>

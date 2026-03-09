@@ -78,7 +78,7 @@ export default function RidesPage() {
                             fontSize: isMobile ? 16 : 18, lineHeight: 1.6,
                             color: theme.textMuted, maxWidth: 480, margin: '0 0 32px',
                         }}>
-                            SOOber Rides — the Soo's first all-electric ride-hailing service.
+                            Soobér Rides — the Soo's first all-electric ride-hailing service.
                             On-demand rides, airport transfers, and premium event fleets.
                             No surge pricing. Ever.
                         </p>
@@ -288,7 +288,7 @@ export default function RidesPage() {
                     >
                         <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>🚗</span>
                         <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 22, color: theme.text, margin: '0 0 8px', letterSpacing: '-0.03em' }}>
-                            SOOber Rides
+                            Soobér Rides
                         </h3>
                         <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
                             On-demand rides across the Soo. Tap, ride, arrive — all in a zero-emission EV.
@@ -308,7 +308,7 @@ export default function RidesPage() {
                         >
                             <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>✈️</span>
                             <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 22, color: theme.text, margin: '0 0 8px', letterSpacing: '-0.03em' }}>
-                                SOOber Airport
+                                Soobér Airport
                             </h3>
                             <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
                                 Fixed-rate airport transfers. Schedule ahead, meet-and-greet, zero surprises.
@@ -329,7 +329,7 @@ export default function RidesPage() {
                         >
                             <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>💎</span>
                             <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 22, color: theme.text, margin: '0 0 8px', letterSpacing: '-0.03em' }}>
-                                SOOber Events
+                                Soobér Events
                             </h3>
                             <p style={{ fontSize: 14, color: theme.textMuted, lineHeight: 1.6, margin: '0 0 20px' }}>
                                 Electric Hummers, luxury fleets, red carpet arrivals. Make it unforgettable.
@@ -347,7 +347,7 @@ export default function RidesPage() {
                     fontSize: isMobile ? 24 : 32, letterSpacing: '-0.04em',
                     color: theme.text, margin: '0 0 12px',
                 }}>
-                    The SOOber Fleet
+                    The Soobér Fleet
                 </h2>
                 <p style={{
                     fontSize: 15, color: theme.textMuted, margin: '0 0 32px', maxWidth: 560,

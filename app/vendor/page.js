@@ -84,7 +84,7 @@ export default function VendorDashboard() {
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr', gap: 14, marginBottom: 28 }}>
                         {[
                             { label: 'Gross Revenue', value: '$4,285.00', color: theme.text },
-                            { label: 'SOOber Fee (10%)', value: '-$428.50', color: '#ef4444' },
+                            { label: 'Soobér Fee (10%)', value: '-$428.50', color: '#ef4444' },
                             { label: 'Net Payout', value: '$3,856.50', color: '#22c55e' },
                         ].map(s => (
                             <div key={s.label} style={{ background: theme.bgInput, padding: 18, borderRadius: 16, border: `1px solid ${theme.borderLight}` }}>

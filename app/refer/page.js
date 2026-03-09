@@ -55,7 +55,7 @@ export default function ReferPage() {
                         <span style={{ background: 'linear-gradient(135deg, #eab308, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Earn $10.</span>
                     </h1>
                     <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.6)', maxWidth: 480, margin: '0 auto', lineHeight: 1.6 }}>
-                        When your friend places their first order, you both get $10 in SOOber credits. It&apos;s that simple.
+                        When your friend places their first order, you both get $10 in Soobér credits. It&apos;s that simple.
                     </p>
                 </div>
             </section>
@@ -150,12 +150,12 @@ export default function ReferPage() {
                     <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 700, color: theme.text, marginBottom: 12 }}>Referral Program Details</h4>
                     <ul style={{ paddingLeft: 20, margin: 0 }}>
                         {[
-                            'Both you and your friend receive $10 in SOOber credits.',
-                            'Your friend must be a new SOOber Eats user.',
+                            'Both you and your friend receive $10 in Soobér credits.',
+                            'Your friend must be a new Soobér user.',
                             'Credits are applied after the referred friend completes their first order.',
                             'There is no limit to how many friends you can refer.',
                             'Credits expire after 90 days if unused.',
-                            'SOOber Eats reserves the right to modify or end this program at any time.',
+                            'Soobér reserves the right to modify or end this program at any time.',
                         ].map((item, i) => (
                             <li key={i} style={{ fontSize: 13, color: theme.textSecondary, lineHeight: 1.7, marginBottom: 4 }}>{item}</li>
                         ))}

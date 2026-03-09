@@ -156,7 +156,7 @@ export default function ContactPage() {
                             <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 700, color: theme.accent, margin: 0, marginBottom: 14 }}>Quick Links</h3>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                                 {[
-                                    { label: 'Sell on SOOber Eats', href: '/corporate' },
+                                    { label: 'Sell on Soobér', href: '/corporate' },
                                     { label: 'Drive Electric for Us', href: '/for-drivers' },
                                     { label: 'How It Works', href: '/how-it-works' },
                                 ].map(link => (

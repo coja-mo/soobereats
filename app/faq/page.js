@@ -21,7 +21,7 @@ const faqCategories = [
         questions: [
             { q: 'What areas do you deliver to?', a: 'We cover all of Sault Ste. Marie across 5 delivery zones, from Downtown Core to the Extended Zone including Garden River approaches. Check our Delivery Zone page for details.' },
             { q: 'How long does delivery take?', a: 'Delivery typically takes 15–50 minutes depending on your zone and distance from the restaurant. You\'ll see an estimated time at checkout.' },
-            { q: 'Are all deliveries really electric?', a: 'Yes! SOOber Eats operates a 100% electric vehicle fleet. Every single delivery is emission-free.' },
+            { q: 'Are all deliveries really electric?', a: 'Yes! Soobér operates a 100% electric vehicle fleet. Every single delivery is emission-free.' },
             { q: 'Can I track my order in real-time?', a: 'Absolutely. Once your order is confirmed, you\'ll get a live tracking link showing your driver\'s location and estimated arrival time.' },
         ]
     },
@@ -48,8 +48,8 @@ const faqCategories = [
         title: 'For Restaurants & Vendors',
         icon: '🏪',
         questions: [
-            { q: 'How do I list my restaurant on SOOber Eats?', a: 'Visit our Corporate page and fill out the partner application. Our team will review your submission and get back to you within 48 hours.' },
-            { q: 'What commission does SOOber Eats charge?', a: 'We offer fair, transparent commission rates significantly lower than the big national apps. Details are discussed during the onboarding process.' },
+            { q: 'How do I list my restaurant on Soobér?', a: 'Visit our Corporate page and fill out the partner application. Our team will review your submission and get back to you within 48 hours.' },
+            { q: 'What commission does Soobér charge?', a: 'We offer fair, transparent commission rates significantly lower than the big national apps. Details are discussed during the onboarding process.' },
             { q: 'Do you provide a tablet or POS system?', a: 'Yes! We provide a Kitchen Display System (KDS) accessible from any device. It shows incoming orders in real-time with a kanban-style interface.' },
         ]
     },
@@ -80,7 +80,7 @@ export default function FAQPage() {
             }}>
                 <div style={{ maxWidth: 700, margin: '0 auto', padding: pad }}>
                     <h1 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 32 : 48, fontWeight: 700, letterSpacing: '-0.03em', marginBottom: 12 }}>Frequently Asked Questions</h1>
-                    <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.5)', maxWidth: 500, margin: '0 auto' }}>Everything you need to know about SOOber Eats. Can&apos;t find your answer? <Link href="/contact" style={{ color: '#eab308', textDecoration: 'underline' }}>Contact us</Link>.</p>
+                    <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.5)', maxWidth: 500, margin: '0 auto' }}>Everything you need to know about Soobér. Can&apos;t find your answer? <Link href="/contact" style={{ color: '#eab308', textDecoration: 'underline' }}>Contact us</Link>.</p>
                 </div>
             </section>
 

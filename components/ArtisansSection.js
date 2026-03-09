@@ -102,7 +102,7 @@ export function ArtisansSection() {
                         {localArtisans.length} local artisans. Every purchase supports a real person.
                     </p>
                     <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 0, fontStyle: 'italic' }}>
-                        Interested in selling on SOOber Eats? <Link href="/corporate" style={{ color: theme.accent, textDecoration: 'none', fontWeight: 600 }}>We&apos;d love to hear from you →</Link>
+                        Interested in selling on Soobér? <Link href="/corporate" style={{ color: theme.accent, textDecoration: 'none', fontWeight: 600 }}>We&apos;d love to hear from you →</Link>
                     </p>
                 </div>
             </div>

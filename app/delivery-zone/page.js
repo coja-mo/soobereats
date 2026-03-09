@@ -154,7 +154,7 @@ export default function DeliveryZonePage() {
                         <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: theme.text, margin: 0, marginBottom: 8 }}>Community Access Initiative</h3>
                         <p style={{ fontSize: 15, color: theme.textSecondary, margin: 0, lineHeight: 1.6 }}>
                             Garden River First Nation, Goulais River, and Echo Bay are communities that have been underserved by delivery platforms.
-                            SOOber Eats is committed to providing equal access. Premium rates reflect distance, not a premium on the people we serve.
+                            Soobér is committed to providing equal access. Premium rates reflect distance, not a premium on the people we serve.
                             As volume grows, we&apos;re working to bring these fees down.
                         </p>
                     </div>

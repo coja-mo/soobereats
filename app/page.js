@@ -381,7 +381,7 @@ export default function Home() {
               fontSize: isMobile ? 16 : 19, color: theme.textMuted,
               lineHeight: 1.7, maxWidth: 640, margin: '0 auto 40px',
             }}>
-              We&apos;re proud to extend SOOber Eats service to communities that have been underserved for too long.
+              We&apos;re proud to extend Soobér service to communities that have been underserved for too long.
               Garden River First Nation, Goulais River, and Echo Bay now have access to the same local food delivery
               and quality service as downtown Sault Ste. Marie.
             </p>
@@ -418,7 +418,7 @@ export default function Home() {
                 distance: '~20 km',
                 fee: '$9.99',
                 eta: '40–55 min',
-                desc: 'A vibrant rural community east of the Soo, now with full SOOber Eats delivery access.',
+                desc: 'A vibrant rural community east of the Soo, now with full Soobér delivery access.',
                 highlight: '#10b981',
               },
             ].map((zone) => (
@@ -534,7 +534,7 @@ export default function Home() {
                 fontSize: isMobile ? 15 : 17, color: theme.textMuted,
                 lineHeight: 1.7, maxWidth: 480, marginBottom: 0,
               }}>
-                Every dollar you spend on SOOber Eats stays in Sault Ste. Marie. We&apos;re not a Silicon Valley app extracting 30% from local restaurants. We&apos;re your neighbours, building something that actually serves this community.
+                Every dollar you spend on Soobér stays in Sault Ste. Marie. We&apos;re not a Silicon Valley app extracting 30% from local restaurants. We&apos;re your neighbours, building something that actually serves this community.
               </p>
             </div>
 
@@ -591,7 +591,7 @@ export default function Home() {
           }}>
             {[
               { name: 'Melissa T.', location: 'East End', text: 'Finally, a delivery service that actually knows the Soo. My food arrives hot, the drivers are friendly, and I love that it\'s all electric. Way better than the big corporate apps.', rating: 5, tier: 'Gold' },
-              { name: 'Jason R.', location: 'Downtown', text: 'I order from Aurora\'s almost every week. The fact that SOOber Eats keeps my money local and delivers with zero emissions? That\'s how it should be done.', rating: 5, tier: 'Silver' },
+              { name: 'Jason R.', location: 'Downtown', text: 'I order from Aurora\'s almost every week. The fact that Soobér keeps my money local and delivers with zero emissions? That\'s how it should be done.', rating: 5, tier: 'Silver' },
               { name: 'Sarah & Mike K.', location: 'West End', text: 'We discovered so many amazing local artisans through Soo MRKT that we didn\'t even know existed. The delivery zone covers our whole neighborhood!', rating: 5, tier: 'Bronze' },
             ].map((review, i) => (
               <div key={i} style={{
@@ -703,7 +703,7 @@ export default function Home() {
               borderRadius: 100, padding: '6px 16px', marginBottom: 20,
             }}>
               <span style={{ fontSize: 14 }}>⚡</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#10b981' }}>New: SOOber Rides</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#10b981' }}>New: Soobér Rides</span>
             </div>
 
             <h2 style={{
@@ -726,7 +726,7 @@ export default function Home() {
               gap: 12, marginBottom: 28,
             }}>
               {[
-                { href: '/rides', emoji: '🚗', title: 'SOOber Rides', desc: 'On-demand rides across the Soo' },
+                { href: '/rides', emoji: '🚗', title: 'Soobér Rides', desc: 'On-demand rides across the Soo' },
                 { href: '/rides/airport', emoji: '✈️', title: 'Airport Transfers', desc: 'Fixed-rate, no surprises' },
                 { href: '/rides/events', emoji: '💎', title: 'Events & Fleets', desc: 'Electric Hummers & luxury' },
               ].map((item, i) => (
@@ -760,7 +760,7 @@ export default function Home() {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
-              Explore SOOber Rides →
+              Explore Soobér Rides →
             </Link>
           </div>
         </div>
@@ -812,7 +812,7 @@ export default function Home() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
                   { href: '/', label: 'Restaurants' },
-                  { href: '/rides', label: 'SOOber Rides', accent: true },
+                  { href: '/rides', label: 'Soobér Rides', accent: true },
                   { href: '/delivery-zone', label: 'Delivery Zones' },
                   { href: '/rewards', label: 'Rewards' },
                   { href: '/how-it-works', label: 'How It Works' },
@@ -843,7 +843,7 @@ export default function Home() {
               <h4 style={{ fontSize: 12, fontWeight: 700, color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16, marginTop: 0 }}>Company</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
-                  { href: '/about', label: 'About SOOber' },
+                  { href: '/about', label: 'About Soobér' },
                   { href: '/terms', label: 'Terms of Service' },
                   { href: '/privacy', label: 'Privacy Policy' },
                   { href: '/faq', label: 'FAQ' },
@@ -868,7 +868,7 @@ export default function Home() {
               fontSize: 12, color: theme.textFaint,
               fontWeight: 400, margin: 0,
             }}>
-              © 2026 SOOber Eats · Sault Ste. Marie, ON · Antigravity Solutions
+              © 2026 Soobér · Sault Ste. Marie, ON · Antigravity Solutions
             </p>
             <button
               onClick={toggleTheme}

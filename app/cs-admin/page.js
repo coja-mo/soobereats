@@ -183,7 +183,7 @@ export default function CSAdminDashboard() {
         <div className={styles.csContainer}>
             <header className={styles.header}>
                 <div className={styles.brand}>
-                    <div className={styles.logo}>SOOber Support</div>
+                    <div className={styles.logo}>Soobér Support</div>
                     <div className={styles.badge}>CS Command Center</div>
                 </div>
 

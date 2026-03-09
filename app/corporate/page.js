@@ -68,7 +68,7 @@ export default function CorporatePortal() {
                     }}>Partner with the<br />Soo's Local Platform</h1>
 
                     <p style={{ fontSize: isMobile ? 16 : 18, color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 24px', lineHeight: 1.6 }}>
-                        Zero corporate gatekeepers. Fair commission rates. Direct access to the Sault Ste. Marie community. Join SOOber Eats and grow your business with the Soo&apos;s only local delivery platform.
+                        Zero corporate gatekeepers. Fair commission rates. Direct access to the Sault Ste. Marie community. Join Soobér and grow your business with the Soo&apos;s only local delivery platform.
                     </p>
 
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 18px', borderRadius: 12, background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.2)', color: '#34d399', fontSize: 13, fontWeight: 600, marginBottom: 32 }}>
@@ -89,7 +89,7 @@ export default function CorporatePortal() {
                 <div style={{ maxWidth: 800, margin: '0 auto', padding: pad }}>
                     <div style={{ textAlign: 'center', marginBottom: isMobile ? 32 : 48 }}>
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 28 : 36, fontWeight: 700, color: theme.text, letterSpacing: '-0.02em', marginBottom: 16 }}>Calculate Your Savings</h2>
-                        <p style={{ fontSize: 16, color: theme.textMuted, maxWidth: 600, margin: '0 auto' }}>Silicon Valley apps take 30% of your revenue. See how much you keep by switching to Soober Eats 15% flat rate.</p>
+                        <p style={{ fontSize: 16, color: theme.textMuted, maxWidth: 600, margin: '0 auto' }}>Silicon Valley apps take 30% of your revenue. See how much you keep by switching to Soobér 15% flat rate.</p>
                     </div>
 
                     <div style={{ background: theme.bgCard, padding: isMobile ? 24 : 40, borderRadius: 24, border: `1px solid ${theme.borderSubtle}`, boxShadow: theme.shadow }}>
@@ -112,7 +112,7 @@ export default function CorporatePortal() {
                                 <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 700, color: theme.text, opacity: 0.5 }}>${nationalFee.toLocaleString()} / mo</div>
                             </div>
                             <div style={{ background: theme.dark, padding: 24, borderRadius: 16 }}>
-                                <p style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>Soober Eats (15%)</p>
+                                <p style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: 8 }}>Soobér (15%)</p>
                                 <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 28, fontWeight: 700, color: theme.darkText }}>${sooberFee.toLocaleString()} / mo</div>
                             </div>
                         </div>
