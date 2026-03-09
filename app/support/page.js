@@ -26,23 +26,43 @@ export default function CustomerSupport() {
         e.preventDefault();
         if (!inputText.trim()) return;
 
+        const userText = inputText.trim();
+        const userTextLower = userText.toLowerCase();
+
         // Add user message
-        const newUserMsg = { id: Date.now(), sender: "user", text: inputText };
+        const newUserMsg = { id: Date.now(), sender: "user", text: userText };
         setMessages(prev => [...prev, newUserMsg]);
         setInputText("");
 
-        // Simulate response
+        // Simulate response delay
         setTimeout(() => {
             if (chatMode === 'ai') {
+                let aiResponseText = "I'm sorry, I didn't quite catch that. Could you rephrase your question, or would you like me to connect you with a live agent for further assistance?";
+
+                // Mock Intelligence Logic
+                if (userTextLower.includes('where is') || userTextLower.includes('status') || userTextLower.includes('track') || userTextLower.includes('how long')) {
+                    aiResponseText = "I can see your driver, Marcus T., is currently 2 minutes away in a Black GMC Hummer EV. Would you like me to ping him or share his live location link?";
+                } else if (userTextLower.includes('refund') || userTextLower.includes('cancel') || userTextLower.includes('wrong') || userTextLower.includes('missing')) {
+                    aiResponseText = "I understand you have an issue with your order. Because this involves a potential refund or cancellation for Order #SBR-88219, I can process a standard 100% credit to your SOOber Wallet immediately, or I can connect you to agent Sarah to review the details. What would you prefer?";
+                } else if (userTextLower.includes('thank') || userTextLower.includes('ok') || userTextLower.includes('good') || userTextLower.includes('perfect')) {
+                    aiResponseText = "You're very welcome! Is there anything else I can assist you with today regarding your SOOber experience?";
+                } else if (userTextLower.includes('hello') || userTextLower.includes('hi ') || userTextLower === 'hi') {
+                    aiResponseText = "Hi there! How can I help you with your active ride today?";
+                } else if (userTextLower.includes('agent') || userTextLower.includes('human') || userTextLower.includes('real person') || userTextLower.includes('representative')) {
+                    aiResponseText = "I'd be happy to connect you with a live agent. Please hold for just a moment while I transfer this chat to our local support team in Sault Ste. Marie.";
+                    setTimeout(() => setChatMode('human'), 2000); // Auto-switch to human mode
+                }
+
                 const aiResponse = {
                     id: Date.now() + 1,
                     sender: "system",
                     role: "ai",
                     name: "SOOber Copilot",
-                    text: "I can check the status of your driver. Marcus T. is currently 2 minutes away in a Black GMC Hummer EV. Would you like me to ping him or connect you with a live agent?"
+                    text: aiResponseText
                 };
                 setMessages(prev => [...prev, aiResponse]);
             } else {
+                // Human mode simulated response
                 const agentResponse = {
                     id: Date.now() + 1,
                     sender: "system",
@@ -52,7 +72,7 @@ export default function CustomerSupport() {
                 };
                 setMessages(prev => [...prev, agentResponse]);
             }
-        }, 1000);
+        }, 800 + Math.random() * 700); // Random delay between 800ms and 1500ms
     };
 
     return (

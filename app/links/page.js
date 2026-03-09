@@ -6,59 +6,57 @@ import { useTheme } from '../../lib/ThemeContext';
 
 const sections = [
     {
-        title: '🍽️ Customer',
+        title: '⭐️ Quick Access / Priority',
         links: [
-            { href: '/', label: 'Homepage', desc: 'Browse restaurants & Soo MRKT' },
+            { href: '/', label: 'Homepage', desc: 'Main customer storefront' },
+            { href: '/founder', label: 'Founder Dashboard', desc: 'Superadmin executive overview' },
+            { href: '/cs-admin', label: 'CS Command Center', desc: 'Customer service admin portal' },
+            { href: '/support', label: 'AI Support Chat', desc: 'Customer-facing copilot support' },
+            { href: '/dispatch', label: 'Dispatch Portal', desc: 'Live fleet & order management' },
+            { href: '/scheduler', label: 'Workforce Scheduler', desc: 'Enterprise staff scheduling' },
+            { href: '/vendor', label: 'Vendor Dashboard', desc: 'Store management & analytics (Pino\'s)' },
+        ]
+    },
+    {
+        title: '🍽️ Customer & Mobility',
+        links: [
+            { href: '/rides', label: 'SOOber Rides', desc: 'Electric mobility & event fleet' },
             { href: '/checkout', label: 'Checkout', desc: 'Cart & payment flow' },
             { href: '/orders', label: 'Order History', desc: 'Past orders & receipts' },
             { href: '/account', label: 'My Account', desc: 'Profile, addresses, loyalty' },
             { href: '/rewards', label: 'Loyalty & Rewards', desc: 'Bronze → Silver → Gold → Diamond tier system' },
             { href: '/delivery-zone', label: 'Delivery Zone Map', desc: 'Coverage areas, fees & delivery times' },
+            { href: '/refer', label: 'Refer a Friend', desc: 'Give $10, Get $10 program' },
         ]
     },
     {
-        title: '🏪 Restaurants',
+        title: '🏪 Restaurants & Merchants',
         links: [
             { href: '/restaurant/auroras-italian', label: "Aurora's Italian", desc: 'Sample restaurant page' },
             { href: '/restaurant/solo-trattoria', label: 'Solo Trattoria', desc: 'Fine dining page' },
             { href: '/restaurant/uncle-ginos', label: "Uncle Gino's", desc: 'Family Italian page' },
             { href: '/restaurant/muio', label: 'Muio', desc: 'Premium Italian page' },
-        ]
-    },
-    {
-        title: '🛒 Soo MRKT',
-        links: [
             { href: '/market/penokean-hills', label: 'Penokean Hills Farms', desc: 'Premium meats vendor page' },
             { href: '/market/findlays-fungus', label: "Findlay's Fungus", desc: 'Specialty mushrooms vendor page' },
             { href: '/market/jenn-bakes-cakes', label: 'Jenn Bakes Cakes', desc: 'Artisan bakery vendor page' },
-        ]
-    },
-    {
-        title: '🎨 Artisans',
-        links: [
             { href: '/artisans/art-northshore', label: 'North Shore Pottery', desc: 'Artisan ceramics page' },
             { href: '/artisans/wildwood-candles', label: 'Wildwood Candle Co.', desc: 'Handmade candles page' },
         ]
     },
     {
-        title: '🏢 Corporate & Vendor Ops',
+        title: '🏢 Corporate & Operations',
         links: [
             { href: '/corporate', label: 'Corporate Affairs Portal', desc: 'B2B partner onboarding & commission calculator' },
-            { href: '/vendor', label: 'Vendor Dashboard', desc: 'Store management & analytics' },
             { href: '/vendor/kds', label: 'Kitchen Display System', desc: 'Live order kanban for kitchens' },
+            { href: '/orders/live/ORD-2901', label: 'Live Order Tracker (Demo)', desc: 'Real-time order status page' },
         ]
     },
     {
-        title: '📡 Live Tracking',
+        title: '📄 Information & Support',
         links: [
-            { href: '/orders/live/demo', label: 'Live Order Tracker (Demo)', desc: 'Real-time order status page' },
-        ]
-    },
-    {
-        title: '📄 Information',
-        links: [
-            { href: '/about', label: 'About SOOber Eats', desc: 'Our story, mission, and 100% electric fleet' },
+            { href: '/about', label: 'About SOOber', desc: 'Our story, mission, and 100% electric fleet' },
             { href: '/how-it-works', label: 'How It Works', desc: '3-step ordering guide and FAQ' },
+            { href: '/faq', label: 'Frequently Asked Questions', desc: 'Helpful answers for users' },
             { href: '/for-drivers', label: 'Drive Electric', desc: 'Join the EV fleet — earnings calculator & application' },
             { href: '/contact', label: 'Contact Us', desc: 'Get in touch with our local team' },
             { href: '/terms', label: 'Terms of Service', desc: 'Platform terms and policies' },
