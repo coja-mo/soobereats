@@ -13,6 +13,7 @@ export default function sitemap() {
         '/fleet', '/blog', '/notifications',
         '/team', '/events', '/history',
         '/help', '/expansion', '/dietary',
+        '/promos', '/favorites', '/catering',
     ];
 
     return routes.map((route) => ({

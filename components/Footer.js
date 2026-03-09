@@ -82,6 +82,8 @@ export function Footer() {
                                 { href: '/corporate', label: 'For Business' },
                                 { href: '/gift-cards', label: '🎁 Gift Cards' },
                                 { href: '/pricing', label: 'Pricing' },
+                                { href: '/promos', label: '🔥 Deals & Promos' },
+                                { href: '/catering', label: '🍽️ Catering' },
                                 { href: '/for-drivers', label: 'Drive Electric' },
                                 { href: '/fleet', label: 'Our Fleet' },
                                 { href: '/events', label: '🏟️ Event Shuttles' },
