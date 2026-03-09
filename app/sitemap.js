@@ -10,6 +10,7 @@ export default function sitemap() {
         '/checkout', '/account', '/refer', '/links', '/terms', '/privacy',
         '/driver-portal', '/orders', '/status', '/partner', '/changelog',
         '/gift-cards', '/impact', '/pricing',
+        '/fleet', '/blog', '/notifications',
     ];
 
     return routes.map((route) => ({
