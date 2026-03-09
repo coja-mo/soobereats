@@ -39,6 +39,7 @@ const sections = [
             { href: '/account', label: 'My Account', desc: 'Profile, addresses, loyalty' },
             { href: '/rewards', label: 'Loyalty & Rewards', desc: 'Bronze → Silver → Gold → Diamond tier system' },
             { href: '/delivery-zone', label: 'Delivery Zone Map', desc: 'Coverage areas, fees & delivery times' },
+            { href: '/community', label: 'Community Marketplace', desc: 'Free local marketplace — Kijiji meets bulletin board' },
             { href: '/refer', label: 'Refer a Friend', desc: 'Give $10, Get $10 program' },
         ]
     },
@@ -67,6 +68,10 @@ const sections = [
             { href: '/academy', label: 'Soobér Academy', desc: 'LMS training platform' },
             { href: '/partners', label: 'Partners Dashboard', desc: 'Local partner management (PIN required)' },
             { href: '/orders/live/ORD-2901', label: 'Live Order Tracker (Demo)', desc: 'Real-time order status page' },
+            { href: '/business', label: 'Business Solutions', desc: 'All business services & sustainability hub' },
+            { href: '/socials', label: 'Social Campaign', desc: '4-phase social media campaign playbook' },
+            { href: '/careers', label: 'Careers', desc: 'Open roles — drivers, ops, tech, business' },
+            { href: '/investors', label: 'Investor Relations', desc: 'Pitch deck, metrics, roadmap, competitive analysis' },
         ]
     },
     {

@@ -131,6 +131,18 @@ export const Navigation = () => {
                             }}>
                                 🛒 Shop
                             </Link>
+                            <Link href="/community" style={{
+                                color: '#d97706', fontSize: 14, fontWeight: 700,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                🏘️ Community
+                            </Link>
+                            <Link href="/business" style={{
+                                color: '#10b981', fontSize: 14, fontWeight: 700,
+                                textDecoration: 'none', letterSpacing: '-0.01em',
+                            }}>
+                                💼 Business
+                            </Link>
 
                         </div>
                     )}
@@ -508,6 +520,11 @@ export const Navigation = () => {
                             { href: '/for-drivers', label: 'Drive Electric', emoji: '⚡' },
                             { href: '/corporate', label: 'For Business', emoji: '🏢' },
                             { href: '/contact', label: 'Contact', emoji: '📬' },
+                            { href: '/community', label: 'Community', emoji: '🏘️' },
+                            { href: '/business', label: 'Business Solutions', emoji: '💼' },
+                            { href: '/socials', label: 'Social Campaign', emoji: '📱' },
+                            { href: '/careers', label: 'Careers', emoji: '🚀' },
+                            { href: '/investors', label: 'Investors', emoji: '📈' },
                             { href: '/delivery-zone', label: 'Delivery Zone', emoji: '📍' },
                             { href: '/links', label: 'All Links', emoji: '🔗' },
                         ].map(item => (

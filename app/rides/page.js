@@ -973,6 +973,197 @@ export default function RidesPage() {
                 </div>
             </section>
 
+            {/* ═══ BOARDWALK E-SCOOTER RENTALS ═══ */}
+            <section style={{
+                padding: isMobile ? '60px 16px' : '80px 40px', maxWidth: 1440, margin: '0 auto',
+                position: 'relative', overflow: 'hidden',
+            }}>
+                {/* Background glow */}
+                <div style={{
+                    position: 'absolute', top: -80, left: -120,
+                    width: 500, height: 500, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(8,145,178,0.10) 0%, transparent 65%)',
+                    pointerEvents: 'none', filter: 'blur(80px)',
+                }} />
+                <div style={{
+                    position: 'absolute', bottom: -100, right: -80,
+                    width: 400, height: 400, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(8,145,178,0.06) 0%, transparent 70%)',
+                    pointerEvents: 'none', filter: 'blur(60px)',
+                }} />
+
+                {/* Divider */}
+                <div style={{
+                    width: '100%', height: 1, marginBottom: isMobile ? 48 : 64,
+                    background: `linear-gradient(90deg, transparent, ${theme.borderSubtle}, transparent)`,
+                }} />
+
+                <div style={{
+                    background: isDark
+                        ? 'linear-gradient(135deg, rgba(8,145,178,0.06), rgba(8,145,178,0.02))'
+                        : 'linear-gradient(135deg, rgba(8,145,178,0.08), rgba(8,145,178,0.03))',
+                    border: '1px solid rgba(8,145,178,0.2)',
+                    borderRadius: 28, padding: isMobile ? 28 : 48, position: 'relative', overflow: 'hidden',
+                }}>
+                    {/* Decorative wave */}
+                    <div style={{
+                        position: 'absolute', top: -60, right: -60,
+                        width: 300, height: 300, borderRadius: '50%',
+                        background: 'radial-gradient(circle, rgba(8,145,178,0.10) 0%, transparent 70%)',
+                        pointerEvents: 'none',
+                    }} />
+
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                        {/* Badge */}
+                        <div style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 8,
+                            background: 'rgba(8,145,178,0.12)', border: '1px solid rgba(8,145,178,0.25)',
+                            borderRadius: 100, padding: '6px 16px', marginBottom: 20,
+                        }}>
+                            <span style={{ fontSize: 14 }}>🌊</span>
+                            <span style={{ fontSize: 12, fontWeight: 700, color: '#0891b2', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Boardwalk Rentals</span>
+                        </div>
+
+                        <h2 style={{
+                            fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
+                            fontSize: isMobile ? 28 : 40, letterSpacing: '-0.04em',
+                            color: theme.text, margin: '0 0 12px', lineHeight: 1.1,
+                        }}>
+                            Soobér <span style={{ color: '#0891b2' }}>Boardwalk</span> Rides
+                        </h2>
+                        <p style={{
+                            fontSize: isMobile ? 15 : 17, color: theme.textMuted,
+                            maxWidth: 560, margin: '0 0 36px', lineHeight: 1.6,
+                        }}>
+                            Cruise the Sault Ste. Marie waterfront on premium electric scooters.
+                            Pick up at any dock station, ride the boardwalk, and drop off when you're done.
+                            The best way to experience the shoreline — <strong style={{ color: theme.text }}>wind in your hair, zero emissions.</strong>
+                        </p>
+
+                        {/* Rental Tiers */}
+                        <h3 style={{
+                            fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                            fontSize: 18, color: theme.text, margin: '0 0 16px',
+                        }}>Rental Options</h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                            gap: 14, marginBottom: 36,
+                        }}>
+                            {[
+                                { title: 'Quick Cruise', duration: '30 min', price: '$8', desc: 'A quick spin along the waterfront. Perfect for a break.', emoji: '⚡', highlight: false },
+                                { title: 'Explorer', duration: '1 hour', price: '$14', desc: 'See the full boardwalk from Bondar Pavilion to the Canal.', emoji: '🌊', highlight: true },
+                                { title: 'Adventure', duration: '2 hours', price: '$22', desc: 'Take your time. Stop for photos, grab an ice cream, ride back.', emoji: '☀️', highlight: false },
+                                { title: 'All Day', duration: 'Full day', price: '$35', desc: 'Your scooter from open to close. Explore every trail and path.', emoji: '🏆', highlight: false },
+                            ].map((plan, i) => (
+                                <div key={i} style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
+                                    borderRadius: 20, padding: '24px 20px',
+                                    border: plan.highlight ? '2px solid #0891b2' : `1px solid ${theme.borderSubtle}`,
+                                    position: 'relative', overflow: 'hidden',
+                                    transition: 'transform 0.2s ease',
+                                }}
+                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                                >
+                                    {plan.highlight && (
+                                        <div style={{
+                                            position: 'absolute', top: 12, right: 12,
+                                            fontSize: 10, fontWeight: 700, color: '#fff',
+                                            background: '#0891b2', borderRadius: 8, padding: '3px 10px',
+                                            textTransform: 'uppercase', letterSpacing: '0.05em',
+                                        }}>Popular</div>
+                                    )}
+                                    <span style={{ fontSize: 28, display: 'block', marginBottom: 12 }}>{plan.emoji}</span>
+                                    <h4 style={{
+                                        fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                                        fontSize: 15, color: theme.text, margin: '0 0 2px',
+                                    }}>{plan.title}</h4>
+                                    <span style={{ fontSize: 12, color: theme.textMuted, display: 'block', marginBottom: 8 }}>{plan.duration}</span>
+                                    <div style={{ marginBottom: 8 }}>
+                                        <span style={{ fontSize: 28, fontWeight: 800, color: '#0891b2' }}>{plan.price}</span>
+                                    </div>
+                                    <p style={{ fontSize: 13, color: theme.textMuted, lineHeight: 1.5, margin: 0 }}>{plan.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Dock Stations */}
+                        <h3 style={{
+                            fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                            fontSize: 18, color: theme.text, margin: '0 0 16px',
+                        }}>Dock Stations</h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                            gap: 12, marginBottom: 36,
+                        }}>
+                            {[
+                                { station: 'Roberta Bondar Pavilion', scooters: '12 available', emoji: '🏛️' },
+                                { station: 'Boardwalk Park', scooters: '8 available', emoji: '🌊' },
+                                { station: 'Canal District', scooters: '10 available', emoji: '⛵' },
+                                { station: 'Bellevue Marina', scooters: '6 available', emoji: '🚢' },
+                            ].map((d, i) => (
+                                <div key={i} style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.5)',
+                                    borderRadius: 14, padding: 16, textAlign: 'center',
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                    transition: 'transform 0.2s ease',
+                                }}
+                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                                >
+                                    <span style={{ fontSize: 22, display: 'block', marginBottom: 8 }}>{d.emoji}</span>
+                                    <span style={{ fontSize: 13, fontWeight: 700, color: theme.text, display: 'block', lineHeight: 1.3 }}>{d.station}</span>
+                                    <span style={{ fontSize: 11, color: '#0891b2', fontWeight: 600, marginTop: 4, display: 'block' }}>{d.scooters}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* What's Included */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                            gap: 12, marginBottom: 24,
+                        }}>
+                            {[
+                                { item: 'Helmet Included', emoji: '⛑️' },
+                                { item: 'Phone Mount', emoji: '📱' },
+                                { item: 'Waterfront Map', emoji: '🗺️' },
+                                { item: 'Safety Briefing', emoji: '✅' },
+                            ].map((inc, i) => (
+                                <div key={i} style={{
+                                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.5)',
+                                    borderRadius: 12, padding: '12px 14px',
+                                    border: `1px solid ${theme.borderSubtle}`,
+                                    display: 'flex', alignItems: 'center', gap: 10,
+                                }}>
+                                    <span style={{ fontSize: 18 }}>{inc.emoji}</span>
+                                    <span style={{ fontSize: 12, fontWeight: 700, color: theme.text }}>{inc.item}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Season Note */}
+                        <div style={{
+                            background: isDark ? 'rgba(234,179,8,0.06)' : 'rgba(234,179,8,0.04)',
+                            border: '1px solid rgba(234,179,8,0.15)', borderRadius: 14,
+                            padding: '16px 20px', display: 'flex', alignItems: 'flex-start', gap: 12,
+                        }}>
+                            <span style={{ fontSize: 20 }}>📅</span>
+                            <div>
+                                <span style={{ fontSize: 13, fontWeight: 700, color: theme.text, display: 'block', marginBottom: 4 }}>Seasonal Operation</span>
+                                <span style={{ fontSize: 12, color: theme.textMuted, lineHeight: 1.5 }}>
+                                    Boardwalk rentals are available May through October, weather permitting.
+                                    Dock stations open daily from 8:00 AM to sunset. All riders must be 16+.
+                                    Book ahead in the Soobér app or walk up to any dock station.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* ═══ SOO GREYHOUNDS PARTNERSHIP ═══ */}
             <section style={{
                 padding: isMobile ? '60px 16px' : '80px 40px',

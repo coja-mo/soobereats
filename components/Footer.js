@@ -61,12 +61,14 @@ export function Footer() {
                                 { href: '/', label: 'Restaurants' },
                                 { href: '/rides', label: '⚡ Soobér Rides', accent: true },
                                 { href: '/market', label: 'Soo MRKT' },
+                                { href: '/community', label: '🏘️ Community', community: true },
+                                { href: '/business', label: '💼 Business Solutions', business: true },
                                 { href: '/delivery-zone', label: 'Delivery Zones' },
                                 { href: '/rewards', label: 'Rewards' },
                                 { href: '/how-it-works', label: 'How It Works' },
                                 { href: '/academy', label: 'Soobér Academy' },
                             ].map(l => (
-                                <Link key={l.href} href={l.href} style={{ color: l.accent ? '#0066FF' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: l.accent ? 700 : 500, transition: 'color 0.2s' }}>{l.label}</Link>
+                                <Link key={l.href} href={l.href} style={{ color: l.accent ? '#0066FF' : l.community ? '#d97706' : l.business ? '#10b981' : theme.textFaint, textDecoration: 'none', fontSize: 13, fontWeight: (l.accent || l.community || l.business) ? 700 : 500, transition: 'color 0.2s' }}>{l.label}</Link>
                             ))}
                         </div>
                     </div>
