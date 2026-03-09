@@ -14,6 +14,7 @@ export default function sitemap() {
         '/team', '/events', '/history',
         '/help', '/expansion', '/dietary',
         '/promos', '/favorites', '/catering',
+        '/reviews', '/merchant',
     ];
 
     return routes.map((route) => ({
