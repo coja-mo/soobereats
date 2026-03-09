@@ -1,21 +1,68 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { vehicleClasses, popularDestinations, safetyFeatures, fleetRoster } from '../../lib/data/rides';
 import { useTheme } from '../../lib/ThemeContext';
 import Link from 'next/link';
 import { Footer } from '../../components/Footer';
+import AddressAutocomplete from '../../components/AddressAutocomplete';
+import RouteMap from '../../components/RouteMap';
+import { calculateRoute, calculateAllFares, formatDistance, formatDuration, formatFare } from '../../lib/gis';
 
 export default function RidesPage() {
     const { theme } = useTheme();
     const [isMobile, setIsMobile] = useState(false);
     const [pickup, setPickup] = useState('');
     const [dropoff, setDropoff] = useState('');
+    const [pickupCoords, setPickupCoords] = useState(null);
+    const [dropoffCoords, setDropoffCoords] = useState(null);
     const [selectedVehicle, setSelectedVehicle] = useState('comfort');
     const [showEstimate, setShowEstimate] = useState(false);
     const [scheduleMode, setScheduleMode] = useState(false);
     const [selectedDest, setSelectedDest] = useState(null);
     const [selectedSafety, setSelectedSafety] = useState(null);
+    const [route, setRoute] = useState(null);
+    const [fares, setFares] = useState({});
+    const [isCalculating, setIsCalculating] = useState(false);
+    const [routeError, setRouteError] = useState(null);
+
+    // Calculate route when both coordinates are set
+    const computeRoute = useCallback(async (pCoords, dCoords) => {
+        if (!pCoords || !dCoords) return;
+        setIsCalculating(true);
+        setRouteError(null);
+        try {
+            const routeData = await calculateRoute(pCoords, dCoords);
+            if (routeData) {
+                setRoute(routeData);
+                setFares(calculateAllFares(routeData));
+                setShowEstimate(true);
+            } else {
+                setRouteError('Could not calculate route');
+            }
+        } catch (err) {
+            console.error('Route calculation error:', err);
+            setRouteError('Route calculation failed');
+        } finally {
+            setIsCalculating(false);
+        }
+    }, []);
+
+    // Handle pickup selection from autocomplete
+    const handlePickupSelect = (result) => {
+        setPickup(result.shortName);
+        setPickupCoords({ lat: result.lat, lng: result.lng });
+        setShowEstimate(false);
+        if (dropoffCoords) computeRoute({ lat: result.lat, lng: result.lng }, dropoffCoords);
+    };
+
+    // Handle dropoff selection from autocomplete
+    const handleDropoffSelect = (result) => {
+        setDropoff(result.shortName);
+        setDropoffCoords({ lat: result.lat, lng: result.lng });
+        setShowEstimate(false);
+        if (pickupCoords) computeRoute(pickupCoords, { lat: result.lat, lng: result.lng });
+    };
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -31,7 +78,9 @@ export default function RidesPage() {
     const electricGlow = 'rgba(0,102,255,0.3)';
 
     const handleEstimate = () => {
-        if (pickup && dropoff) setShowEstimate(true);
+        if (pickupCoords && dropoffCoords) {
+            computeRoute(pickupCoords, dropoffCoords);
+        }
     };
 
     return (
@@ -92,53 +141,98 @@ export default function RidesPage() {
                             borderRadius: 20, padding: isMobile ? 20 : 28,
                             boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
                         }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
-                                {/* Pickup */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
+                                {/* Pickup with autocomplete */}
                                 <div style={{ position: 'relative' }}>
                                     <div style={{
-                                        position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)',
+                                        position: 'absolute', left: 16, top: 16, zIndex: 10,
                                         width: 10, height: 10, borderRadius: '50%', background: electric,
                                         boxShadow: `0 0 8px ${electric}`,
                                     }} />
-                                    <input
-                                        type="text" placeholder="Pickup location"
-                                        value={pickup} onChange={(e) => { setPickup(e.target.value); setShowEstimate(false); }}
-                                        style={{
-                                            width: '100%', background: theme.bgInput, border: `1px solid ${theme.borderSubtle}`,
-                                            borderRadius: 14, padding: '14px 18px 14px 40px', fontSize: 15, fontWeight: 500,
-                                            color: theme.text, outline: 'none', fontFamily: "'Inter', sans-serif",
-                                            transition: 'border 0.2s ease', boxSizing: 'border-box',
-                                        }}
-                                        onFocus={(e) => e.target.style.borderColor = electric}
-                                        onBlur={(e) => e.target.style.borderColor = theme.borderSubtle}
-                                    />
+                                    <div style={{ paddingLeft: 0 }}>
+                                        <AddressAutocomplete
+                                            placeholder="Pickup location"
+                                            value={pickup}
+                                            onSelect={handlePickupSelect}
+                                            onTextChange={(t) => { setPickup(t); setShowEstimate(false); }}
+                                            theme={theme}
+                                            isPickup={true}
+                                            accentColor={electric}
+                                        />
+                                    </div>
                                 </div>
                                 {/* Connector */}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 0, paddingLeft: 20 }}>
                                     <div style={{
-                                        width: 2, height: 20, background: `linear-gradient(${electric}, ${theme.textFaint})`,
+                                        width: 2, height: 12, background: `linear-gradient(${electric}, ${theme.textFaint})`,
                                     }} />
                                 </div>
-                                {/* Dropoff */}
+                                {/* Dropoff with autocomplete */}
                                 <div style={{ position: 'relative' }}>
                                     <div style={{
-                                        position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)',
+                                        position: 'absolute', left: 16, top: 16, zIndex: 10,
                                         width: 10, height: 10, borderRadius: 3, background: theme.textFaint,
                                     }} />
-                                    <input
-                                        type="text" placeholder="Where to?"
-                                        value={dropoff} onChange={(e) => { setDropoff(e.target.value); setShowEstimate(false); }}
-                                        style={{
-                                            width: '100%', background: theme.bgInput, border: `1px solid ${theme.borderSubtle}`,
-                                            borderRadius: 14, padding: '14px 18px 14px 40px', fontSize: 15, fontWeight: 500,
-                                            color: theme.text, outline: 'none', fontFamily: "'Inter', sans-serif",
-                                            transition: 'border 0.2s ease', boxSizing: 'border-box',
-                                        }}
-                                        onFocus={(e) => e.target.style.borderColor = electric}
-                                        onBlur={(e) => e.target.style.borderColor = theme.borderSubtle}
-                                    />
+                                    <div style={{ paddingLeft: 0 }}>
+                                        <AddressAutocomplete
+                                            placeholder="Where to?"
+                                            value={dropoff}
+                                            onSelect={handleDropoffSelect}
+                                            onTextChange={(t) => { setDropoff(t); setShowEstimate(false); }}
+                                            theme={theme}
+                                            isPickup={false}
+                                            accentColor={electric}
+                                        />
+                                    </div>
                                 </div>
                             </div>
+
+                            {/* Route info bar */}
+                            {route && showEstimate && (
+                                <div style={{
+                                    display: 'flex', alignItems: 'center', justifyContent: 'space-around',
+                                    padding: '10px 16px', borderRadius: 12,
+                                    background: isDark ? 'rgba(0,102,255,0.06)' : 'rgba(0,102,255,0.04)',
+                                    border: `1px solid ${electric}22`, marginBottom: 16,
+                                }}>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <span style={{ fontSize: 11, color: theme.textFaint, display: 'block' }}>Distance</span>
+                                        <span style={{ fontSize: 15, fontWeight: 700, color: electric, fontFamily: "'DM Sans', sans-serif" }}>{formatDistance(route.distance)}</span>
+                                    </div>
+                                    <div style={{ width: 1, height: 24, background: theme.borderSubtle }} />
+                                    <div style={{ textAlign: 'center' }}>
+                                        <span style={{ fontSize: 11, color: theme.textFaint, display: 'block' }}>Est. Time</span>
+                                        <span style={{ fontSize: 15, fontWeight: 700, color: electric, fontFamily: "'DM Sans', sans-serif" }}>{formatDuration(route.duration)}</span>
+                                    </div>
+                                    <div style={{ width: 1, height: 24, background: theme.borderSubtle }} />
+                                    <div style={{ textAlign: 'center' }}>
+                                        <span style={{ fontSize: 11, color: theme.textFaint, display: 'block' }}>Est. Fare</span>
+                                        <span style={{ fontSize: 15, fontWeight: 700, color: '#22c55e', fontFamily: "'DM Sans', sans-serif" }}>{fares[selectedVehicle] ? formatFare(fares[selectedVehicle].fare) : '—'}</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Calculating indicator */}
+                            {isCalculating && (
+                                <div style={{
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                                    padding: '10px', marginBottom: 16, borderRadius: 10,
+                                    background: isDark ? 'rgba(0,102,255,0.06)' : 'rgba(0,102,255,0.04)',
+                                    fontSize: 13, color: electric, fontWeight: 600,
+                                }}>
+                                    ⏳ Calculating route...
+                                </div>
+                            )}
+
+                            {routeError && (
+                                <div style={{
+                                    padding: '8px 12px', borderRadius: 10, marginBottom: 16,
+                                    background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)',
+                                    fontSize: 12, color: '#ef4444', fontWeight: 600, textAlign: 'center',
+                                }}>
+                                    {routeError}
+                                </div>
+                            )}
 
                             {/* Schedule toggle */}
                             <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
@@ -163,18 +257,18 @@ export default function RidesPage() {
                             </div>
 
                             {/* Go button */}
-                            <button onClick={handleEstimate} style={{
-                                width: '100%', padding: '16px', borderRadius: 14, border: 'none', cursor: 'pointer',
-                                background: pickup && dropoff
+                            <button onClick={handleEstimate} disabled={isCalculating} style={{
+                                width: '100%', padding: '16px', borderRadius: 14, border: 'none', cursor: isCalculating ? 'wait' : 'pointer',
+                                background: pickupCoords && dropoffCoords
                                     ? `linear-gradient(135deg, ${electric}, #0044CC)`
                                     : theme.bgInput,
-                                color: pickup && dropoff ? '#fff' : theme.textFaint,
+                                color: pickupCoords && dropoffCoords ? '#fff' : theme.textFaint,
                                 fontWeight: 700, fontSize: 16, fontFamily: "'DM Sans', sans-serif",
                                 letterSpacing: '-0.02em',
-                                boxShadow: pickup && dropoff ? `0 4px 20px ${electricGlow}` : 'none',
+                                boxShadow: pickupCoords && dropoffCoords ? `0 4px 20px ${electricGlow}` : 'none',
                                 transition: 'all 0.3s ease',
                             }}>
-                                {showEstimate ? '✓ Ride Requested!' : 'See Prices'}
+                                {isCalculating ? '⏳ Calculating...' : showEstimate ? '✓ Request Ride' : pickupCoords && dropoffCoords ? '🗺️ Calculate Route' : 'Enter Pickup & Dropoff'}
                             </button>
                         </div>
                     </div>
@@ -218,10 +312,10 @@ export default function RidesPage() {
                                                     {vc.name}
                                                 </span>
                                                 <span style={{
-                                                    fontWeight: 700, fontSize: 15, color: electric,
+                                                    fontWeight: 700, fontSize: 15, color: fares[vc.id] ? '#22c55e' : electric,
                                                     fontFamily: "'DM Sans', sans-serif",
                                                 }}>
-                                                    ${vc.minFare.toFixed(2)}+
+                                                    {fares[vc.id] ? formatFare(fares[vc.id].fare) : `$${vc.minFare.toFixed(2)}+`}
                                                 </span>
                                             </div>
                                             <p style={{
@@ -255,6 +349,44 @@ export default function RidesPage() {
                                 </button>
                             ))}
                         </div>
+
+                        {/* ─── Route Map ─── */}
+                        <div style={{ marginTop: 20 }}>
+                            <RouteMap
+                                pickup={pickupCoords}
+                                dropoff={dropoffCoords}
+                                routeGeometry={route?.geometry || null}
+                                height={isMobile ? '220px' : '280px'}
+                                theme={theme}
+                                isDark={isDark}
+                                accentColor={electric}
+                            />
+                        </div>
+
+                        {/* Fare breakdown */}
+                        {route && showEstimate && fares[selectedVehicle] && (
+                            <div style={{
+                                marginTop: 16, background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                                border: `1px solid ${theme.borderSubtle}`, borderRadius: 16, padding: '14px 18px',
+                            }}>
+                                <span style={{ fontSize: 12, fontWeight: 700, color: theme.textFaint, textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: 8 }}>Fare Breakdown</span>
+                                {[
+                                    { label: 'Base fare', value: formatFare(fares[selectedVehicle].breakdown.base) },
+                                    { label: `Distance (${formatDistance(route.distance)})`, value: formatFare(fares[selectedVehicle].breakdown.distance) },
+                                    { label: `Time (${formatDuration(route.duration)})`, value: formatFare(fares[selectedVehicle].breakdown.time) },
+                                ].map((item, i) => (
+                                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
+                                        <span style={{ color: theme.textMuted }}>{item.label}</span>
+                                        <span style={{ color: theme.text, fontWeight: 600 }}>{item.value}</span>
+                                    </div>
+                                ))}
+                                <div style={{ width: '100%', height: 1, background: theme.borderSubtle, margin: '8px 0' }} />
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15 }}>
+                                    <span style={{ color: theme.text, fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>Estimated Total</span>
+                                    <span style={{ color: '#22c55e', fontWeight: 800, fontFamily: "'DM Sans', sans-serif" }}>{formatFare(fares[selectedVehicle].fare)}</span>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
