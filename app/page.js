@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { restaurants, categories, getRestaurantsByCategory, getFeaturedRestaurants } from '../lib/data/restaurants';
 import { RestaurantCard } from '../components/RestaurantCard';
+import { RestaurantCarousel } from '../components/RestaurantCarousel';
 import { CategoryFilter } from '../components/CategoryFilter';
 import { SooMrktSection } from '../components/SooMrktSection';
 import { ArtisansSection } from '../components/ArtisansSection';
@@ -11,7 +12,6 @@ import { useTheme } from '../lib/ThemeContext';
 import Link from 'next/link';
 
 export default function Home() {
-  const [activeCategory, setActiveCategory] = useState('all');
   const { theme, isDark } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -22,9 +22,7 @@ export default function Home() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  const displayedRestaurants = getRestaurantsByCategory(activeCategory);
   const featured = getFeaturedRestaurants();
-  const isFiltering = activeCategory !== 'all';
 
   const sectionPad = isMobile ? '0 16px' : '0 40px';
 
@@ -34,7 +32,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════
           HERO SECTION — "The Soo Eats Local"
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && (
+      <div id="all-restaurants">
         <section style={{
           position: 'relative', paddingTop: isMobile ? 56 : 100,
           paddingBottom: isMobile ? 48 : 80,
@@ -112,12 +110,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-      )}
 
-      {/* ═══════════════════════════════════════════════
+        {/* ═══════════════════════════════════════════════
           STATS BAR — Social proof
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && (
         <section style={{
           background: theme.bgAlt,
           borderTop: `1px solid ${theme.borderSubtle}`,
@@ -157,12 +153,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-      )}
-
-      {/* ═══════════════════════════════════════════════
-          CURATED COLLECTIONS — Themed picks
-         ═══════════════════════════════════════════════ */}
-      {!isFiltering && (
         <section style={{ padding: isMobile ? '32px 0' : '48px 0', transition: 'all 0.3s ease' }}>
           <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
             <h2 style={{
@@ -199,7 +189,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      )}
+      </div>
 
       {/* Categories */}
       <section style={{
@@ -210,14 +200,14 @@ export default function Home() {
         padding: '4px 0', transition: 'background 0.3s ease',
       }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
-          <CategoryFilter categories={categories} activeCategory={activeCategory} onSelect={setActiveCategory} />
+          <CategoryFilter categories={categories} />
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════
           FEATURED PICKS — Cinema-style hero card
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && featured.length > 0 && (
+      {featured.length > 0 && (
         <section style={{ padding: isMobile ? '40px 0' : '64px 0', background: theme.bgAlt, transition: 'background 0.3s ease' }}>
           <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: isMobile ? 20 : 32 }}>
@@ -258,183 +248,168 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════
           SOO MRKT — "Store Within a Store"
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && <div id="soo-mrkt"><SooMrktSection /></div>}
+      <div id="soo-mrkt"><SooMrktSection /></div>
 
       {/* ═══════════════════════════════════════════════
           LOCAL ARTISANS & CRAFTERS
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && <ArtisansSection />}
+      <ArtisansSection />
 
       {/* ═══════════════════════════════════════════════
-          ALL RESTAURANTS
+          CATEGORIZED RESTAURANTS
          ═══════════════════════════════════════════════ */}
-      <section id="restaurants" style={{ padding: isMobile ? '40px 0' : '64px 0', transition: 'background 0.3s ease' }}>
-        <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: isMobile ? 20 : 32 }}>
-            <h2 style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: isMobile ? 24 : 32, fontWeight: 700, letterSpacing: '-0.03em',
-              color: theme.text,
-            }}>
-              {isFiltering ? `${categories.find(c => c.id === activeCategory)?.name} Restaurants` : 'All Restaurants'}
-            </h2>
-            {!isFiltering && (
-              <span style={{ fontSize: 14, color: theme.textFaint, fontWeight: 500 }}>
-                {restaurants.length} spots
-              </span>
-            )}
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(320px, 1fr))',
-            gap: isMobile ? 16 : 28,
-          }}>
-            {displayedRestaurants.map((restaurant) => (
-              <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-            ))}
-          </div>
-          {displayedRestaurants.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '80px 0' }}>
-              <div style={{ fontSize: 64, marginBottom: 16 }}>🍽️</div>
-              <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8, color: theme.text }}>No restaurants found</h3>
-              <p style={{ color: theme.textMuted, marginBottom: 24 }}>Try selecting a different category.</p>
-              <Button onClick={() => setActiveCategory('all')}>View all restaurants</Button>
+      {categories.map(category => {
+        const categoryRestaurants = getRestaurantsByCategory(category.id);
+        if (categoryRestaurants.length === 0) return null;
+
+        return (
+          <section key={category.id} id={category.id} style={{ padding: isMobile ? '40px 0' : '64px 0', transition: 'background 0.3s ease' }}>
+            <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
+              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: isMobile ? 20 : 32 }}>
+                <h2 style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: isMobile ? 24 : 32, fontWeight: 700, letterSpacing: '-0.03em',
+                  color: theme.text,
+                }}>
+                  {category.emoji} {category.name}
+                </h2>
+                <span style={{ fontSize: 14, color: theme.textFaint, fontWeight: 500 }}>
+                  {categoryRestaurants.length} local spots
+                </span>
+              </div>
+              <RestaurantCarousel restaurants={categoryRestaurants} />
             </div>
-          )}
-        </div>
-      </section>
+          </section>
+        );
+      })}
 
       {/* ═══════════════════════════════════════════════
           ELECTRIC FLEET SHOWCASE
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && (
-        <section style={{
-          padding: isMobile ? '56px 0' : '80px 0',
-          background: theme.mode === 'dark'
-            ? 'linear-gradient(180deg, #09090b 0%, #0a1a0f 50%, #09090b 100%)'
-            : 'linear-gradient(180deg, #fdfdfd 0%, #ecfdf5 50%, #fdfdfd 100%)',
-          borderTop: `1px solid ${theme.borderSubtle}`,
-          borderBottom: `1px solid ${theme.borderSubtle}`,
-        }}>
-          <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad, textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              padding: '8px 20px', borderRadius: 100,
-              background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)',
-              fontSize: 12, fontWeight: 700, color: '#10b981', marginBottom: 24,
-              letterSpacing: '0.05em', textTransform: 'uppercase',
-            }}>⚡ Zero Emissions Delivery</div>
-            <h2 style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: isMobile ? 28 : 40, fontWeight: 700,
-              letterSpacing: '-0.03em', color: theme.text,
-              lineHeight: 1.1, marginBottom: 16,
-            }}>Every delivery. 100% electric.</h2>
-            <p style={{
-              fontSize: isMobile ? 15 : 17, color: theme.textMuted,
-              lineHeight: 1.7, maxWidth: 560, margin: '0 auto 40px',
-            }}>Our entire fleet runs on electricity — EVs, e-bikes, and electric scooters. Ontario&apos;s grid is 94% emissions-free. Your delivery is genuinely zero-carbon.</p>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20, maxWidth: 900, margin: '0 auto' }}>
-              {[
-                { emoji: '🔋', stat: '0g CO₂', label: 'Per Delivery' },
-                { emoji: '🤫', stat: 'Silent', label: 'Night Delivery' },
-                { emoji: '⚡', stat: '100%', label: 'Electric Fleet' },
-              ].map(item => (
-                <div key={item.label} style={{
-                  background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
-                  borderRadius: 20, padding: isMobile ? '20px 16px' : '28px 24px',
-                  boxShadow: theme.shadow,
-                }}>
-                  <div style={{ fontSize: 28, marginBottom: 8 }}>{item.emoji}</div>
-                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>{item.stat}</div>
-                  <div style={{ fontSize: 13, color: theme.textMuted, fontWeight: 500 }}>{item.label}</div>
-                </div>
-              ))}
-            </div>
-            <div style={{ marginTop: 32 }}>
-              <Link href="/about" style={{ color: '#10b981', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Learn more about our electric fleet →</Link>
-            </div>
+      <section style={{
+        padding: isMobile ? '56px 0' : '80px 0',
+        background: theme.mode === 'dark'
+          ? 'linear-gradient(180deg, #09090b 0%, #0a1a0f 50%, #09090b 100%)'
+          : 'linear-gradient(180deg, #fdfdfd 0%, #ecfdf5 50%, #fdfdfd 100%)',
+        borderTop: `1px solid ${theme.borderSubtle}`,
+        borderBottom: `1px solid ${theme.borderSubtle}`,
+      }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad, textAlign: 'center' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '8px 20px', borderRadius: 100,
+            background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)',
+            fontSize: 12, fontWeight: 700, color: '#10b981', marginBottom: 24,
+            letterSpacing: '0.05em', textTransform: 'uppercase',
+          }}>⚡ Zero Emissions Delivery</div>
+          <h2 style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: isMobile ? 28 : 40, fontWeight: 700,
+            letterSpacing: '-0.03em', color: theme.text,
+            lineHeight: 1.1, marginBottom: 16,
+          }}>Every delivery. 100% electric.</h2>
+          <p style={{
+            fontSize: isMobile ? 15 : 17, color: theme.textMuted,
+            lineHeight: 1.7, maxWidth: 560, margin: '0 auto 40px',
+          }}>Our entire fleet runs on electricity — EVs, e-bikes, and electric scooters. Ontario&apos;s grid is 94% emissions-free. Your delivery is genuinely zero-carbon.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 12 : 20, maxWidth: 900, margin: '0 auto' }}>
+            {[
+              { emoji: '🔋', stat: '0g CO₂', label: 'Per Delivery' },
+              { emoji: '🤫', stat: 'Silent', label: 'Night Delivery' },
+              { emoji: '⚡', stat: '100%', label: 'Electric Fleet' },
+            ].map(item => (
+              <div key={item.label} style={{
+                background: theme.bgCard, border: `1px solid ${theme.borderSubtle}`,
+                borderRadius: 20, padding: isMobile ? '20px 16px' : '28px 24px',
+                boxShadow: theme.shadow,
+              }}>
+                <div style={{ fontSize: 28, marginBottom: 8 }}>{item.emoji}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>{item.stat}</div>
+                <div style={{ fontSize: 13, color: theme.textMuted, fontWeight: 500 }}>{item.label}</div>
+              </div>
+            ))}
           </div>
-        </section>
-      )}
+          <div style={{ marginTop: 32 }}>
+            <Link href="/about" style={{ color: '#10b981', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Learn more about our electric fleet →</Link>
+          </div>
+        </div>
+      </section>
 
       {/* ═══════════════════════════════════════════════
           WHY LOCAL? — Manifesto Section
          ═══════════════════════════════════════════════ */}
-      {!isFiltering && (
-        <section style={{
-          padding: isMobile ? '56px 0' : '80px 0',
-          background: theme.mode === 'dark'
-            ? 'linear-gradient(180deg, #09090b 0%, #111113 100%)'
-            : 'linear-gradient(180deg, #fafafa 0%, #f5f0eb 100%)',
-          borderTop: `1px solid ${theme.borderSubtle}`,
-          transition: 'all 0.3s ease',
-        }}>
-          <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: isMobile ? 32 : 64,
-              alignItems: 'center',
-            }}>
-              {/* Left — Manifesto */}
-              <div>
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 6,
-                  fontSize: 12, fontWeight: 700, color: theme.accent,
-                  letterSpacing: '0.06em', textTransform: 'uppercase',
-                  marginBottom: 16,
-                }}>✊ Our Manifesto</div>
-                <h2 style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: isMobile ? 28 : 40, fontWeight: 700,
-                  letterSpacing: '-0.03em', color: theme.text,
-                  lineHeight: 1.1, marginBottom: 20,
-                }}>
-                  Why local?{' '}
-                  <span style={{ color: theme.textFaint }}>Because the Soo deserves better.</span>
-                </h2>
-                <p style={{
-                  fontSize: isMobile ? 15 : 17, color: theme.textMuted,
-                  lineHeight: 1.7, maxWidth: 480, marginBottom: 0,
-                }}>
-                  Every dollar you spend on SOOber Eats stays in Sault Ste. Marie. We&apos;re not a Silicon Valley app extracting 30% from local restaurants. We&apos;re your neighbours, building something that actually serves this community.
-                </p>
-              </div>
+      <section style={{
+        padding: isMobile ? '56px 0' : '80px 0',
+        background: theme.mode === 'dark'
+          ? 'linear-gradient(180deg, #09090b 0%, #111113 100%)'
+          : 'linear-gradient(180deg, #fafafa 0%, #f5f0eb 100%)',
+        borderTop: `1px solid ${theme.borderSubtle}`,
+        transition: 'all 0.3s ease',
+      }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: sectionPad }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? 32 : 64,
+            alignItems: 'center',
+          }}>
+            {/* Left — Manifesto */}
+            <div>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                fontSize: 12, fontWeight: 700, color: theme.accent,
+                letterSpacing: '0.06em', textTransform: 'uppercase',
+                marginBottom: 16,
+              }}>✊ Our Manifesto</div>
+              <h2 style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: isMobile ? 28 : 40, fontWeight: 700,
+                letterSpacing: '-0.03em', color: theme.text,
+                lineHeight: 1.1, marginBottom: 20,
+              }}>
+                Why local?{' '}
+                <span style={{ color: theme.textFaint }}>Because the Soo deserves better.</span>
+              </h2>
+              <p style={{
+                fontSize: isMobile ? 15 : 17, color: theme.textMuted,
+                lineHeight: 1.7, maxWidth: 480, marginBottom: 0,
+              }}>
+                Every dollar you spend on SOOber Eats stays in Sault Ste. Marie. We&apos;re not a Silicon Valley app extracting 30% from local restaurants. We&apos;re your neighbours, building something that actually serves this community.
+              </p>
+            </div>
 
-              {/* Right — Benefit Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: isMobile ? 10 : 14 }}>
-                {[
-                  { emoji: '💰', title: 'Keep $ Local', desc: 'Your money stays in the Soo. Not Silicon Valley.' },
-                  { emoji: '🤝', title: 'Real Relationships', desc: 'Know who makes your food by name.' },
-                  { emoji: '🥬', title: 'Fresher Food', desc: 'Local farms. Local kitchens. Shorter supply chains.' },
-                  { emoji: '🚫', title: 'Direct to You', desc: 'No corporate fees eating into local business profits.' },
-                ].map((benefit) => (
-                  <div key={benefit.title} style={{
-                    background: theme.bgCard,
-                    border: `1px solid ${theme.borderSubtle}`,
-                    borderRadius: isMobile ? 16 : 20,
-                    padding: isMobile ? '18px 14px' : '24px 20px',
-                    transition: 'all 0.3s ease',
-                  }}>
-                    <div style={{ fontSize: isMobile ? 24 : 28, marginBottom: isMobile ? 8 : 12 }}>{benefit.emoji}</div>
-                    <h4 style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: isMobile ? 14 : 16, fontWeight: 700,
-                      color: theme.text, marginBottom: 6,
-                      letterSpacing: '-0.01em',
-                    }}>{benefit.title}</h4>
-                    <p style={{
-                      fontSize: isMobile ? 12 : 13, color: theme.textMuted,
-                      lineHeight: 1.4, margin: 0,
-                    }}>{benefit.desc}</p>
-                  </div>
-                ))}
-              </div>
+            {/* Right — Benefit Cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: isMobile ? 10 : 14 }}>
+              {[
+                { emoji: '💰', title: 'Keep $ Local', desc: 'Your money stays in the Soo. Not Silicon Valley.' },
+                { emoji: '🤝', title: 'Real Relationships', desc: 'Know who makes your food by name.' },
+                { emoji: '🥬', title: 'Fresher Food', desc: 'Local farms. Local kitchens. Shorter supply chains.' },
+                { emoji: '🚫', title: 'Direct to You', desc: 'No corporate fees eating into local business profits.' },
+              ].map((benefit) => (
+                <div key={benefit.title} style={{
+                  background: theme.bgCard,
+                  border: `1px solid ${theme.borderSubtle}`,
+                  borderRadius: isMobile ? 16 : 20,
+                  padding: isMobile ? '18px 14px' : '24px 20px',
+                  transition: 'all 0.3s ease',
+                }}>
+                  <div style={{ fontSize: isMobile ? 24 : 28, marginBottom: isMobile ? 8 : 12 }}>{benefit.emoji}</div>
+                  <h4 style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: isMobile ? 14 : 16, fontWeight: 700,
+                    color: theme.text, marginBottom: 6,
+                    letterSpacing: '-0.01em',
+                  }}>{benefit.title}</h4>
+                  <p style={{
+                    fontSize: isMobile ? 12 : 13, color: theme.textMuted,
+                    lineHeight: 1.4, margin: 0,
+                  }}>{benefit.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ═══════════════════════════════════════════════
           TESTIMONIALS

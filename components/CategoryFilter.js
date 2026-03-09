@@ -2,10 +2,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useTheme } from '../lib/ThemeContext';
 
-export const CategoryFilter = ({ categories, activeCategory, onSelect }) => {
+export const CategoryFilter = ({ categories }) => {
     const scrollRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
+    const [activeId, setActiveId] = useState('all');
     const { theme } = useTheme();
 
     const checkScroll = () => {
@@ -19,8 +20,57 @@ export const CategoryFilter = ({ categories, activeCategory, onSelect }) => {
     useEffect(() => {
         checkScroll();
         window.addEventListener('resize', checkScroll);
-        return () => window.removeEventListener('resize', checkScroll);
-    }, []);
+
+        // Setup Intersection Observer for jump navigation highlighting
+        const handleIntersect = (entries) => {
+            // Find the most visible intersecting entry
+            let maxRatio = 0;
+            let currentId = null;
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+                    maxRatio = entry.intersectionRatio;
+                    currentId = entry.target.id;
+                }
+            });
+            if (currentId) {
+                setActiveId(currentId);
+            }
+        };
+
+        const observer = new IntersectionObserver(handleIntersect, {
+            rootMargin: '-10% 0px -60% 0px', // Trigger when section hits upper middle of screen
+            threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
+
+        categories.forEach(cat => {
+            const el = document.getElementById(cat.id);
+            if (el) observer.observe(el);
+        });
+
+        // Add 'all' section observer (hero/top)
+        const allSection = document.getElementById('all-restaurants');
+        if (allSection) observer.observe(allSection);
+
+        return () => {
+            window.removeEventListener('resize', checkScroll);
+            observer.disconnect();
+        };
+    }, [categories]);
+
+    const scrollToSection = (id) => {
+        setActiveId(id);
+        const el = document.getElementById(id);
+        if (el) {
+            const headerOffset = 180; // Account for sticky headers
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
 
     const scroll = (direction) => {
         if (scrollRef.current) {
@@ -57,12 +107,33 @@ export const CategoryFilter = ({ categories, activeCategory, onSelect }) => {
                 }}
             >
                 <style dangerouslySetInnerHTML={{ __html: `.cat-scroll::-webkit-scrollbar { display: none; }` }} />
+
+                {/* 'All' default anchor */}
+                <button
+                    onClick={() => scrollToSection('all-restaurants')}
+                    style={{
+                        display: 'flex', alignItems: 'center', gap: 8,
+                        padding: '10px 22px', borderRadius: 100, whiteSpace: 'nowrap',
+                        border: activeId === 'all' || activeId === 'all-restaurants' ? 'none' : `1.5px solid ${theme.border}`,
+                        background: activeId === 'all' || activeId === 'all-restaurants' ? theme.dark : theme.bgCard,
+                        color: activeId === 'all' || activeId === 'all-restaurants' ? theme.darkText : theme.textSecondary,
+                        fontSize: 14, fontWeight: 600, letterSpacing: '-0.01em',
+                        cursor: 'pointer',
+                        boxShadow: activeId === 'all' || activeId === 'all-restaurants' ? theme.shadowMd : theme.shadow,
+                        transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)',
+                        fontFamily: "'Inter', sans-serif",
+                    }}
+                >
+                    <span style={{ fontSize: 18, lineHeight: 1 }}>🌟</span>
+                    <span>All</span>
+                </button>
+
                 {categories.map(cat => {
-                    const isActive = activeCategory === cat.id;
+                    const isActive = activeId === cat.id;
                     return (
                         <button
                             key={cat.id}
-                            onClick={() => onSelect(cat.id)}
+                            onClick={() => scrollToSection(cat.id)}
                             style={{
                                 display: 'flex', alignItems: 'center', gap: 8,
                                 padding: '10px 22px', borderRadius: 100, whiteSpace: 'nowrap',
