@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 const sections = [
     {
@@ -119,6 +120,8 @@ export default function LinksPortal() {
                     ))}
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 export default function PrivacyPage() {
     const { theme } = useTheme();
@@ -109,6 +110,8 @@ export default function PrivacyPage() {
                     </p>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

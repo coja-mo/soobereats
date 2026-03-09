@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 export default function ContactPage() {
     const { theme } = useTheme();
@@ -172,6 +173,8 @@ export default function ContactPage() {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

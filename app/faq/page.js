@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 const faqCategories = [
     {
@@ -168,6 +169,8 @@ export default function FAQPage() {
                     }}>Contact Support</Link>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

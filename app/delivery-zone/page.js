@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 const zones = [
     { name: 'Downtown Core', radius: '0–3 km', fee: 'Free', time: '15–25 min', color: '#22c55e', desc: 'Queen St, Gore St, Bay St, Wellington St, Pim St corridor' },
@@ -180,6 +181,8 @@ export default function DeliveryZonePage() {
                     </Link>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

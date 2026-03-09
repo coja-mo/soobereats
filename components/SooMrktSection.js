@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { sooMrktVendors } from '../lib/data/restaurants';
+import { sooMrktVendors, shopPartners } from '../lib/data/restaurants';
 import { useTheme } from '../lib/ThemeContext';
 
 export function SooMrktSection() {
@@ -51,7 +51,7 @@ export function SooMrktSection() {
                         color: theme.textSecondary, marginBottom: 24,
                     }}>
                         <span style={{ fontSize: 18 }}>🧺</span>
-                        Algoma&apos;s Local Marketplace
+                        Local Commerce · Sault Ste. Marie
                     </div>
 
                     <h2 style={{
@@ -60,13 +60,13 @@ export function SooMrktSection() {
                         letterSpacing: '-0.04em', color: theme.text,
                         lineHeight: 1.05, marginBottom: 16,
                     }}>
-                        Soo MRKT
+                        Shop Local
                     </h2>
                     <p style={{
                         fontSize: isMobile ? 15 : 18, color: theme.textMuted,
                         maxWidth: 560, margin: '0 auto 24px', lineHeight: 1.6,
                     }}>
-                        A curated digital marketplace featuring Sault Ste. Marie&apos;s finest farmers, artisans, and food makers. Fresh from the Saturday market at 73 Brock St.
+                        Your neighbourhood marketplace — pharmacies, gift shops, farmers&apos; market vendors, and local makers. All delivered by our ⚡ electric fleet.
                     </p>
                     <div style={{
                         display: 'inline-flex', alignItems: 'center', gap: 8,
@@ -75,7 +75,7 @@ export function SooMrktSection() {
                         border: `1px solid ${theme.borderSubtle}`,
                         fontSize: 13, fontWeight: 600, color: theme.textFaint,
                     }}>
-                        <span>📍</span> 73 Brock St · Saturdays 8AM–1PM
+                        <span>🏙️</span> Sault Ste. Marie &amp; Algoma Region
                     </div>
                 </div>
 
@@ -125,11 +125,21 @@ export function SooMrktSection() {
                     borderRadius: 24,
                 }}>
                     <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 18 : 22, fontWeight: 700, color: theme.text, marginBottom: 8 }}>
-                        {sooMrktVendors.length} local vendors. Zero intermediaries. 100% Soo.
+                        {sooMrktVendors.length + shopPartners.length} local partners. Zero intermediaries. 100% Soo.
                     </p>
-                    <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 0 }}>
+                    <p style={{ fontSize: 14, color: theme.textMuted, marginBottom: 20 }}>
                         Every product delivered by our ⚡ electric fleet.
                     </p>
+                    <Link href="/market" style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 8,
+                        padding: '12px 28px', borderRadius: 14,
+                        background: theme.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+                        color: theme.text, fontSize: 14, fontWeight: 700,
+                        textDecoration: 'none', transition: 'all 0.3s',
+                        fontFamily: "'DM Sans', sans-serif",
+                    }}>
+                        Explore Shop →
+                    </Link>
                 </div>
             </div>
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { vehicleClasses, popularDestinations, safetyFeatures, fleetRoster } from '../../lib/data/rides';
 import { useTheme } from '../../lib/ThemeContext';
 import Link from 'next/link';
+import { Footer } from '../../components/Footer';
 
 export default function RidesPage() {
     const { theme } = useTheme();
@@ -557,6 +558,8 @@ export default function RidesPage() {
                     </Link>
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 }

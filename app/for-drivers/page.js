@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 export default function ForDriversPage() {
     const { theme } = useTheme();
@@ -209,6 +210,8 @@ export default function ForDriversPage() {
                     )}
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 }

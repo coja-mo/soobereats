@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 export default function TermsPage() {
     const { theme } = useTheme();
@@ -87,6 +88,8 @@ export default function TermsPage() {
                     </p>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 // ── Course & Curriculum Data ──────────────────────────────────────────────────
 const ROLES = [
@@ -637,6 +638,8 @@ export default function AcademyPage() {
                 )}
 
             </div>
+
+            <Footer />
         </div>
     );
 }

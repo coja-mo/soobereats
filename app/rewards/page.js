@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 // ── Tier Data ──────────────────────────────────────────────────────────────
 const TIERS = [
@@ -481,6 +482,8 @@ export default function RewardsPage() {
                     </Link>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

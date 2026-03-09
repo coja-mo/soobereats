@@ -129,7 +129,7 @@ export const Navigation = () => {
                                 color: theme.text, fontSize: 14, fontWeight: 700,
                                 textDecoration: 'none', letterSpacing: '-0.01em',
                             }}>
-                                🛒 Soo MRKT
+                                🛒 Shop
                             </Link>
 
                         </div>

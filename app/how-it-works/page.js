@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '../../lib/ThemeContext';
+import { Footer } from '../../components/Footer';
 
 const steps = [
     { num: '01', icon: '🔍', title: 'Browse', desc: 'Explore 18+ local restaurants and the Soo MRKT artisan marketplace. Filter by cuisine, browse menus, and discover new spots in the Sault.' },
@@ -137,6 +138,8 @@ export default function HowItWorksPage() {
                     }}>Browse Restaurants</Link>
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 }

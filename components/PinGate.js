@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-const MASTER_PIN = '800895';
+const VALID_PINS = ['800895', '051995'];
 const PIN_LENGTH = 6;
 const STORAGE_KEY = 'soober-pin-unlocked';
 
